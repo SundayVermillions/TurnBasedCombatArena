@@ -4,7 +4,7 @@ public abstract class Combatant {
     private String name;
     private int maxHp, maxMp;
     private int currHp, currMp;
-    private int speed;
+    private int speed, defense;
 
     public int getMaxHp() {
         return maxHp;
