@@ -22,12 +22,17 @@ public abstract class Combatant {
         return currMp;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public abstract boolean isPlayer();
     public abstract void takeDamage();
-    public abstract void isDead();
+    public abstract boolean isDead();
     public abstract void heal(int healAmt);
 
     @Override
     public abstract String toString();
 
+    public abstract boolean isAlive();
 }
