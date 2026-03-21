@@ -74,6 +74,8 @@ public class Game {
                 action.execute(this.ui, gameState);
             }
         }
+
+        this.ui.displayTurnEnd(gameState);
     }
 
     private void initialize() {
