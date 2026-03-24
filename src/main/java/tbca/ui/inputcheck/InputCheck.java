@@ -32,8 +32,4 @@ public class InputCheck {
         scanner.nextLine();
         return choice;
     }
-
-    public void close() {
-        scanner.close();
-    }
 }
