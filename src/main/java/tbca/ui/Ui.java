@@ -15,8 +15,6 @@ public interface Ui {
     PlayerClass promptClassSelection();
     List<Item> promptItemSelection();
 
-    void displayTurnStart(GameStateReadOnly gameStateReadOnly);
-
     ActionParameters getPlayerAction(GameStateReadOnly gameState);
 
     void showEndingScreen(GameStateReadOnly gameState);
