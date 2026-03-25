@@ -5,11 +5,12 @@ import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
 import tbca.engine.action.ActionFactory;
-import tbca.engine.action.ActionParameters;
-import tbca.engine.action.ActionType;
+import tbca.engine.action.parameters.ActionParameters;
+import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.turnorder.TurnOrderStrategy;
 import tbca.item.Item;
+import tbca.ui.ConsoleUi;
 import tbca.ui.Ui;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class Game {
     private TurnOrderStrategy turnOrderStrategy;
 
     private Game() {
-        //this.ui = new Ui();
+        this.ui = new ConsoleUi();
         this.turnOrderStrategy = new SpeedTurnOrderStrategy();
     }
 
@@ -57,19 +58,9 @@ public class Game {
 
                 Action action;
                 if (combatant.isPlayer()) {
-                    action = ActionFactory.create(
-                            new ActionParameters(selection.actionType(),
-                                    combatant,
-                                    selection.targetEnemyIndex(),
-                                    selection.itemType()));
+                    action = ActionFactory.create(selection);
                 } else {
-                    // monsters can only do basic attacks
-                    action = ActionFactory.create(
-                            new ActionParameters(ActionType.BASIC_ATTACK,
-                                    combatant,
-                                    0,
-                                    null)
-                    );
+                    action = ActionFactory.create(new BasicAttackParameters(combatant));
                 }
                 action.execute(this.ui, gameState);
             }

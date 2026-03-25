@@ -4,17 +4,14 @@ import tbca.engine.GameState;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.ui.Ui;
 
-import static tbca.engine.action.ActionType.BASIC_ATTACK;
-
-public class BasicAttackAction implements Action {
-
-
-    public BasicAttackAction(ActionParameters actionParameters) {
+public class SpecialSkillAction implements Action {
+    public SpecialSkillAction(ActionParameters actionParameters) {
 
     }
+
     @Override
     public ActionType getType() {
-        return BASIC_ATTACK;
+        return ActionType.SPECIAL_SKILL;
     }
 
     @Override
