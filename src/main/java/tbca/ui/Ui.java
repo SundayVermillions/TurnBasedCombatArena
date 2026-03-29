@@ -1,11 +1,7 @@
 package tbca.ui;
 
-<<<<<<< HEAD
 import tbca.combatant.Combatant;
-=======
 import java.util.List;
-
->>>>>>> 37f2956fd594b7aa536b1971a3171e015a76703f
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.effect.StatusEffect;
 import tbca.engine.GameDifficulty;
