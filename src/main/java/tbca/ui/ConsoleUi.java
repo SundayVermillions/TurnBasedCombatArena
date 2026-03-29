@@ -56,4 +56,9 @@ public class ConsoleUi implements Ui{
     public void displayTurnStart(GameStateReadOnly gameState) {
         displayOnly.displayTurnStart(gameState);
     }
+
+    @Override
+    public void displayBasicAttack() {
+
+    }
 }

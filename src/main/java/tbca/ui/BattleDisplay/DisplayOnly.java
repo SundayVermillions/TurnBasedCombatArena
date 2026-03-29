@@ -50,8 +50,6 @@ public class DisplayOnly {
     }
 
     private void displayItemsAndCooldown(GameStateReadOnly gameState) {
-
-
         /*
         PrintStream printf = System.out.printf("Potion: %d | Smoke Bomb: %d | Special Skills Cooldown: %d Round",
                 gameState.getPlayer().getItemCount(ItemType.POTION),
