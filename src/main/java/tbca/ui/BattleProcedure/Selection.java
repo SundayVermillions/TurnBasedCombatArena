@@ -116,17 +116,13 @@ public class Selection {
 
         int choice = inputValidator.getIntInput("Enter 1-4: ", 1, 4);
 
-        switch (choice) {
-            case 1:
-                return new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
-            case 2:
-                return new DefendParameters(gameState.getPlayer());
-            case 3:
-                return new UseItemParameters(gameState.getPlayer(), promptItemType());
-            case 4:
-                return new SpecialSkillParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
-        }
-        return null;
+        return switch (choice) {
+            case 1 -> new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
+            case 2 -> new DefendParameters(gameState.getPlayer());
+            case 3 -> new UseItemParameters(gameState.getPlayer(), promptItemType());
+            case 4 -> new SpecialSkillParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
+            default -> null;
+        };
     }
 
     private int promptTargetEnemyIndex(GameStateReadOnly gameState) {
@@ -146,14 +142,11 @@ public class Selection {
 
         int itemChoice = inputValidator.getIntInput("Enter 1-3: ", 1, 3);
 
-        switch (itemChoice) {
-            case 1:
-                return ItemType.POTION;
-            case 2:
-                return ItemType.POWER_STONE;
-            case 3:
-                return ItemType.SMOKE_BOMB;
-        }
-        return null;
+        return switch (itemChoice) {
+            case 1 -> ItemType.POTION;
+            case 2 -> ItemType.POWER_STONE;
+            case 3 -> ItemType.SMOKE_BOMB;
+            default -> null;
+        };
     }
 }

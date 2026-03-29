@@ -1,11 +1,11 @@
 package tbca.engine.turnorder;
 
-import tbca.combatant.Combatant;
-import tbca.engine.GameStateReadOnly;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import tbca.combatant.Combatant;
+import tbca.engine.GameStateReadOnly;
 
 public class SpeedTurnOrderStrategy implements TurnOrderStrategy {
     @Override

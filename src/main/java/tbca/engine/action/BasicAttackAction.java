@@ -1,10 +1,9 @@
 package tbca.engine.action;
 
 import tbca.engine.GameState;
+import static tbca.engine.action.ActionType.BASIC_ATTACK;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.ui.Ui;
-
-import static tbca.engine.action.ActionType.BASIC_ATTACK;
 
 public class BasicAttackAction implements Action {
 
