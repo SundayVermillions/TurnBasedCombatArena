@@ -20,4 +20,7 @@ public interface Ui {
     void showEndingScreen(GameStateReadOnly gameState);
 
     void displayTurnEnd(GameStateReadOnly gameState);
+
+    void displayTurnStart(GameStateReadOnly gameState);
+
 }
