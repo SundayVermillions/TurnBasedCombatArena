@@ -23,7 +23,7 @@ public interface Ui {
 
     void displayTurnEnd(GameStateReadOnly gameState);
 
-    void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> targets, int dmg);
+    void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> targets, List<Integer> dmg);
     void displayDefend(GameStateReadOnly gameState, Combatant actor);
     // Potion, SmokeBomb
     void displayUseItem(GameStateReadOnly gameState, Combatant actor, ItemType itemType);
