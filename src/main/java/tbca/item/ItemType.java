@@ -1,5 +1,17 @@
 package tbca.item;
 
 public enum ItemType {
-    POTION, POWER_STONE, SMOKE_BOMB
+    POTION("Potion"),
+    POWER_STONE("Power Stone"),
+    SMOKE_BOMB("Smoke Bomb");
+
+    private final String displayName;
+
+    ItemType(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }

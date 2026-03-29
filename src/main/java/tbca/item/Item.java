@@ -1,4 +1,8 @@
 package tbca.item;
 
-public class Item {
+import tbca.combatant.Combatant;
+
+public interface Item {
+    void use(Combatant user);
+    String getName(); 
 }
