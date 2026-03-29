@@ -1,7 +1,7 @@
 package tbca.ui.Menu;
 
-import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.item.Item;
+import tbca.item.ItemType;
 import tbca.ui.Input.InputValidator;
 
 import java.util.ArrayList;
@@ -21,27 +21,23 @@ public class ItemSelection {
             System.out.println("Item choice " + i + ":");
             printItem();
             int choice = inputValidator.getIntInput("Enter 1-3: ", 1, 3);
-            /*
-            switch (choice) {
-                case 1:
-                    selectedItems.add(new Item(ItemType.POTION));
-                    break;
-
-                case 2:
-                    selectedItems.add(new Item(ItemType.POWER_STONE));
-                    break;
-
-                case 3:
-                    selectedItems.add(new Item(ItemType.SMOKE_BOMB));
-                    break;
-            }
-            */
+            selectedItems.add(new Item(mapChoiceToItemType(choice)));
             System.out.println();
         }
 
         System.out.println("Items selected: " + selectedItems);
         return selectedItems;
     }
+
+    private ItemType mapChoiceToItemType(int choice) {
+        return switch (choice) {
+            case 1 -> ItemType.POTION;
+            case 2 -> ItemType.POWER_STONE;
+            case 3 -> ItemType.SMOKE_BOMB;
+            default -> throw new IllegalStateException("Unexpected item choice: " + choice);
+        };
+    }
+
     private void printItem()
     {
         System.out.println("1. Potion - Heal 100 HP");

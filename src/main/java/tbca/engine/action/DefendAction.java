@@ -4,7 +4,7 @@ import tbca.engine.GameState;
 import tbca.engine.action.parameters.DefendParameters;
 import tbca.ui.Ui;
 
-public class DefendAction implements Action {
+public class DefendAction extends Action {
 
     public DefendAction(DefendParameters actionParameters) {
 

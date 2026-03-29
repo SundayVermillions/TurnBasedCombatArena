@@ -4,7 +4,7 @@ import tbca.engine.GameState;
 import tbca.engine.action.parameters.SpecialSkillParameters;
 import tbca.ui.Ui;
 
-public class SpecialSkillAction implements Action {
+public class SpecialSkillAction extends Action {
     public SpecialSkillAction(SpecialSkillParameters actionParameters) {
 
     }

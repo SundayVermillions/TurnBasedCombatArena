@@ -1,6 +1,11 @@
 package tbca.ui;
 
+<<<<<<< HEAD
 import tbca.combatant.Combatant;
+=======
+import java.util.List;
+
+>>>>>>> 37f2956fd594b7aa536b1971a3171e015a76703f
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.effect.StatusEffect;
 import tbca.engine.GameDifficulty;
@@ -8,8 +13,6 @@ import tbca.engine.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.item.Item;
 import tbca.item.ItemType;
-
-import java.util.List;
 
 public interface Ui {
 
@@ -32,5 +35,6 @@ public interface Ui {
 //                              List<Integer> targets,
 //                              List<Integer> dmg,
 //                              List<StatusEffect> statuses);
+    void displayTurnStart(GameStateReadOnly gameState);
 
 }

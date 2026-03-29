@@ -2,13 +2,12 @@ package tbca.engine.action;
 
 import tbca.combatant.Combatant;
 import tbca.engine.GameState;
-import tbca.engine.GameStateReadOnly;
+
+import static tbca.engine.action.ActionType.BASIC_ATTACK;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.ui.Ui;
 
-import static tbca.engine.action.ActionType.BASIC_ATTACK;
-
-public class BasicAttackAction implements Action {
+public class BasicAttackAction extends Action {
     private Combatant actor;
 
 

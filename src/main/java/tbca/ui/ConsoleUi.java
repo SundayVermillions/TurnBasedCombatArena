@@ -3,11 +3,10 @@ package tbca.ui;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
-import tbca.engine.action.ActionParameters;
+import tbca.engine.action.parameters.ActionParameters;
 import tbca.item.Item;
 import tbca.ui.Battle.TurnDisplay;
 import tbca.ui.Battle.GetPlayerAction;
-import tbca.ui.Input.InputValidator;
 import tbca.ui.Menu.ClassSelection;
 import tbca.ui.Menu.Difficulty;
 import tbca.ui.Battle.EndingScreen;
@@ -57,7 +56,6 @@ public class ConsoleUi implements Ui{
         return getPlayerAction.playerAction(gameState);
         }
 
-
     @Override
     public void showEndingScreen(GameStateReadOnly gameState) {
         endingScreen.showEndingScreen(gameState);
@@ -66,5 +64,10 @@ public class ConsoleUi implements Ui{
     @Override
     public void displayTurnEnd(GameStateReadOnly gameState) {
         turnDisplay.displayTurnEnd(gameState);
+    }
+
+    @Override
+    public void displayTurnStart(GameStateReadOnly gameState) {
+        turnDisplay.displayTurnStart(gameState);
     }
 }

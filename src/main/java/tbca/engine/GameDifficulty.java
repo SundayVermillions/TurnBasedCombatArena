@@ -1,11 +1,9 @@
 package tbca.engine;
 
-import tbca.combatant.enemy.Enemy;
-import tbca.combatant.enemy.EnemyType;
-
 import java.util.List;
 import java.util.Map;
 
+import tbca.combatant.enemy.EnemyType;
 import static tbca.combatant.enemy.EnemyType.GOBLIN;
 import static tbca.combatant.enemy.EnemyType.WOLF;
 

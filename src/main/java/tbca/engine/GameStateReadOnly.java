@@ -1,8 +1,8 @@
 package tbca.engine;
 
-import tbca.combatant.Combatant;
-
 import java.util.List;
+
+import tbca.combatant.Combatant;
 
 public interface GameStateReadOnly {
     int currWave();

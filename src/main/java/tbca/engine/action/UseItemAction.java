@@ -4,7 +4,7 @@ import tbca.engine.GameState;
 import tbca.engine.action.parameters.UseItemParameters;
 import tbca.ui.Ui;
 
-public class UseItemAction implements Action {
+public class UseItemAction extends Action {
     public UseItemAction(UseItemParameters actionParameters) {
 
     }
