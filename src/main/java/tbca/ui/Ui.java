@@ -26,5 +26,5 @@ public interface Ui {
 
     void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg);
     void displayDefend(GameStateReadOnly gameState, Combatant actor);
-
+    void displayItem(GameStateReadOnly gameState, ItemType item);
 }

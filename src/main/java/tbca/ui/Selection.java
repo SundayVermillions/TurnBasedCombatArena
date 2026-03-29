@@ -138,7 +138,6 @@ public class Selection {
         System.out.println("1. Potion");
         System.out.println("2. Power Stone");
         System.out.println("3. Smoke Bomb");
-
         int itemChoice = inputValidator.getIntInput("Enter 1-3: ", 1, 3);
 
         return switch (itemChoice) {

@@ -1,5 +1,4 @@
 package tbca.ui;
-
 import java.util.Scanner;
 
 public class InputValidator {

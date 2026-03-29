@@ -60,9 +60,13 @@ public class ConsoleUi implements Ui{
     public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {
         displayOnly.displayBasicAttack(gameState,actor,target,dmg);
     }
-
     @Override
     public void displayDefend(GameStateReadOnly gameState, Combatant actor) {
         displayOnly.displayDefend(gameState,actor);
+    }
+
+    @Override
+    public void displayItem(GameStateReadOnly gameState, ItemType item) {
+        displayOnly.displayItem(gameState,item);
     }
 }

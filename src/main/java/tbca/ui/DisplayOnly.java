@@ -102,7 +102,6 @@ public class DisplayOnly {
             System.out.println(victim.getName() + " takes " + damage + " damage!");
         }
     }
-
     public void displayDefend(GameStateReadOnly gameState, Combatant actor) {
         System.out.println(actor.getName() + " Defends");
     }
