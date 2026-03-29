@@ -2,6 +2,7 @@ package tbca.combatant;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import tbca.effect.StatusEffect;
 
 public abstract class Combatant {
@@ -47,8 +48,9 @@ public abstract class Combatant {
     public void tickEffects() {
         for (int i = effects.size() - 1; i >= 0; i--) {
             StatusEffect e = effects.get(i);
-            e.tick(this);
+            e.decrementTurn();
             if (e.isExpired()) {
+                e.removeEffect(this);
                 effects.remove(i);
             }
         }
@@ -88,4 +90,5 @@ public abstract class Combatant {
     public abstract boolean isPlayer();
     public abstract void takeTurn();
     public boolean isAlive() { return currHp > 0; }
+    public boolean isDead() { return !isAlive() ; }
 }

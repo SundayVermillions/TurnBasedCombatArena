@@ -1,7 +1,7 @@
 package tbca.ui.Battle;
 
 import tbca.engine.GameStateReadOnly;
-import tbca.engine.action.ActionParameters;
+import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.ActionType;
 import tbca.ui.Input.InputValidator;
 

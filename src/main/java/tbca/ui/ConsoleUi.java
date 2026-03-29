@@ -3,7 +3,7 @@ package tbca.ui;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
-import tbca.engine.action.ActionParameters;
+import tbca.engine.action.parameters.ActionParameters;
 import tbca.item.Item;
 import tbca.ui.Battle.TurnDisplay;
 import tbca.ui.Battle.GetPlayerAction;
