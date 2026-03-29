@@ -1,15 +1,15 @@
 package tbca.combatant;
 
+import java.util.List;
+
 import tbca.combatant.enemy.EnemyType;
 import tbca.combatant.enemy.Goblin;
 import tbca.combatant.enemy.Wolf;
 import tbca.combatant.player.Player;
-import tbca.combatant.player.Warrior;
-import tbca.combatant.player.Wizard;
 import tbca.combatant.player.playerclass.PlayerClass;
+import tbca.combatant.player.playerclass.Warrior;
+import tbca.combatant.player.playerclass.Wizard;
 import tbca.item.Item;
-
-import java.util.List;
 
 public final class CombatantFactory {
 
