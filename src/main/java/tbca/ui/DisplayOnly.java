@@ -1,7 +1,9 @@
 package tbca.ui;
 
 import tbca.combatant.Combatant;
+import tbca.combatant.player.Player;
 import tbca.engine.GameStateReadOnly;
+import tbca.item.Item;
 import tbca.item.ItemType;
 
 import java.util.List;
@@ -52,14 +54,20 @@ public class DisplayOnly {
     }
 
     private void displayItemsAndCooldown(GameStateReadOnly gameState) {
-        /*
-        PrintStream printf = System.out.printf("Potion: %d | Smoke Bomb: %d | Special Skills Cooldown: %d Round",
-                gameState.getPlayer().getItemCount(ItemType.POTION),
-                gameState.getPlayer().getItemCount(ItemType.SMOKE_BOMB),
-                gameState.getPlayer()
-        );
-         */
-        System.out.println();
+        Player player = (Player) gameState.getPlayer();
+        List<Item> inventory = player.getInventory();
+
+        System.out.println("=== INVENTORY ===");
+        if (inventory.isEmpty()) {
+            System.out.println("Inventory is empty!");
+        } else {
+            for (int i = 0; i < inventory.size(); i++) {
+                Item item = inventory.get(i);
+                System.out.printf("%s: %d|", item.getName(), item.getAmount());
+            }
+        }
+        System.out.printf("Special Skills Cooldown: Round %d",
+                gameState.getPlayer().getSpecialSkillCooldown());
     }
 
 

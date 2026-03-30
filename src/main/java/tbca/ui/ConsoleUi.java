@@ -64,7 +64,6 @@ public class ConsoleUi implements Ui{
     public void displayDefend(GameStateReadOnly gameState, Combatant actor) {
         displayOnly.displayDefend(gameState,actor);
     }
-
     @Override
     public void displayUseItem(GameStateReadOnly gameState,Combatant actor, ItemType item) {
         displayOnly.displayItem(gameState,actor,item);
