@@ -47,15 +47,17 @@ public class Game {
     private void runWave(GameState gameState) {
         gameState.spawnNextWave();
 
-        // continue wave until all enemies in current wave are dead, or player is dead
-        while (!gameState.allCurrWaveEnemiesDead() || !gameState.hasGameEnded()) {
+        // continue wave while enemies in curr wave are alive and game has not ended
+        while (!gameState.allCurrWaveEnemiesDead() && !gameState.hasGameEnded()) {
             this.ui.displayTurnStart((GameStateReadOnly) gameState);
             ActionParameters selection = this.ui.getPlayerAction((GameStateReadOnly) gameState);
             List<Combatant> turnOrder = turnOrderStrategy.determineTurnOrder(gameState);
 
             for (Combatant combatant : turnOrder) {
-                if (!gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
+                if (gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
                     break; // break if all enemies in this wave is dead, or player dies
+                if (combatant.isAlive() || !combatant.canAct())
+                    continue; // if current combatant died midway through this turn or can't move, skip him
 
                 // if is player, go with selected action. else, enemies can only basic attack
                 Action action = combatant.isPlayer() ? ActionFactory.create(selection)
