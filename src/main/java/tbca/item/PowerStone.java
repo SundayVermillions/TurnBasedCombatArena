@@ -1,20 +1,22 @@
 package tbca.item;
 
 import tbca.combatant.Combatant;
+import tbca.combatant.player.Player;
 
 public class PowerStone implements Item {
 
-   
-    public void use(Combatant user) {
-        System.out.println(user.getName() + " crushed a Power Stone!");
-        System.out.println("The stone glows, preparing to trigger a free special skill!");
-        
-        // TODO: uncomment this once you have implemented the method in Combatant
-        // user.executeSpecialSkillFree(); 
-    }
+   @Override
+   public void use(Combatant user, Combatant target) {
+       if (user instanceof Player userPlayer) {
+           userPlayer.executeSpecialSkillFree(target);
+       }
+   }
+   @Override
+   public String getName(){
+   return "Power Stone";
+   }
 
-    
-    public String getName() {
-        return "Power Stone";
+    public ItemType getType(){
+        return ItemType.POWER_STONE;
     }
 }

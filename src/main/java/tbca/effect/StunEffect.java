@@ -10,11 +10,11 @@ public class StunEffect extends StatusEffect {
 
     
     public void applyEffect(Combatant target) {
-        System.out.println(target.getName() + " is stunned and cannot move!");
+        target.setCanAct(false);
+    }
+    public void removeEffect(Combatant target) {
+        target.setCanAct(true);
     }
 
    
-    public void removeEffect(Combatant target) {
-        System.out.println(target.getName() + " recovered from the stun.");
-    }
 }

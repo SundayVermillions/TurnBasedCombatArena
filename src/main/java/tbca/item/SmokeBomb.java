@@ -5,14 +5,17 @@ import tbca.effect.SmokeBombInvulnerability;
 
 public class SmokeBomb implements Item {
 
-    
-    public void use(Combatant user) {
-        System.out.println(user.getName() + " threw a Smoke Bomb!");
+    @Override
+    public void use(Combatant user, Combatant target) {
         user.addStatusEffect(new SmokeBombInvulnerability());
     }
 
-   
+    @Override
     public String getName() {
         return "Smoke Bomb";
+    }
+
+    public ItemType getType() {
+        return ItemType.SMOKE_BOMB;
     }
 }

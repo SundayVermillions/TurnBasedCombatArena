@@ -23,13 +23,12 @@ public abstract class Player extends Combatant {
         this.playerClass = playerClass;
     }
 
+    @Override
     public void setHp(int hp) {
         this.setCurrHp(hp);
     }
 
-    public void executeSpecialSkillFree() {
-        this.setSpecialSkillCooldown(0);
-        System.out.println(getName() + "'s Special Skill is ready to use!");
+    public void executeSpecialSkillFree(Combatant target){
     }
 
     public void addItem(Item item) {
