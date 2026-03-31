@@ -5,7 +5,7 @@ import tbca.engine.GameState;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.action.results.BasicAttackResults;
-import tbca.engine.logic.damage.DamageUtility;
+import tbca.engine.logic.utility.DamageUtility;
 
 
 public class BasicAttackAction extends Action {

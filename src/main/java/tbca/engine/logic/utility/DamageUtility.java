@@ -1,4 +1,4 @@
-package tbca.engine.logic.damage;
+package tbca.engine.logic.utility;
 
 import tbca.combatant.Combatant;
 
