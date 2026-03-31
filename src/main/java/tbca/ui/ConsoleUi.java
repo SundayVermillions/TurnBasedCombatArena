@@ -56,12 +56,11 @@ public class ConsoleUi implements Ui{
     public void displayActionResults(GameStateReadOnly gameState, ActionResults actionResults) {
         displayOnly.displayAction(gameState,actionResults);
     }
-
     @Override
     public void displayTurnStart(GameStateReadOnly gameState) {
         displayOnly.displayTurnStart(gameState);
     }
-/*
+ /*
     @Override
     public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {
         displayOnly.displayBasicAttack(gameState,actor,target,dmg);

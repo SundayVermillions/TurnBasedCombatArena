@@ -9,7 +9,9 @@ import tbca.engine.action.results.*;
 import tbca.item.Item;
 import tbca.item.ItemType;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DisplayOnly {
     public void displayMenu() {
@@ -62,14 +64,19 @@ public class DisplayOnly {
 
         System.out.println("=== INVENTORY ===");
         if (inventory.isEmpty()) {
-            System.out.println("Inventory is empty!");
+            System.out.println("Inventory is empty!|");
         } else {
-            for (int i = 0; i < inventory.size(); i++) {
-                Item item = inventory.get(i);
-                System.out.printf("%s: %d|", item.getName(), item.getAmount());
+            Map<String, Integer> groupedItems = new HashMap<>();
+            for (Item item : inventory) {
+                String itemName = item.getName();
+                groupedItems.put(itemName, groupedItems.getOrDefault(itemName, 0) + 1);
+            }
+            System.out.print(" | ");
+            for (Map.Entry<String, Integer> entry : groupedItems.entrySet()) {
+                System.out.print(entry.getKey() + ": " + entry.getValue());
             }
         }
-        System.out.printf("Special Skills Cooldown: Round %d",
+        System.out.printf("|Special Skills Cooldown: Round %d",
                 gameState.getPlayer().getSpecialSkillCooldown());
         System.out.println();
     }
