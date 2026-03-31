@@ -9,10 +9,12 @@ import tbca.ui.Ui;
 
 public class BasicAttackAction extends Action {
     private Combatant actor;
+    private int targetEnemyIndex;
 
 
     public BasicAttackAction(BasicAttackParameters actionParameters) {
         this.actor = actionParameters.actor();
+        this.targetEnemyIndex = actionParameters.targetEnemyIndex();
     }
     @Override
     public ActionType getType() {
@@ -21,7 +23,6 @@ public class BasicAttackAction extends Action {
 
     @Override
     public void execute(Ui ui, GameState gameState) {
-        //ui.displayBasicAttack((GameStateReadOnly)  gameState, actor, targets, dmg);
-        //ui.displayDefend()
+
     }
 }
