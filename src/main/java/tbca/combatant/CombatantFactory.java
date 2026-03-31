@@ -10,6 +10,10 @@ import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.combatant.player.playerclass.Warrior;
 import tbca.combatant.player.playerclass.Wizard;
 import tbca.item.Item;
+import tbca.item.ItemType;
+import tbca.item.Potion;
+import tbca.item.PowerStone;
+import tbca.item.SmokeBomb;
 
 public final class CombatantFactory {
 
@@ -20,15 +24,29 @@ public final class CombatantFactory {
      * @param items
      * @return
      */
-    public static Player createPlayer(PlayerClass playerClass, List<Item> items) {
+    public static Player createPlayer(PlayerClass playerClass, List<ItemType> itemTypes) {
         Player player = switch (playerClass) {
             case WARRIOR -> new Warrior();
             case WIZARD  -> new Wizard();
         };
-        for (Item item : items) {
-            player.addItem(item);
+
+        if (itemTypes != null) {
+            for (ItemType type : itemTypes) {
+                Item item = createItemFromType(type);
+                player.addItem(item);
+            }
         }
+
         return player;
+    }
+
+
+    private static Item createItemFromType(ItemType type) {
+        return switch (type) {
+            case POTION -> new Potion();   
+            case POWER_STONE -> new PowerStone(); 
+            case SMOKE_BOMB -> new SmokeBomb();   
+        };
     }
 
     /**
