@@ -5,11 +5,13 @@ import tbca.engine.GameState;
 
 import static tbca.engine.action.ActionType.BASIC_ATTACK;
 import tbca.engine.action.parameters.BasicAttackParameters;
-import tbca.ui.Ui;
+import tbca.engine.action.results.ActionResults;
+import tbca.engine.action.results.BasicAttackResults;
+import tbca.engine.logic.damage.DamageUtility;
 
 public class BasicAttackAction extends Action {
-    private Combatant actor;
-    private int targetEnemyIndex;
+    private final Combatant actor;
+    private final int targetEnemyIndex;
 
 
     public BasicAttackAction(BasicAttackParameters actionParameters) {
@@ -22,7 +24,12 @@ public class BasicAttackAction extends Action {
     }
 
     @Override
-    public void execute(Ui ui, GameState gameState) {
-
+    public ActionResults execute(GameState gameState) {
+        Combatant target = (actor.isPlayer()) ?
+                                    gameState.getCurrEnemies().get(targetEnemyIndex)
+                                    : gameState.getPlayer();
+        int dmg = DamageUtility.computeBasicAttackDamage(actor, target);
+        target.takeDamage(dmg);
+        return new BasicAttackResults(actor, targetEnemyIndex, dmg);
     }
 }

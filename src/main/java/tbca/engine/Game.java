@@ -7,9 +7,10 @@ import tbca.engine.action.Action;
 import tbca.engine.action.ActionFactory;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
-import tbca.engine.turnorder.SpeedTurnOrderStrategy;
-import tbca.engine.turnorder.TurnOrderStrategy;
-import tbca.item.Item;
+import tbca.engine.action.results.ActionResults;
+import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
+import tbca.engine.logic.turnorder.TurnOrderStrategy;
+import tbca.item.ItemType;
 import tbca.ui.ConsoleUi;
 import tbca.ui.Ui;
 
@@ -62,7 +63,8 @@ public class Game {
                 } else {
                     action = ActionFactory.create(new BasicAttackParameters(combatant));
                 }
-                action.execute(this.ui, gameState);
+                ActionResults actionResults = action.execute(gameState);
+                ui.displayActionResults(gameState, actionResults);
             }
             // TODO: deal with status effects decrement
         }
@@ -74,7 +76,7 @@ public class Game {
         this.ui.displayMenu();
         GameDifficulty selectedDifficulty = ui.promptDifficulty();
         PlayerClass playerClass = ui.promptClassSelection();
-        List<Item> items = ui.promptItemSelection();
+        List<ItemType> items = ui.promptItemSelection();
 
         Combatant player = CombatantFactory.createPlayer(playerClass, items);
         this.gameState = new GameState(player, selectedDifficulty);

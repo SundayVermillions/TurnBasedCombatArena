@@ -4,7 +4,7 @@ import tbca.combatant.Combatant;
 import tbca.engine.action.ActionType;
 
 public record BasicAttackResults (Combatant actor,
-                                  Combatant target,
+                                  int targetEnemyIndex,
                                   int damage) implements ActionResults {
 
     @Override

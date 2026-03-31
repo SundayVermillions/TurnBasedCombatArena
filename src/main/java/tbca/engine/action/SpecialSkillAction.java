@@ -2,7 +2,7 @@ package tbca.engine.action;
 
 import tbca.engine.GameState;
 import tbca.engine.action.parameters.SpecialSkillParameters;
-import tbca.ui.Ui;
+import tbca.engine.action.results.ActionResults;
 
 public class SpecialSkillAction extends Action {
     public SpecialSkillAction(SpecialSkillParameters actionParameters) {
@@ -15,7 +15,8 @@ public class SpecialSkillAction extends Action {
     }
 
     @Override
-    public void execute(Ui ui, GameState gameState) {
+    public ActionResults execute(GameState gameState) {
 
+        return null;
     }
 }

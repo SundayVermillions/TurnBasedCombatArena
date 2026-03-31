@@ -1,4 +1,4 @@
-package tbca.engine.turnorder;
+package tbca.engine.logic.turnorder;
 
 import java.util.List;
 
