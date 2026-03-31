@@ -45,10 +45,9 @@ public class DisplayOnly {
                     (char)('A' + i),
                     enemy.getCurrHp()
             );
-
             if(!enemy.canAct())
             {
-                System.out.print("[Stunned]");
+                System.out.printf("[Stunned for %d turns]", enemy.getEffectDuration());
             }
 
             if (i < enemies.size() - 1) {
@@ -158,7 +157,7 @@ public class DisplayOnly {
             int targetIndex = targets.get(i);
             Combatant victim = gameState.getCurrEnemies().get(targetIndex);
             int dmgAmount = damage.get(i);
-            System.out.println(victim.getName() + " takes " + dmgAmount + " damage!");
+            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
         }
 
         if (statusEffects != null && !statusEffects.isEmpty()) {
@@ -174,4 +173,15 @@ public class DisplayOnly {
         }
     }
 
+    public void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex) {
+        List<Combatant> enemies = gameState.getCurrEnemies();
+        if (enemyIndex >= 0 && enemyIndex < enemies.size()) {
+            Combatant defeatedEnemy = enemies.get(enemyIndex);
+            System.out.println(defeatedEnemy.getName() + " has been defeated!");
+        } else {
+            System.out.println("Enemy at index " + enemyIndex + " not found!");
+        }
+    }
+
+    }
 }

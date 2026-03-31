@@ -60,6 +60,11 @@ public class ConsoleUi implements Ui{
     public void displayTurnStart(GameStateReadOnly gameState) {
         displayOnly.displayTurnStart(gameState);
     }
+
+    @Override
+    public void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex) {
+        displayOnly.displayEnemyDefeated(gameState,enemyIndex);
+    }
  /*
     @Override
     public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {

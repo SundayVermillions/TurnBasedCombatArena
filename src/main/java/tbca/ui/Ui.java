@@ -34,5 +34,5 @@ public interface Ui {
 //                              List<Integer> dmg,
 //                              List<StatusEffect> statuses);
     void displayTurnStart(GameStateReadOnly gameState);
-
+    void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex);
 }
