@@ -7,9 +7,10 @@ import tbca.engine.action.Action;
 import tbca.engine.action.ActionFactory;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
-import tbca.engine.turnorder.SpeedTurnOrderStrategy;
-import tbca.engine.turnorder.TurnOrderStrategy;
-import tbca.item.Item;
+import tbca.engine.action.results.ActionResults;
+import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
+import tbca.engine.logic.turnorder.TurnOrderStrategy;
+import tbca.item.ItemType;
 import tbca.ui.ConsoleUi;
 import tbca.ui.Ui;
 
@@ -56,15 +57,17 @@ public class Game {
                 if (!gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
                     break; // break if all enemies in this wave is dead, or player dies
 
-                Action action;
-                if (combatant.isPlayer()) {
-                    action = ActionFactory.create(selection);
-                } else {
-                    action = ActionFactory.create(new BasicAttackParameters(combatant));
-                }
-                action.execute(this.ui, gameState);
+                // if is player, go with selected action. else, enemies can only basic attack
+                Action action = combatant.isPlayer() ? ActionFactory.create(selection)
+                                                        : ActionFactory.create(new BasicAttackParameters(combatant));
+
+                ActionResults actionResults = action.execute(gameState);
+                ui.displayActionResults(gameState, actionResults);
             }
-            // TODO: deal with status effects decrement
+            // tick all active effects for all live combatants
+            for (Combatant combatant : turnOrder) {
+                combatant.tickEffects();
+            }
         }
 
         this.ui.displayTurnEnd(gameState);
@@ -74,7 +77,7 @@ public class Game {
         this.ui.displayMenu();
         GameDifficulty selectedDifficulty = ui.promptDifficulty();
         PlayerClass playerClass = ui.promptClassSelection();
-        List<Item> items = ui.promptItemSelection();
+        List<ItemType> items = ui.promptItemSelection();
 
         Combatant player = CombatantFactory.createPlayer(playerClass, items);
         this.gameState = new GameState(player, selectedDifficulty);

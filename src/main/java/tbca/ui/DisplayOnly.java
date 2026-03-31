@@ -2,7 +2,10 @@ package tbca.ui;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.player.Player;
+import tbca.effect.StatusEffect;
 import tbca.engine.GameStateReadOnly;
+import tbca.engine.action.ActionType;
+import tbca.engine.action.results.*;
 import tbca.item.Item;
 import tbca.item.ItemType;
 
@@ -68,6 +71,7 @@ public class DisplayOnly {
         }
         System.out.printf("Special Skills Cooldown: Round %d",
                 gameState.getPlayer().getSpecialSkillCooldown());
+        System.out.println();
     }
 
 
@@ -100,23 +104,67 @@ public class DisplayOnly {
         System.out.println("║    Congratulations on your victory!   ║");
         System.out.println("╚═══════════════════════════════════════╝\n");
     }
+    public void displayAction(GameStateReadOnly gameState, ActionResults actionResults) {
+        ActionType actionType = actionResults.actionType();
+        switch (actionType) {
+            case BASIC_ATTACK -> {
+                BasicAttackResults basicResults = (BasicAttackResults) actionResults;
+                displayBasicAttack(gameState, basicResults.actor(),
+                        basicResults.targetEnemyIndex(), basicResults.damage());
+            }
+            case DEFEND -> {
+                DefendResults defendResults = (DefendResults) actionResults;
+                displayDefend(gameState, defendResults.actor());
+            }
+            case USE_ITEM -> {
+                UseItemResults itemResults = (UseItemResults) actionResults;
+                displayItem(gameState, itemResults.actor(), itemResults.item());
+            }
+            case SPECIAL_SKILL -> {
+                SpecialSkillResults skillResults = (SpecialSkillResults) actionResults;
+                displaySpecialSkill(gameState, skillResults.actor(),
+                        skillResults.targets(), skillResults.dmg(),
+                        skillResults.statusEffects());
+            }
 
-    public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {
-        System.out.println(actor.getName() + " performs a Basic Attack!");
-
-        for (int i = 0; i < target.size(); i++) {
-            int targetIndex = target.get(i);
-            Combatant victim = gameState.getCurrEnemies().get(targetIndex);
-
-            int damage = dmg.get(i);
-            System.out.println(victim.getName() + " takes " + damage + " damage!");
         }
     }
-    public void displayDefend(GameStateReadOnly gameState, Combatant actor) {
+    private void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, int targetEnemyIndex, int damage) {
+        System.out.println(actor.getName() + " performs a Basic Attack!");
+
+        Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
+        System.out.println(victim.getName() + " takes " + damage + " damage!");
+    }
+
+    private void displayDefend(GameStateReadOnly gameState, Combatant actor) {
         System.out.println(actor.getName() + " Defends");
     }
-    public void displayItem(GameStateReadOnly gameState,Combatant actor, ItemType item) {
+    private void displayItem(GameStateReadOnly gameState,Combatant actor, ItemType item) {
         System.out.println(actor.getName() + " uses " + item.getDisplayName());
+    }
+    private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
+                                     List<Integer> targets, List<Integer> damage,
+                                     List<StatusEffect> statusEffects) {
+        System.out.println(actor.getName() + " uses a Special Skill!");
+
+        for (int i = 0; i < targets.size(); i++) {
+            int targetIndex = targets.get(i);
+            Combatant victim = gameState.getCurrEnemies().get(targetIndex);
+            int dmgAmount = damage.get(i);
+            System.out.println(victim.getName() + " takes " + dmgAmount + " damage!");
+        }
+
+        if (statusEffects != null && !statusEffects.isEmpty()) {
+            System.out.print("Inflicts: ");
+            for (int i = 0; i < statusEffects.size(); i++) {
+                StatusEffect effect = statusEffects.get(i);
+                System.out.print(effect.getName());
+                if (i < statusEffects.size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println();
+        }
     }
 
 }

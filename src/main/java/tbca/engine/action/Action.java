@@ -2,6 +2,7 @@ package tbca.engine.action;
 
 import tbca.combatant.Combatant;
 import tbca.engine.GameState;
+import tbca.engine.action.results.ActionResults;
 import tbca.ui.Ui;
 
 public abstract class Action {
@@ -9,6 +10,6 @@ public abstract class Action {
 
     public abstract ActionType getType();
 
-    public abstract void execute(Ui ui, GameState gameState);
+    public abstract ActionResults execute(GameState gameState);
 
 }

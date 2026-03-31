@@ -2,26 +2,33 @@ package tbca.engine.action;
 
 import tbca.combatant.Combatant;
 import tbca.engine.GameState;
-
-import static tbca.engine.action.ActionType.BASIC_ATTACK;
 import tbca.engine.action.parameters.BasicAttackParameters;
-import tbca.ui.Ui;
+import tbca.engine.action.results.ActionResults;
+import tbca.engine.action.results.BasicAttackResults;
+import tbca.engine.logic.utility.DamageUtility;
+
 
 public class BasicAttackAction extends Action {
-    private Combatant actor;
+    private final Combatant actor;
+    private final int targetEnemyIndex;
 
 
     public BasicAttackAction(BasicAttackParameters actionParameters) {
         this.actor = actionParameters.actor();
+        this.targetEnemyIndex = actionParameters.targetEnemyIndex();
     }
     @Override
     public ActionType getType() {
-        return BASIC_ATTACK;
+        return ActionType.BASIC_ATTACK;
     }
 
     @Override
-    public void execute(Ui ui, GameState gameState) {
-        //ui.displayBasicAttack((GameStateReadOnly)  gameState, actor, targets, dmg);
-        //ui.displayDefend()
+    public ActionResults execute(GameState gameState) {
+        Combatant target = (actor.isPlayer()) ?
+                                    gameState.getCurrEnemies().get(targetEnemyIndex)
+                                    : gameState.getPlayer();
+        int dmg = DamageUtility.computeBasicAttackDamage(actor, target);
+        target.takeDamage(dmg);
+        return new BasicAttackResults(actor, targetEnemyIndex, dmg);
     }
 }
