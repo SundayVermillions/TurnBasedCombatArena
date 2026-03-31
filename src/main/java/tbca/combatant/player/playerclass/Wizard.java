@@ -10,23 +10,36 @@ public class Wizard extends Player {
     public Wizard() {
         super(PlayerClass.WIZARD);
     }
-
-    public void executeSpecialSkill(List<? extends Combatant> enemies) {
+    private void performArcaneBlast(List<? extends Combatant> enemies) {
         int kills = 0;
         for (Combatant enemy : enemies) {
             if (!enemy.isAlive()) continue;
             int damage = Math.max(0, getAttack() - enemy.getDefense());
             enemy.takeDamage(damage);
-            if (!enemy.isAlive()) kills++;
+            
+            if (!enemy.isAlive()) {
+                kills++;
+            }
         }
-
-        // Apply one buff for every kill
         for (int i = 0; i < kills; i++) {
             this.addStatusEffect(new ArcaneBlastBuff());
         }
 
         System.out.printf("%s unleashed Arcane Blast! Kills: %d%n", getName(), kills);
-        setSpecialSkillCooldown(3);
+    }
+
+    public void executeSpecialSkill(List<? extends Combatant> enemies) {
+        if (getSpecialSkillCooldown() == 0) {
+            performArcaneBlast(enemies);
+            setSpecialSkillCooldown(3);
+        } else {
+            System.out.println("Arcane Blast is still recharging!");
+        }
+    }
+
+    public void executeSpecialSkillFree(List<? extends Combatant> enemies) {
+        performArcaneBlast(enemies);
+        System.out.println("(Power Stone) " + getName() + " triggered a bonus Arcane Blast!");
     }
 
     @Override

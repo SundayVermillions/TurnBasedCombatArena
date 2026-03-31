@@ -36,8 +36,6 @@ public abstract class Combatant {
     }
 
     public void executeSpecialSkillFree() {
-        this.specialSkillCooldown = 0;
-        System.out.println(name + "'s Special Skill is now ready!");
     }
 
     public void addStatusEffect(StatusEffect effect) {
@@ -54,6 +52,15 @@ public abstract class Combatant {
                 effects.remove(i);
             }
         }
+    }
+
+    public int getRemainingEffectTurn() {
+        for (StatusEffect e : effects) {
+            if (e instanceof tbca.effect.StunEffect) {
+                return e.getRemainingTurns();
+            }
+        }
+        return 0;
     }
 
     public void takeDamage(int damage) {
