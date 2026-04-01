@@ -8,6 +8,6 @@ public final class DamageUtility {
     private DamageUtility() {}
 
     public static int computeBasicAttackDamage(Combatant actor, Combatant target) {
-        return max(0, actor.getAttack() - actor.getDefense());
+        return max(0, actor.getAttack() - target.getDefense());
     }
 }
