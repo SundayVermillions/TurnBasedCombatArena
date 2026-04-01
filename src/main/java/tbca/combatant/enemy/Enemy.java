@@ -6,9 +6,9 @@ public abstract class Enemy extends Combatant {
 
     private final EnemyType type;
 
-    protected Enemy(EnemyType type) {
+    protected Enemy(EnemyType type, String suffix) {
         super(
-            type.getDisplayName(),
+            type.getDisplayName() + " " + suffix,
             type.getMaxHp(),
             type.getAttack(),
             type.getDefense(),
