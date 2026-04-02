@@ -2,7 +2,7 @@ package tbca.combatant;
 
 import java.util.ArrayList;
 import java.util.List;
-import tbca.engine.GameState;
+
 import tbca.effect.StatusEffect;
 import tbca.item.Item;
 import tbca.item.ItemType;
@@ -56,6 +56,9 @@ public abstract class Combatant {
                 e.removeEffect(this);
                 effects.remove(i);
             }
+        }
+        if (specialSkillCooldown > 0) {
+            specialSkillCooldown--;
         }
     }
 
