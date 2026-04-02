@@ -14,6 +14,7 @@ public class SpecialSkillAction extends Action {
         this.actor = actionParameters.actor();
         this.targetEnemyIndex = actionParameters.targetEnemyIndex();
 
+
     }
 
     @Override
@@ -25,10 +26,14 @@ public class SpecialSkillAction extends Action {
     public ActionResults execute(GameState gameState) {
         if(actor.isPlayer()){
             Player player = (Player) actor;
-            player.executeSpecialSkill(gameState, targetEnemyIndex);
+            SpecialSkillResults results = player.executeSpecialSkill(gameState, targetEnemyIndex);
+
+            return results;
         }
         else{
             System.out.println(actor.getName() + " cannot use a special skill!");
+            //return exception in this area
+
         }
         return new SpecialSkillResults(actor);
     }

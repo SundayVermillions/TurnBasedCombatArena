@@ -141,27 +141,52 @@ public class Selection {
         return switch (choice) {
             case 1 -> new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
             case 2 -> new DefendParameters(gameState.getPlayer());
-            case 3 -> new UseItemParameters(gameState.getPlayer(), promptItemType(inventory));
-            case 4 -> new SpecialSkillParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
+            case 3 -> {
+                ItemType selectedType = promptItemType(inventory);
+                int targetIndex = -1;
+
+                if (selectedType == ItemType.POWER_STONE && player.specialSkillNeedsTarget()){
+                    System.out.println("Select a target for your bonus skill:");
+                    targetIndex = promptTargetEnemyIndex(gameState);
+                }
+                yield new UseItemParameters(gameState.getPlayer(), selectedType, targetIndex);
+            }
+            case 4 -> {
+
+                int targetIndex = -1;
+                if (player.specialSkillNeedsTarget()){
+                    targetIndex = promptTargetEnemyIndex(gameState);
+                }
+                else{
+                    System.out.println(player.getName() + " applies a skill on all enemies currently in combat!");
+                }
+                yield new SpecialSkillParameters(player, targetIndex);
+            }
             default -> null;
         };
     }
 
     private int promptTargetEnemyIndex(GameStateReadOnly gameState) {
-        int enemies = gameState.getCurrEnemies().size();
-        int targetChoice = 0;
-        while(true)
-        {
-            targetChoice = inputValidator.getIntInput("Select target enemy (1-" + enemies + "): ", 1, enemies);
-            if(gameState.getCurrEnemies().get(targetChoice - 1).isDead()){
-                System.out.println("Target is Dead");
-            }
-            else{
-                break;
-            }
+        List<Combatant> enemies = gameState.getCurrEnemies();
+        System.out.println("\nAvailable Targets:");
+       for(int i = 0; i < enemies.size(); i++) {
+           Combatant enemy = enemies.get(i);
+           String status = enemy.isDead() ? "[DEAD]" : "(" + enemy.getCurrHp() + "/" + enemy.getMaxHp() + " HP)";
+           System.out.println((i + 1) + ". " + enemy.getName() + " " + status);
+       }
+           int targetChoice = 0;
+           while(true){
+               targetChoice = inputValidator.getIntInput("Select target enemy (1-" + enemies.size() + "):", 1, enemies.size());
+               if(gameState.getCurrEnemies().get(targetChoice - 1).isDead()){
+                   System.out.println("Target is Dead. Pick a living enemy!");
+               } else{
+                   break;
+               }
+           }
+           return targetChoice - 1;
+
         }
-        return targetChoice - 1;
-    }
+
 
     private ItemType promptItemType(List<Item> inventory) {
         System.out.println("\nChoose item to use:");

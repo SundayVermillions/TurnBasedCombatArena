@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import tbca.engine.GameState;
 import tbca.effect.StatusEffect;
+import tbca.item.Item;
+import tbca.item.ItemType;
 
 public abstract class Combatant {
     private final String name;
@@ -33,6 +35,10 @@ public abstract class Combatant {
 
     public void setHp(int hp) {
         this.setCurrHp(hp);
+    }
+
+    public Item consumeItem(ItemType type){
+        return null;
     }
 
 

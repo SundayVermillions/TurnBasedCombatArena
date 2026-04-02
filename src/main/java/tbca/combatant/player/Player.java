@@ -6,6 +6,7 @@ import java.util.List;
 import tbca.combatant.Combatant;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.item.Item;
+import tbca.engine.action.results.SpecialSkillResults;
 
 public abstract class Player extends Combatant {
 
@@ -62,9 +63,9 @@ public abstract class Player extends Combatant {
     }
 
     //uses cooldown
-    public abstract void executeSpecialSkill(tbca.engine.GameState gameState, int targetIndex);
+    public abstract SpecialSkillResults executeSpecialSkill(tbca.engine.GameState gameState, int targetIndex);
     //no cooldown
-    public abstract void executeSpecialSkillFree(tbca.engine.GameState gameState, int targetIndex);
+    public abstract  SpecialSkillResults executeSpecialSkillFree(tbca.engine.GameState gameState, int targetIndex);
 
     @Override
     public void takeTurn() {
@@ -80,5 +81,9 @@ public abstract class Player extends Combatant {
             getCurrHp(), getMaxHp(),
             getAttack(), getDefense(), getSpeed(),
             getSpecialSkillCooldown());
+    }
+
+    public boolean specialSkillNeedsTarget(){
+        return true;
     }
 }

@@ -5,6 +5,7 @@ import tbca.combatant.player.Player;
 import tbca.engine.GameState;
 import tbca.engine.action.parameters.UseItemParameters;
 import tbca.engine.action.results.ActionResults;
+import tbca.engine.action.results.SpecialSkillResults;
 import tbca.engine.action.results.UseItemResults;
 import tbca.item.Item;
 
@@ -25,22 +26,16 @@ public class UseItemAction extends Action {
     public ActionResults execute(GameState gameState) {
         Combatant actor = param.actor();
 
-        if(!actor.isPlayer()){
-            System.out.println(actor.getName() + " cannot use items!");
-            //return the failed result
-            return new UseItemResults(actor, param.itemType());
-        }
-        Player player = (Player) actor;
-
-        //To encapsulate the item
-        Item itemToApply = player.consumeItem(param.itemType());
+        Item itemToApply = actor.consumeItem(param.itemType());
+        SpecialSkillResults skillResults = null;
 
         if(itemToApply != null){
-            itemToApply.use(player, gameState, param.targetEnemyIndex());
+            skillResults = itemToApply.use(actor, gameState, param.targetEnemyIndex());
         }else{
-            System.out.println(player.getName() + " does not have that item in their inventory!");
+            return new UseItemResults(actor, param.itemType());
+            //return exception in this area
         }
-        return new UseItemResults(player,param.itemType());
+        return new UseItemResults(actor, param.itemType(), skillResults);
 
 
     }

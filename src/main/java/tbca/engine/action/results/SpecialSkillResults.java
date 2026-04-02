@@ -14,6 +14,12 @@ public record SpecialSkillResults(Combatant actor,
     public SpecialSkillResults(Combatant actor){
         this(actor, List.of(), List.of(), List.of());
     }
+    public SpecialSkillResults(Combatant actor, int singleTargetIndex, int singleDmg, StatusEffect effect){
+        this(actor,
+                List.of(singleTargetIndex),
+                List.of(singleDmg),
+                effect != null ? List.of(effect) : List.of());
+    }
     @Override
     public ActionType actionType() {
         return ActionType.SPECIAL_SKILL;

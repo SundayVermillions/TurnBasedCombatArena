@@ -135,12 +135,27 @@ public class DisplayOnly {
             case USE_ITEM -> {
                 UseItemResults itemResults = (UseItemResults) actionResults;
                 displayItem(gameState, itemResults.actor(), itemResults.item());
+
+                if(itemResults.item() == ItemType.POWER_STONE && itemResults.specialSkillResults() != null){
+                    SpecialSkillResults specialSkills = itemResults.specialSkillResults();
+
+                    if(!specialSkills.targets().isEmpty()){
+                        System.out.println("(Power Stone) " + itemResults.actor().getName() + " activated a bonus skill!");
+                        displaySpecialSkill(gameState, specialSkills.actor(), specialSkills.targets(),specialSkills.dmg(), specialSkills.statusEffects());
+                    }
+
+                }
             }
             case SPECIAL_SKILL -> {
                 SpecialSkillResults skillResults = (SpecialSkillResults) actionResults;
-                displaySpecialSkill(gameState, skillResults.actor(),
-                        skillResults.targets(), skillResults.dmg(),
-                        skillResults.statusEffects());
+                if(skillResults.targets().isEmpty()){
+                    System.out.println(skillResults.actor().getName() + "'s skill is still charging!");
+                }
+                else {
+                    displaySpecialSkill(gameState, skillResults.actor(),
+                            skillResults.targets(), skillResults.dmg(),
+                            skillResults.statusEffects());
+                }
             }
 
         }
@@ -169,13 +184,17 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
+        String skillName = actor.getClass().getSimpleName().equals("Warrior") ? "Shield Bash" : "Arcane Blast";
+        System.out.print(actor.getName() + " uses " + skillName + "! -> ");
         for (int i = 0; i < targets.size(); i++) {
             int targetIndex = targets.get(i);
             Combatant victim = gameState.getCurrEnemies().get(targetIndex);
             int dmgAmount = damage.get(i);
-
-            System.out.print(actor.getName() + " uses a Special Skill! →");
-            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!\n");
+            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+            if(i < targets.size() - 1) System.out.print(", ");
+            else{
+                System.out.println();
+            }
         }
 
         if (statusEffects != null && !statusEffects.isEmpty()) {
