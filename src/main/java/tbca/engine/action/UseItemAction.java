@@ -31,10 +31,7 @@ public class UseItemAction extends Action {
             return new UseItemResults(actor, param.itemType());
         }
         Player player = (Player) actor;
-        Combatant target = null;
-        if(param.targetEnemyIndex() != -1 && param.targetEnemyIndex() < gameState.getCurrEnemies().size()){
-            target = gameState.getCurrEnemies().get(param.targetEnemyIndex());
-        }
+
         //To encapsulate the item
         Item itemToApply = player.consumeItem(param.itemType());
 
