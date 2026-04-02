@@ -27,6 +27,13 @@ public class DisplayOnly {
 
     public void displayTurnStart(GameStateReadOnly gameState) {
         System.out.printf("=== Round %d ===\n", gameState.currWave());
+        System.out.println("Player: " + gameState.getPlayer().getCurrHp() + " HP");
+
+        // Print enemies
+        for (int i = 1; i < gameState.getCurrEnemies().size(); i++) {
+            Combatant enemy = gameState.getCurrEnemies().get(i);
+            System.out.println(i + ". " + enemy.getName() + ": " + enemy.getCurrHp() + " HP");
+        }
 
     }
 
