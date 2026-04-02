@@ -19,6 +19,7 @@ public class DisplayOnly {
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
     }
+
     public void displayTurnEnd(GameStateReadOnly gameState) {
         displayPlayerAndEnemyStats(gameState);
         displayItemsAndCooldown(gameState);
@@ -26,6 +27,7 @@ public class DisplayOnly {
 
     public void displayTurnStart(GameStateReadOnly gameState) {
         System.out.printf("=== Round %d ===\n", gameState.currWave());
+
     }
 
     private void displayPlayerAndEnemyStats(GameStateReadOnly gameState) {
@@ -42,12 +44,11 @@ public class DisplayOnly {
             Combatant enemy = enemies.get(i);
             System.out.printf("%s %c HP: %d",
                     enemy.getName(),
-                    (char)('A' + i),
+                    (char) ('A' + i),
                     enemy.getCurrHp()
             );
-            if(!enemy.canAct())
-            {
-                System.out.printf("[Stunned for %d turns]", enemy.getEffectDuration());
+            if (!enemy.canAct()) {
+                System.out.printf("[Stunned for %d turns]", enemy.getRemainingEffectTurn());
             }
 
             if (i < enemies.size() - 1) {
@@ -110,6 +111,7 @@ public class DisplayOnly {
         System.out.println("║    Congratulations on your victory!   ║");
         System.out.println("╚═══════════════════════════════════════╝\n");
     }
+
     public void displayAction(GameStateReadOnly gameState, ActionResults actionResults) {
         ActionType actionType = actionResults.actionType();
         switch (actionType) {
@@ -135,19 +137,27 @@ public class DisplayOnly {
 
         }
     }
-    private void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, int targetEnemyIndex, int damage) {
-        System.out.println(actor.getName() + " performs a Basic Attack!");
 
-        Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
-        System.out.println(victim.getName() + " takes " + damage + " damage!");
+    private void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, int targetEnemyIndex, int damage) {
+        System.out.print(actor.getName() + " performs a Basic Attack! | ");
+
+        if (actor.isPlayer()) {
+            Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
+            System.out.println(victim.getName() + " takes " + damage + " damage!");
+        }
+        else{
+            System.out.println(gameState.getPlayer().getName() + " takes " + damage + " damage!");
+        }
     }
 
     private void displayDefend(GameStateReadOnly gameState, Combatant actor) {
         System.out.println(actor.getName() + " Defends");
     }
-    private void displayItem(GameStateReadOnly gameState,Combatant actor, ItemType item) {
+
+    private void displayItem(GameStateReadOnly gameState, Combatant actor, ItemType item) {
         System.out.println(actor.getName() + " uses " + item.getDisplayName());
     }
+
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
@@ -173,7 +183,7 @@ public class DisplayOnly {
         }
     }
 
-    public void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex) {
+    public void displayEnemyDefeated(GameStateReadOnly gameState, int enemyIndex) {
         List<Combatant> enemies = gameState.getCurrEnemies();
         if (enemyIndex >= 0 && enemyIndex < enemies.size()) {
             Combatant defeatedEnemy = enemies.get(enemyIndex);
@@ -181,7 +191,5 @@ public class DisplayOnly {
         } else {
             System.out.println("Enemy at index " + enemyIndex + " not found!");
         }
-    }
-
     }
 }
