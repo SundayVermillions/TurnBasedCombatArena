@@ -88,6 +88,6 @@ public class GameState implements GameStateReadOnly {
     @Override
     public boolean hasGameEnded() {
         return !isPlayerAlive() ||
-                currWave > difficulty.getEnemySpawnList().size();
+                (currWave == difficulty.getEnemySpawnList().size() && this.allCurrWaveEnemiesDead());
     }
 }
