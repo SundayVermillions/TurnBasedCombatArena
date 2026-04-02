@@ -19,30 +19,28 @@ public class DisplayOnly {
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
     }
+    public void displayTurnStart(GameStateReadOnly gameState) {
+        System.out.println("\n--- Wave " + gameState.currWave() + " | Turn " + gameState.getCurrTurn() + " ---");
+        System.out.println("Player HP: " + gameState.getPlayer().getCurrHp() + "/" + gameState.getPlayer().getMaxHp());
 
+        for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
+            Combatant enemy = gameState.getCurrEnemies().get(i);
+            if (enemy.getCurrHp() <= 0) {
+                System.out.println((i + 1) + ". " + enemy.getName() + ": DEAD");
+            } else {
+                System.out.println((i + 1) + ". " + enemy.getName() + ": " + enemy.getCurrHp() + "/" + enemy.getMaxHp() + " HP");
+            }
+        }
+        System.out.println();
+
+    }
     public void displayTurnEnd(GameStateReadOnly gameState) {
+        System.out.println();
+        System.out.printf("End of Turn: %d\n",gameState.getCurrTurn());
+
         displayPlayerAndEnemyStats(gameState);
         displayItemsAndCooldown(gameState);
     }
-
-    public void displayTurnStart(GameStateReadOnly gameState) {
-        System.out.printf("=== Wave %d Turn %d ===\n", gameState.currWave(), gameState.getCurrTurn());
-        System.out.println("Player: " + gameState.getPlayer().getCurrHp() + " HP");
-
-        // Print enemies
-        for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
-            Combatant enemy = gameState.getCurrEnemies().get(i);
-            if(enemy.getCurrHp() == 0)
-            {
-                System.out.println(i + 1 + ". " + enemy.getName() + ": dead");
-            }
-            else {
-                System.out.println(i + 1 + ". " + enemy.getName() + ": " + enemy.getCurrHp() + " HP");
-            }
-        }
-
-    }
-
     private void displayPlayerAndEnemyStats(GameStateReadOnly gameState) {
         // Player HP
         System.out.printf("%s HP: %d/%d | ",
@@ -149,7 +147,7 @@ public class DisplayOnly {
     }
 
     private void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, int targetEnemyIndex, int damage) {
-        System.out.print(actor.getName() + " performs a Basic Attack! | ");
+        System.out.print(actor.getName() + " performs a Basic Attack! → ");
 
         if (actor.isPlayer()) {
             Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
@@ -171,16 +169,17 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
-        System.out.println(actor.getName() + " uses a Special Skill!");
         for (int i = 0; i < targets.size(); i++) {
             int targetIndex = targets.get(i);
             Combatant victim = gameState.getCurrEnemies().get(targetIndex);
             int dmgAmount = damage.get(i);
-            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+
+            System.out.print(actor.getName() + " uses a Special Skill! →");
+            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!\n");
         }
 
         if (statusEffects != null && !statusEffects.isEmpty()) {
-            System.out.print("Inflicts: ");
+            System.out.print(" → Inflicts: ");
             for (int i = 0; i < statusEffects.size(); i++) {
                 StatusEffect effect = statusEffects.get(i);
                 System.out.print(effect.getName());

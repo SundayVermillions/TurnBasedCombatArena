@@ -1,10 +1,13 @@
 package tbca.ui;
 
 import tbca.combatant.Combatant;
+import tbca.combatant.player.Player;
 import tbca.combatant.player.playerclass.PlayerClass;
+import tbca.combatant.player.playerclass.Wizard;
 import tbca.engine.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
 import tbca.engine.action.parameters.*;
+import tbca.item.Item;
 import tbca.item.ItemType;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,7 @@ public class Selection {
     {
         displayClassOptions();
         int choice = inputValidator.getIntInput("Enter choice: ", 1, 2);
+        System.out.println("\n");
         return switch (choice) {
             case 1 -> PlayerClass.WARRIOR;
             case 2 -> PlayerClass.WIZARD;
@@ -102,7 +106,6 @@ public class Selection {
         System.out.println("Special Skill: Arcane Blast");
         System.out.println("Effect: Deal BasicAttack damage to all enemies currently in combat.");
         System.out.println("Each enemy defeated by Arcane Blast adds 10 to the Wizard's Attack, lasting until end of the level.");
-        System.out.print("Enter 1 or 2: ");
     }
 
 
@@ -112,7 +115,13 @@ public class Selection {
         System.out.println("2. Defend");
         System.out.println("3. Use Item");
         System.out.println("4. Special Skill");
+        System.out.println();
+
         int choice;
+        Player player = (Player) gameState.getPlayer();
+        List<Item> inventory = player.getInventory();
+
+
         while(true)
         {
             choice = inputValidator.getIntInput("Enter 1-4: ", 1, 4);
@@ -120,14 +129,19 @@ public class Selection {
             {
                 System.out.println("Cannot use Special Skill yet");
             }
+
+            else if (inventory.isEmpty() && choice == 3){
+                System.out.println("Inventory is Empty");
+            }
             else{
                 break;
             }
         }
+        System.out.println();
         return switch (choice) {
             case 1 -> new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
             case 2 -> new DefendParameters(gameState.getPlayer());
-            case 3 -> new UseItemParameters(gameState.getPlayer(), promptItemType());
+            case 3 -> new UseItemParameters(gameState.getPlayer(), promptItemType(inventory));
             case 4 -> new SpecialSkillParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
             default -> null;
         };
@@ -149,18 +163,14 @@ public class Selection {
         return targetChoice - 1;
     }
 
-    private ItemType promptItemType() {
+    private ItemType promptItemType(List<Item> inventory) {
         System.out.println("\nChoose item to use:");
-        System.out.println("1. Potion");
-        System.out.println("2. Power Stone");
-        System.out.println("3. Smoke Bomb");
-        int itemChoice = inputValidator.getIntInput("Enter 1-3: ", 1, 3);
+        for(int i = 0; i < inventory.size(); i++)
+        {
+            System.out.println(i + 1 + ". " + inventory.get(i).getType());
+        }
+        int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
+        return inventory.get(itemChoice - 1).getType();
 
-        return switch (itemChoice) {
-            case 1 -> ItemType.POTION;
-            case 2 -> ItemType.POWER_STONE;
-            case 3 -> ItemType.SMOKE_BOMB;
-            default -> null;
-        };
     }
 }

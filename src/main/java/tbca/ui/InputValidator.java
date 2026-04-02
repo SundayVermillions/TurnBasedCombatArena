@@ -10,7 +10,7 @@ public class InputValidator {
     public int getIntInput(String prompt, int min, int max) {
         while (true) {
             try {
-                System.out.println(prompt);
+                System.out.print(prompt);
                 int choice = Integer.parseInt(scanner.nextLine());
                 if (choice >= min && choice <= max) {
                     return choice;
