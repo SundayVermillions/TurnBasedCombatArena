@@ -194,7 +194,10 @@ public class DisplayOnly {
             if (statusEffects != null && !statusEffects.isEmpty())
             {
                 StatusEffect effect = statusEffects.get(i);
-                System.out.print("-> inflicted with " + effect.getName());
+                if(effect != null){
+                    System.out.print("-> inflicted with " + effect.getName());
+                }
+
             }
             System.out.println();
         }
