@@ -43,17 +43,33 @@ public final class CombatantFactory {
             case SMOKE_BOMB -> new SmokeBomb();   
         };
     }
+
     public static Combatant createEnemy(EnemyType enemyType) {
+        return createEnemy(enemyType, null);
+    }
+    public static Combatant createEnemy(EnemyType enemyType, List<ItemType> itemTypes) {
         int count = enemyCounts.getOrDefault(enemyType, 0);
         String suffix = String.valueOf((char) ('A' + count));
-        
         enemyCounts.put(enemyType, count + 1);
 
-        return switch (enemyType) {
+        Combatant enemy = switch (enemyType) {
             case GOBLIN -> new Goblin(suffix);
             case WOLF   -> new Wolf(suffix);
         };
+
+        if (itemTypes != null) {
+            for (ItemType type : itemTypes) {
+                if (type == ItemType.POTION) {
+                    enemy.addItem(createItemFromType(type));
+                } else {
+                    System.out.println("Warning: " + type + " is not allowed for enemies yet!");
+                }
+            }
+        }
+
+        return enemy;
     }
+
     public static void resetCounters() {
         enemyCounts.clear();
     }
