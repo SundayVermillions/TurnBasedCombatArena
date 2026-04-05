@@ -184,6 +184,7 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
+        System.out.println(targets);
         for (int i = 0; i < targets.size(); i++) {
             int targetIndex = targets.get(i);
             Combatant victim = gameState.getCurrEnemies().get(targetIndex);
