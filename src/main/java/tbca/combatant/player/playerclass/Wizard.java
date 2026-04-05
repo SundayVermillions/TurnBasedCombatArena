@@ -16,6 +16,7 @@ public class Wizard extends Player {
     private SpecialSkillResults performArcaneBlast(List<? extends Combatant> enemies) {
         List<Integer> targetIndice = new ArrayList<>();
         List<Integer> damageDone = new ArrayList<>();
+        List<StatusEffect> appliedEffects = new ArrayList<>();
         int kills = 0;
         for (int i = 0; i < enemies.size(); i++) {
             Combatant enemy = enemies.get(i);
@@ -25,16 +26,17 @@ public class Wizard extends Player {
 
             targetIndice.add(i);
             damageDone.add(damage);
+            appliedEffects.add(null);
             
             if (!enemy.isAlive()) {
                 kills++;
             }
         }
-        List<StatusEffect> appliedEffects = new ArrayList<>();
+
         for(int i = 0; i < kills; i++){
             ArcaneBlastBuff buff = new ArcaneBlastBuff();
             this.addStatusEffect(buff);
-            appliedEffects.add(buff);
+
         }
         return new SpecialSkillResults(this, targetIndice, damageDone, appliedEffects);
     }
@@ -42,7 +44,7 @@ public class Wizard extends Player {
     public SpecialSkillResults executeSpecialSkill(tbca.engine.GameState gameState, int targetIndex) {
         if (getSpecialSkillCooldown() == 0) {
             List<Combatant> enemies = gameState.getCurrEnemies();
-            performArcaneBlast(enemies);
+
             setSpecialSkillCooldown(3);
 
             return performArcaneBlast(enemies);
