@@ -2,6 +2,9 @@ package tbca.combatant;
 
 import java.util.ArrayList;
 import java.util.List;
+import tbca.engine.action.results.SpecialSkillResults;
+import tbca.engine.GameState;
+import tbca.engine.action.SpecialSkillType;
 
 import tbca.effect.StatusEffect;
 import tbca.item.Item;
@@ -80,21 +83,20 @@ public abstract class Combatant {
         decrementCooldown();
     }
 
-    public int getRemainingEffectTurn() {
-        for (StatusEffect e : effects) {
-            if (e instanceof tbca.effect.StunEffect) {
-                return e.getRemainingTurns();
-            }
-        }
-        return 0;
+
+    public List<StatusEffect> getEffects() {
+        return new ArrayList<>(this.effects);
     }
 
-    public void takeDamage(int damage) {
+    public abstract SpecialSkillType getSpecialSkillType();
+    public abstract SpecialSkillResults executeSpecialSkill(GameState gameState, int targetIndex);
+
+    public boolean takeDamage(int damage) {
         if (invulnerable) {
-            System.out.println(name + " is invulnerable! No damage taken.");
-            return;
+            return false;
         }
         setCurrHp(getCurrHp() - damage);
+        return true;
     }
 
     private void decrementCooldown() {

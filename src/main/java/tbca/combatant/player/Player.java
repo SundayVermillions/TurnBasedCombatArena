@@ -2,6 +2,7 @@ package tbca.combatant.player;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.player.playerclass.PlayerClass;
+import tbca.engine.GameState;
 import tbca.engine.action.results.SpecialSkillResults;
 
 public abstract class Player extends Combatant {
@@ -24,7 +25,6 @@ public abstract class Player extends Combatant {
         this.setCurrHp(hp);
     }
 
-    public abstract SpecialSkillResults executeSpecialSkill(tbca.engine.GameState gameState, int targetIndex);
 
     public abstract SpecialSkillResults executeSpecialSkillFree(tbca.engine.GameState gameState, int targetIndex);
 

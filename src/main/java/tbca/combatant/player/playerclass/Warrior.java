@@ -46,6 +46,10 @@ public class Warrior extends Player {
        return performShieldBash(targetIndex, target);
     }
 
+    @Override
+    public tbca.engine.action.SpecialSkillType getSpecialSkillType() {
+        return tbca.engine.action.SpecialSkillType.SHIELD_BASH;
+    }
 
 
 

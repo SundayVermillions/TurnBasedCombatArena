@@ -63,4 +63,9 @@ public class Wizard extends Player {
         return false;
     }
 
+    @Override
+    public tbca.engine.action.SpecialSkillType getSpecialSkillType() {
+        return tbca.engine.action.SpecialSkillType.ARCANE_BLAST;
+    }
+
 }

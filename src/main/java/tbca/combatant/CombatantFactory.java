@@ -62,7 +62,7 @@ public final class CombatantFactory {
                 if (type == ItemType.POTION) {
                     enemy.addItem(createItemFromType(type));
                 } else {
-                    System.out.println("Warning: " + type + " is not allowed for enemies yet!");
+                    throw new IllegalArgumentException("Enemy item error: " + type + "is nots supported for enemies.");
                 }
             }
         }

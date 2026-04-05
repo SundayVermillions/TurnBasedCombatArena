@@ -69,8 +69,8 @@ public class DisplayOnly {
                     enemy.getName(),
                     enemy.getCurrHp()
             );
-            if (!enemy.canAct()) {
-                System.out.printf("[Stunned for %d turns]", enemy.getRemainingEffectTurn());
+            for (StatusEffect effect : enemy.getEffects()) {
+                System.out.printf("[%s: %d turns] ", effect.getName(), effect.getRemainingTurns());
             }
 
             if (i < enemies.size() - 1) {
@@ -194,13 +194,14 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
+
         if (actor.isPlayer()) {
             for (int i = 0; i < targets.size(); i++) {
                 int targetIndex = targets.get(i);
                 Combatant victim = gameState.getCurrEnemies().get(targetIndex);
                 int dmgAmount = damage.get(i);
                 //String skillName = actor.getSpecialSkillName();
-                String skillName = "a";
+                String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
                 System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
                 if (statusEffects != null && !statusEffects.isEmpty()) {
@@ -214,13 +215,13 @@ public class DisplayOnly {
             }
         } else {
             Combatant victim = gameState.getPlayer();
-            int dmgAmount = damage.getFirst();
+            int dmgAmount = damage.isEmpty() ? 0: damage.get(0);
             //String skillName = actor.getSpecialSkillName();
-            String skillName = "a";
+            String skillName = actor.getSpecialSkillType().getDisplayName();
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
             System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
             if (statusEffects != null && !statusEffects.isEmpty()) {
-                StatusEffect effect = statusEffects.getFirst();
+                StatusEffect effect = statusEffects.get(0);
                 if (effect != null) {
                     System.out.print("-> inflicted with " + effect.getName());
                 }
