@@ -19,28 +19,40 @@ public class DisplayOnly {
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
     }
+
     public void displayTurnStart(GameStateReadOnly gameState) {
         System.out.println("\n--- Wave " + gameState.currWave() + " | Turn " + gameState.getCurrTurn() + " ---");
-        System.out.println("Player HP: " + gameState.getPlayer().getCurrHp() + "/" + gameState.getPlayer().getMaxHp());
+        System.out.printf("0. %-12s: %-20s (%3d/%3d)%n",
+                "Player",
+                healthBar(gameState.getPlayer().getCurrHp(), gameState.getPlayer().getMaxHp()),
+                gameState.getPlayer().getCurrHp(),
+                gameState.getPlayer().getMaxHp());
 
         for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
             Combatant enemy = gameState.getCurrEnemies().get(i);
             if (enemy.getCurrHp() <= 0) {
                 System.out.println((i + 1) + ". " + enemy.getName() + ": DEAD");
             } else {
-                System.out.println((i + 1) + ". " + enemy.getName() + ": " + enemy.getCurrHp() + "/" + enemy.getMaxHp() + " HP");
+                System.out.printf("%d. %-12s: %-20s (%3d/%3d)%n",
+                        i + 1,
+                        enemy.getName(),
+                        healthBar(enemy.getCurrHp(), enemy.getMaxHp()),
+                        enemy.getCurrHp(),
+                        enemy.getMaxHp());
             }
         }
         System.out.println();
 
     }
+
     public void displayTurnEnd(GameStateReadOnly gameState) {
         System.out.println();
-        System.out.printf("End of Turn: %d\n",gameState.getCurrTurn());
+        System.out.printf("End of Turn: %d\n", gameState.getCurrTurn());
 
         displayPlayerAndEnemyStats(gameState);
         displayItemsAndCooldown(gameState);
     }
+
     private void displayPlayerAndEnemyStats(GameStateReadOnly gameState) {
         // Player HP
         System.out.printf("%s HP: %d/%d | ",
@@ -136,22 +148,21 @@ public class DisplayOnly {
                 UseItemResults itemResults = (UseItemResults) actionResults;
                 displayItem(gameState, itemResults.actor(), itemResults.item());
 
-                if(itemResults.item() == ItemType.POWER_STONE && itemResults.specialSkillResults() != null){
+                if (itemResults.item() == ItemType.POWER_STONE && itemResults.specialSkillResults() != null) {
                     SpecialSkillResults specialSkills = itemResults.specialSkillResults();
 
-                    if(!specialSkills.targets().isEmpty()){
+                    if (!specialSkills.targets().isEmpty()) {
                         System.out.println("(Power Stone) " + itemResults.actor().getName() + " activated a bonus skill!");
-                        displaySpecialSkill(gameState, specialSkills.actor(), specialSkills.targets(),specialSkills.dmg(), specialSkills.statusEffects());
+                        displaySpecialSkill(gameState, specialSkills.actor(), specialSkills.targets(), specialSkills.dmg(), specialSkills.statusEffects());
                     }
 
                 }
             }
             case SPECIAL_SKILL -> {
                 SpecialSkillResults skillResults = (SpecialSkillResults) actionResults;
-                if(skillResults.targets().isEmpty()){
+                if (skillResults.targets().isEmpty()) {
                     System.out.println(skillResults.actor().getName() + "'s skill is still charging!");
-                }
-                else {
+                } else {
                     displaySpecialSkill(gameState, skillResults.actor(),
                             skillResults.targets(), skillResults.dmg(),
                             skillResults.statusEffects());
@@ -167,8 +178,7 @@ public class DisplayOnly {
         if (actor.isPlayer()) {
             Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
             System.out.println(victim.getName() + " takes " + damage + " damage!");
-        }
-        else{
+        } else {
             System.out.println(gameState.getPlayer().getName() + " takes " + damage + " damage!");
         }
     }
@@ -184,24 +194,41 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
-        for (int i = 0; i < targets.size(); i++) {
-            int targetIndex = targets.get(i);
-            Combatant victim = gameState.getCurrEnemies().get(targetIndex);
-            int dmgAmount = damage.get(i);
-            String skillName = actor.getClass().getSimpleName().equals("Warrior") ? "Shield Bash" : "Arcane Blast";
+        if (actor.isPlayer()) {
+            for (int i = 0; i < targets.size(); i++) {
+                int targetIndex = targets.get(i);
+                Combatant victim = gameState.getCurrEnemies().get(targetIndex);
+                int dmgAmount = damage.get(i);
+                //String skillName = actor.getSpecialSkillName();
+                String skillName = "a";
+                System.out.print(actor.getName() + " uses " + skillName + "! -> ");
+                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+                if (statusEffects != null && !statusEffects.isEmpty()) {
+                    StatusEffect effect = statusEffects.get(i);
+                    if (effect != null) {
+                        System.out.print("-> inflicted with " + effect.getName());
+                    }
+
+                }
+                System.out.println();
+            }
+        } else {
+            Combatant victim = gameState.getPlayer();
+            int dmgAmount = damage.getFirst();
+            //String skillName = actor.getSpecialSkillName();
+            String skillName = "a";
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
             System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
-            if (statusEffects != null && !statusEffects.isEmpty())
-            {
-                StatusEffect effect = statusEffects.get(i);
-                if(effect != null){
+            if (statusEffects != null && !statusEffects.isEmpty()) {
+                StatusEffect effect = statusEffects.getFirst();
+                if (effect != null) {
                     System.out.print("-> inflicted with " + effect.getName());
                 }
 
             }
-            System.out.println();
         }
     }
+
 
     public void displayEnemyDefeated(GameStateReadOnly gameState, int enemyIndex) {
         List<Combatant> enemies = gameState.getCurrEnemies();
@@ -212,4 +239,17 @@ public class DisplayOnly {
             System.out.println("Enemy at index " + enemyIndex + " not found!");
         }
     }
+
+    private static String healthBar(int hp, int maxHp) {
+        int totalBars = 20;
+        int filledBars = (int) ((hp / (double) maxHp) * totalBars);
+        StringBuilder bar = new StringBuilder("[");
+        for (int i = 0; i < totalBars; i++) {
+            if (i < filledBars) bar.append("=");
+            else bar.append(" ");
+        }
+        bar.append("]");
+        return bar.toString();
+    }
+
 }
