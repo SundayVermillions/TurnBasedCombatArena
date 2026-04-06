@@ -44,10 +44,20 @@ public class Game {
         this.ui.showEndingScreen(this.gameState); // either victory or loss
     }
 
+    private void initialize() {
+        this.ui.displayMenu();
+        GameDifficulty selectedDifficulty = ui.promptDifficulty();
+        PlayerClass playerClass = ui.promptClassSelection();
+        List<ItemType> items = ui.promptItemSelection();
+
+        Combatant player = CombatantFactory.createPlayer(playerClass, items);
+        this.gameState = new GameState(player, selectedDifficulty);
+    }
+
     private void runWave(GameState gameState) {
         gameState.spawnNextWave();
 
-        // continue wave while enemies in curr wave are alive and game has not ended
+        // continue wave while enemies in currWave are alive and game has not ended
         while (!gameState.allCurrWaveEnemiesDead() && !gameState.hasGameEnded()) {
             this.gameState.incrementTurn();
             this.ui.displayTurnStart((GameStateReadOnly) gameState);
@@ -58,6 +68,7 @@ public class Game {
                 if (gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
                     break; // break if all enemies in this wave is dead, or player dies
                 if (!combatant.isAlive() || !combatant.canAct())
+                    // TODO: this.ui.displayIncapacitated(combatant);
                     continue; // if current combatant died midway through this turn or can't move, skip him
 
                 // if is player, go with selected action. else, enemies can only basic attack
@@ -75,17 +86,4 @@ public class Game {
         }
     }
 
-    private void initialize() {
-        this.ui.displayMenu();
-        GameDifficulty selectedDifficulty = ui.promptDifficulty();
-        PlayerClass playerClass = ui.promptClassSelection();
-        List<ItemType> items = ui.promptItemSelection();
-
-        Combatant player = CombatantFactory.createPlayer(playerClass, items);
-        this.gameState = new GameState(player, selectedDifficulty);
-    }
-
-    public void reset() {
-        Game.gameInstance = new Game();
-    }
 }

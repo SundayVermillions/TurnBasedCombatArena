@@ -35,4 +35,5 @@ public interface Ui {
 //                              List<StatusEffect> statuses);
     void displayTurnStart(GameStateReadOnly gameState);
     void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex);
+    // TODO: void displayIncapacitated(Combatant combatant);
 }

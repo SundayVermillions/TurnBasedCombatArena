@@ -2,11 +2,9 @@ package tbca.engine;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
-import tbca.combatant.enemy.EnemyType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameState implements GameStateReadOnly {
     private final GameDifficulty difficulty;
@@ -25,15 +23,13 @@ public class GameState implements GameStateReadOnly {
         if (!this.hasMoreWaves()) {
             return;
         }
-        Map<EnemyType, Integer> nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
+        Wave nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
         currWave++;
 
         this.currEnemies.clear();
-        nextWaveSpawn.forEach((enemyType, count) -> {
-            for (int i = 0; i < count; i++) {
-                this.currEnemies.add(CombatantFactory.createEnemy(enemyType));
-            }
-        });
+        for (EnemyBlueprint enemy : nextWaveSpawn.enemies()) {
+            this.currEnemies.add(CombatantFactory.createEnemy(enemy.enemyType(), enemy.startingItems()));
+        }
     }
 
     public boolean isPlayerAlive() {
