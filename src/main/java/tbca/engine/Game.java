@@ -10,6 +10,7 @@ import tbca.engine.action.ActionFactory;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
+import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
 import tbca.item.ItemType;

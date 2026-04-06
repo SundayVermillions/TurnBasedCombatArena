@@ -1,4 +1,4 @@
-package tbca.engine;
+package tbca.engine.difficulty;
 
 import java.util.List;
 

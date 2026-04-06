@@ -3,6 +3,7 @@ package tbca.engine;
 import java.util.List;
 
 import tbca.combatant.Combatant;
+import tbca.engine.difficulty.GameDifficulty;
 
 public interface GameStateReadOnly {
     int currWave();

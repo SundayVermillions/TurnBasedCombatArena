@@ -2,6 +2,9 @@ package tbca.engine;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
+import tbca.engine.difficulty.EnemyBlueprint;
+import tbca.engine.difficulty.GameDifficulty;
+import tbca.engine.difficulty.Wave;
 
 import java.util.ArrayList;
 import java.util.List;

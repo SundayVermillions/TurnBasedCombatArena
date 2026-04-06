@@ -1,14 +1,11 @@
 package tbca.ui;
 
-import tbca.combatant.Combatant;
 import java.util.List;
 import tbca.combatant.player.playerclass.PlayerClass;
-import tbca.effect.StatusEffect;
-import tbca.engine.GameDifficulty;
+import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.results.ActionResults;
-import tbca.item.Item;
 import tbca.item.ItemType;
 
 public interface Ui {
