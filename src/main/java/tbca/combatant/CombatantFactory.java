@@ -51,6 +51,7 @@ public final class CombatantFactory {
     }
 
     // TODO: createEnemy(EnemyType enemyType, AiType aiType, List<ItemType> itemTypes)
+    // TODO: also need an Enemy method getAiType to return the AiType enum
     public static Combatant createEnemy(EnemyType enemyType, List<ItemType> itemTypes) {
         int count = enemyCounts.getOrDefault(enemyType, 0);
         String suffix = String.valueOf((char) ('A' + count));
