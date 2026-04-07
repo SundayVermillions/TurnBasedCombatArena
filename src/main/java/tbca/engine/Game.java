@@ -6,7 +6,6 @@ import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
-import tbca.engine.action.ActionFactory;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
@@ -39,6 +38,7 @@ public class Game {
         this.initialize();
 
         while (!gameState.hasGameEnded()) {
+            gameState.spawnNextWave();
             runWave(gameState);
         }
 
@@ -56,8 +56,6 @@ public class Game {
     }
 
     private void runWave(GameState gameState) {
-        gameState.spawnNextWave();
-
         // continue wave while enemies in currWave are alive and game has not ended
         while (!gameState.allCurrWaveEnemiesDead() && !gameState.hasGameEnded()) {
             this.gameState.incrementTurn();
@@ -65,16 +63,18 @@ public class Game {
             ActionParameters selection = this.ui.getPlayerAction((GameStateReadOnly) gameState);
             List<Combatant> turnOrder = turnOrderStrategy.determineTurnOrder(gameState);
 
-            for (Combatant combatant : turnOrder) {
+            for (Combatant combatant : turnOrder) { // after making player selection, commence turn
                 if (gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
                     break; // break if all enemies in this wave is dead, or player dies
-                if (!combatant.isAlive() || !combatant.canAct())
+                if (!combatant.isAlive())
+                    continue; // if enemy died before getting to move this turn, skip him
+                if (!combatant.canAct())
                     // TODO: this.ui.displayIncapacitated(combatant);
-                    continue; // if current combatant died midway through this turn or can't move, skip him
+                    continue; // if current actor can't move due to status, print message and skip him
 
                 // if is player, go with selected action. else, enemies can only basic attack
-                Action action = combatant.isPlayer() ? ActionFactory.create(selection)
-                                                        : ActionFactory.create(new BasicAttackParameters(combatant));
+                Action action = combatant.isPlayer() ? selection.createAction()
+                                                        : new BasicAttackParameters(combatant).createAction();
 
                 ActionResults actionResults = action.execute(gameState);
                 ui.displayActionResults(gameState, actionResults);
