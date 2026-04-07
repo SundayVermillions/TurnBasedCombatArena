@@ -5,6 +5,7 @@ import java.util.List;
 import tbca.engine.action.results.SpecialSkillResults;
 import tbca.engine.GameState;
 import tbca.engine.action.SpecialSkillType;
+import tbca.engine.logic.enemyai.AiType;
 
 import tbca.effect.StatusEffect;
 import tbca.item.Item;
@@ -24,6 +25,7 @@ public abstract class Combatant {
     private int specialSkillCooldown = 0;
     private final List<StatusEffect> effects = new ArrayList<>();
     private final List<Item> inventory = new ArrayList<>();
+    private AiType aiType;
 
     protected Combatant(String name, int maxHp, int attack, int defense, int speed) {
         this.name = name;
@@ -114,6 +116,8 @@ public abstract class Combatant {
     public int getSpeed() { return speed; }
     public boolean canAct() { return canAct; }
     public int getSpecialSkillCooldown() { return specialSkillCooldown; }
+    public AiType getAiType(){ return this.aiType; }
+
     
     public void setCurrHp(int hp) { this.currHp = Math.max(0, Math.min(maxHp, hp)); }
     public void setAttack(int attack) { this.attack = attack; }
@@ -121,7 +125,9 @@ public abstract class Combatant {
     public void setCanAct(boolean canAct) { this.canAct = canAct; }
     public void setInvulnerable(boolean inv) { this.invulnerable = inv; }
     public void setSpecialSkillCooldown(int cd) { this.specialSkillCooldown = cd; }
-    
+    public void setAiType(AiType aiType) {this.aiType = aiType; }
+
+
     public abstract boolean isPlayer();
     public abstract void takeTurn();
     public boolean isAlive() { return currHp > 0; }
