@@ -16,6 +16,7 @@ import tbca.item.ItemType;
 import tbca.item.Potion;
 import tbca.item.PowerStone;
 import tbca.item.SmokeBomb;
+import tbca.engine.logic.enemyai.AiType;
 
 public final class CombatantFactory {
     private static final Map<EnemyType, Integer> enemyCounts = new HashMap<>();
@@ -28,7 +29,7 @@ public final class CombatantFactory {
             case WIZARD  -> new Wizard();
         };
 
-        if (itemTypes != null) {
+        if (itemTypes != null && !itemTypes.isEmpty()) {
             for (ItemType type : itemTypes) {
                 player.addItem(createItemFromType(type));
             }
@@ -46,13 +47,13 @@ public final class CombatantFactory {
 
     // TODO: createEnemy(EnemyType enemyType, AiType aiType)
     // TODO: also, try not to use null, an empty list is better cause others can use built-in empty() to check
-    public static Combatant createEnemy(EnemyType enemyType) {
-        return createEnemy(enemyType, null);
+    public static Combatant createEnemy(EnemyType enemyType, AiType aiType) {
+        return createEnemy(enemyType, aiType, java.util.Collections.emptyList());
     }
 
     // TODO: createEnemy(EnemyType enemyType, AiType aiType, List<ItemType> itemTypes)
     // TODO: also need an Enemy method getAiType to return the AiType enum
-    public static Combatant createEnemy(EnemyType enemyType, List<ItemType> itemTypes) {
+    public static Combatant createEnemy(EnemyType enemyType, AiType aiType, List<ItemType> itemTypes) {
         int count = enemyCounts.getOrDefault(enemyType, 0);
         String suffix = String.valueOf((char) ('A' + count));
         enemyCounts.put(enemyType, count + 1);
@@ -61,6 +62,8 @@ public final class CombatantFactory {
             case GOBLIN -> new Goblin(suffix);
             case WOLF   -> new Wolf(suffix);
         };
+
+        enemy.setAiType(aiType);
 
         if (itemTypes != null) {
             for (ItemType type : itemTypes) {
