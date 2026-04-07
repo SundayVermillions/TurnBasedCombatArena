@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 public class DisplayOnly {
+    private static final int TURN_HEADER_WIDTH = 41;
+
+
     public void displayMenu() {
         System.out.println("=========================================");
         System.out.println("       TURN-BASED COMBAT ARENA           ");
@@ -21,8 +24,9 @@ public class DisplayOnly {
     }
 
     public void displayTurnStart(GameStateReadOnly gameState) {
-        System.out.println("\n--- Wave " + gameState.currWave() + " | Turn " + gameState.getCurrTurn() + " ---");
-        System.out.printf("0. %-12s: %-20s (%3d/%3d)%n",
+        String header = "--- Wave " + gameState.currWave() + " | Turn " + gameState.getCurrTurn() + " ---";
+        System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));//Center header based on health bar width
+        System.out.printf("%-12s: %-20s (%3d/%3d)%n",
                 "Player",
                 healthBar(gameState.getPlayer().getCurrHp(), gameState.getPlayer().getMaxHp()),
                 gameState.getPlayer().getCurrHp(),
@@ -31,10 +35,9 @@ public class DisplayOnly {
         for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
             Combatant enemy = gameState.getCurrEnemies().get(i);
             if (enemy.getCurrHp() <= 0) {
-                System.out.println((i + 1) + ". " + enemy.getName() + ": DEAD");
+                System.out.println(String.format("%-12s: DEAD", enemy.getName()));
             } else {
-                System.out.printf("%d. %-12s: %-20s (%3d/%3d)%n",
-                        i + 1,
+                System.out.printf("%-12s: %-20s (%3d/%3d)%n",
                         enemy.getName(),
                         healthBar(enemy.getCurrHp(), enemy.getMaxHp()),
                         enemy.getCurrHp(),
@@ -251,6 +254,15 @@ public class DisplayOnly {
         }
         bar.append("]");
         return bar.toString();
+    }
+
+    //Function to center header based on health bar width
+    private static String centerText(String text, int width) {
+        if (text.length() >= width) {
+            return text;
+        }
+        int leftPadding = (width - text.length()) / 2;
+        return " ".repeat(leftPadding) + text;
     }
 
 }
