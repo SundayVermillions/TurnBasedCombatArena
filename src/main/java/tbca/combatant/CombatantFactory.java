@@ -44,9 +44,13 @@ public final class CombatantFactory {
         };
     }
 
+    // TODO: createEnemy(EnemyType enemyType, AiType aiType)
+    // TODO: also, try not to use null, an empty list is better cause others can use built-in empty() to check
     public static Combatant createEnemy(EnemyType enemyType) {
         return createEnemy(enemyType, null);
     }
+
+    // TODO: createEnemy(EnemyType enemyType, AiType aiType, List<ItemType> itemTypes)
     public static Combatant createEnemy(EnemyType enemyType, List<ItemType> itemTypes) {
         int count = enemyCounts.getOrDefault(enemyType, 0);
         String suffix = String.valueOf((char) ('A' + count));
