@@ -2,16 +2,17 @@ package tbca.engine;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
-import tbca.combatant.enemy.EnemyType;
+import tbca.engine.difficulty.EnemyBlueprint;
+import tbca.engine.difficulty.GameDifficulty;
+import tbca.engine.difficulty.WaveBlueprint;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameState implements GameStateReadOnly {
     private final GameDifficulty difficulty;
     private Combatant player;
-    private List<Combatant> currEnemies = new ArrayList<>();;
+    private List<Combatant> currEnemies = new ArrayList<>();
 
     private int currWave = 0; // 1-indexed, 0 signifies no wave started
     private int currTurn = 0;
@@ -25,15 +26,13 @@ public class GameState implements GameStateReadOnly {
         if (!this.hasMoreWaves()) {
             return;
         }
-        Map<EnemyType, Integer> nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
+        WaveBlueprint nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
         currWave++;
 
         this.currEnemies.clear();
-        nextWaveSpawn.forEach((enemyType, count) -> {
-            for (int i = 0; i < count; i++) {
-                this.currEnemies.add(CombatantFactory.createEnemy(enemyType));
-            }
-        });
+        for (EnemyBlueprint enemy : nextWaveSpawn.enemies()) {
+            this.currEnemies.add(CombatantFactory.createEnemy(enemy.enemyType(), enemy.ai(), enemy.startingItems()));
+        }
     }
 
     public boolean isPlayerAlive() {

@@ -24,17 +24,9 @@ public class SpecialSkillAction extends Action {
 
     @Override
     public ActionResults execute(GameState gameState) {
-        if(actor.isPlayer()){
-            Player player = (Player) actor;
-            SpecialSkillResults results = player.executeSpecialSkill(gameState, targetEnemyIndex);
+            SpecialSkillResults results = actor.executeSpecialSkill(gameState, targetEnemyIndex);
 
             return results;
         }
-        else{
-            System.out.println(actor.getName() + " cannot use a special skill!");
-            //return exception in this area
 
-        }
-        return new SpecialSkillResults(actor);
-    }
 }

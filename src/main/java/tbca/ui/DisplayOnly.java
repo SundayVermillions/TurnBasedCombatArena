@@ -14,45 +14,61 @@ import java.util.List;
 import java.util.Map;
 
 public class DisplayOnly {
+    private static final int TURN_HEADER_WIDTH = 41;
+
+
     public void displayMenu() {
         System.out.println("=========================================");
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
     }
 
+    private void displayTurnStartFormat(Combatant actor)
+    {
+        System.out.printf("%-12s: %-20s (%3d/%3d)",
+                actor.getName(),
+                healthBar(actor.getCurrHp(), actor.getMaxHp()),
+                actor.getCurrHp(),
+                actor.getMaxHp());
+        if(!actor.getEffects().isEmpty())
+        {
+            System.out.print("[");
+            for(int j = 0; j < actor.getEffects().size(); j++) {
+                System.out.print(actor.getEffects().get(j).getName());
+                if(j < actor.getEffects().size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.print("]");
+        }
+        System.out.println();
+    }
+
     public void displayTurnStart(GameStateReadOnly gameState) {
-        System.out.println("\n--- Wave " + gameState.currWave() + " | Turn " + gameState.getCurrTurn() + " ---");
-        System.out.printf("0. %-12s: %-20s (%3d/%3d)%n",
-                "Player",
-                healthBar(gameState.getPlayer().getCurrHp(), gameState.getPlayer().getMaxHp()),
-                gameState.getPlayer().getCurrHp(),
-                gameState.getPlayer().getMaxHp());
+        String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
+        System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));//Center header based on health bar width
+
+        displayTurnStartFormat(gameState.getPlayer());
 
         for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
             Combatant enemy = gameState.getCurrEnemies().get(i);
             if (enemy.getCurrHp() <= 0) {
-                System.out.println((i + 1) + ". " + enemy.getName() + ": DEAD");
+                System.out.println(String.format("%-12s: DEAD", enemy.getName()));
             } else {
-                System.out.printf("%d. %-12s: %-20s (%3d/%3d)%n",
-                        i + 1,
-                        enemy.getName(),
-                        healthBar(enemy.getCurrHp(), enemy.getMaxHp()),
-                        enemy.getCurrHp(),
-                        enemy.getMaxHp());
-            }
+                displayTurnStartFormat(enemy);
+                }
         }
-        System.out.println();
-
+        displayItemsAndCooldown(gameState);
     }
+
 
     public void displayTurnEnd(GameStateReadOnly gameState) {
         System.out.println();
         System.out.printf("End of Turn: %d\n", gameState.getCurrTurn());
 
-        displayPlayerAndEnemyStats(gameState);
-        displayItemsAndCooldown(gameState);
+        //displayPlayerAndEnemyStats(gameState);
     }
-
+    /*
     private void displayPlayerAndEnemyStats(GameStateReadOnly gameState) {
         // Player HP
         System.out.printf("%s HP: %d/%d | ",
@@ -78,11 +94,12 @@ public class DisplayOnly {
             }
         }
         System.out.println();
-    }
+    }*/
 
     private void displayItemsAndCooldown(GameStateReadOnly gameState) {
         Player player = (Player) gameState.getPlayer();
         List<Item> inventory = player.getInventory();
+        System.out.print("Inventory: ");
         if (inventory.isEmpty()) {
             System.out.print("Inventory is empty!|");
         } else {
@@ -91,13 +108,12 @@ public class DisplayOnly {
                 String itemName = item.getName();
                 groupedItems.put(itemName, groupedItems.getOrDefault(itemName, 0) + 1);
             }
-            System.out.print(" | ");
             for (Map.Entry<String, Integer> entry : groupedItems.entrySet()) {
-                System.out.print(entry.getKey() + ": " + entry.getValue() + " ");
+                System.out.print(entry.getKey() + " x" + entry.getValue() + " ");
             }
         }
-        System.out.printf("|Special Skills Cooldown: Round %d",
-                gameState.getPlayer().getSpecialSkillCooldown());
+        System.out.printf("\nSpecial Skill (%s) Cooldown: %d",
+                gameState.getPlayer().getSpecialSkillType().getDisplayName(),gameState.getPlayer().getSpecialSkillCooldown());
         System.out.println();
     }
 
@@ -251,6 +267,15 @@ public class DisplayOnly {
         }
         bar.append("]");
         return bar.toString();
+    }
+
+    //Function to center header based on health bar width
+    private static String centerText(String text, int width) {
+        if (text.length() >= width) {
+            return text;
+        }
+        int leftPadding = (width - text.length()) / 2;
+        return " ".repeat(leftPadding) + text;
     }
 
 }

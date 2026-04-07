@@ -6,10 +6,10 @@ import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
-import tbca.engine.action.ActionFactory;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
+import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
 import tbca.item.ItemType;
@@ -38,41 +38,11 @@ public class Game {
         this.initialize();
 
         while (!gameState.hasGameEnded()) {
+            gameState.spawnNextWave();
             runWave(gameState);
         }
 
         this.ui.showEndingScreen(this.gameState); // either victory or loss
-    }
-
-    private void runWave(GameState gameState) {
-        gameState.spawnNextWave();
-
-        // continue wave while enemies in curr wave are alive and game has not ended
-        while (!gameState.allCurrWaveEnemiesDead() && !gameState.hasGameEnded()) {
-            this.gameState.incrementTurn();
-            this.ui.displayTurnStart((GameStateReadOnly) gameState);
-            ActionParameters selection = this.ui.getPlayerAction((GameStateReadOnly) gameState);
-            List<Combatant> turnOrder = turnOrderStrategy.determineTurnOrder(gameState);
-
-            for (Combatant combatant : turnOrder) {
-                if (gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
-                    break; // break if all enemies in this wave is dead, or player dies
-                if (!combatant.isAlive() || !combatant.canAct())
-                    continue; // if current combatant died midway through this turn or can't move, skip him
-
-                // if is player, go with selected action. else, enemies can only basic attack
-                Action action = combatant.isPlayer() ? ActionFactory.create(selection)
-                                                        : ActionFactory.create(new BasicAttackParameters(combatant));
-
-                ActionResults actionResults = action.execute(gameState);
-                ui.displayActionResults(gameState, actionResults);
-            }
-            // tick all active effects for all live combatants
-            for (Combatant combatant : turnOrder) {
-                combatant.tickAll();
-            }
-            this.ui.displayTurnEnd(gameState);
-        }
     }
 
     private void initialize() {
@@ -85,7 +55,36 @@ public class Game {
         this.gameState = new GameState(player, selectedDifficulty);
     }
 
-    public void reset() {
-        Game.gameInstance = new Game();
+    private void runWave(GameState gameState) {
+        // continue wave while enemies in currWave are alive and game has not ended
+        while (!gameState.allCurrWaveEnemiesDead() && !gameState.hasGameEnded()) {
+            this.gameState.incrementTurn();
+            this.ui.displayTurnStart((GameStateReadOnly) gameState);
+            ActionParameters selection = this.ui.getPlayerAction((GameStateReadOnly) gameState);
+            List<Combatant> turnOrder = turnOrderStrategy.determineTurnOrder(gameState);
+
+            for (Combatant combatant : turnOrder) { // after making player selection, commence turn
+                if (gameState.allCurrWaveEnemiesDead() || gameState.hasGameEnded())
+                    break; // break if all enemies in this wave is dead, or player dies
+                if (!combatant.isAlive())
+                    continue; // if enemy died before getting to move this turn, skip him
+                if (!combatant.canAct())
+                    // TODO: this.ui.displayIncapacitated(combatant);
+                    continue; // if current actor can't move due to status, print message and skip him
+
+                // if is player, go with selected action. else, enemies can only basic attack
+                Action action = combatant.isPlayer() ? selection.createAction()
+                                                        : new BasicAttackParameters(combatant).createAction();
+
+                ActionResults actionResults = action.execute(gameState);
+                ui.displayActionResults(gameState, actionResults);
+            }
+            // tick all active effects for all live combatants
+            for (Combatant combatant : turnOrder) {
+                combatant.tickAll();
+            }
+            this.ui.displayTurnEnd(gameState);
+        }
     }
+
 }
