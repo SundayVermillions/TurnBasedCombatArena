@@ -83,7 +83,7 @@ public class Selection {
     }
 
     private void printItemOption(int optionNumber, ItemType itemType) {
-        System.out.printf("%d: %-12s -- %s%n",
+        System.out.printf("%d: %-12s -- %s\n",
                 optionNumber,
                 itemType.getDisplayName(),
                 ITEM_EFFECTS.getOrDefault(itemType, "No effect description."));
@@ -122,7 +122,7 @@ public class Selection {
 
     // Helper method to print aligned lines for class attributes and special skill description
     private void printAlignedLine(String label, String value) {
-        System.out.printf("  %-14s : %s%n", label, value);
+        System.out.printf("  %-14s : %s\n", label, value);
     }
 
 
@@ -207,7 +207,7 @@ public class Selection {
         for(int i = 0; i < inventory.size(); i++)
         {
             ItemType itemType = inventory.get(i).getType();
-            System.out.printf("%d: %-12s -- %s%n", //make it align 
+            System.out.printf("%d: %-12s -- %s\n", //make it align
                     i + 1,
                     itemType.getDisplayName(),
                     ITEM_EFFECTS.getOrDefault(itemType, "No effect description."));
