@@ -88,6 +88,7 @@ public class Selection {
     private void displayClassOptions() {
         //wizard.ToString();
         //warrior.ToString();
+
         System.out.println("Select your class:");
         System.out.println("1: Warrior");
         System.out.println("HP: 260");
