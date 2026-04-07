@@ -12,7 +12,7 @@ import java.util.List;
 public class GameState implements GameStateReadOnly {
     private final GameDifficulty difficulty;
     private Combatant player;
-    private List<Combatant> currEnemies = new ArrayList<>();;
+    private List<Combatant> currEnemies = new ArrayList<>();
 
     private int currWave = 0; // 1-indexed, 0 signifies no wave started
     private int currTurn = 0;
@@ -31,7 +31,7 @@ public class GameState implements GameStateReadOnly {
 
         this.currEnemies.clear();
         for (EnemyBlueprint enemy : nextWaveSpawn.enemies()) {
-            this.currEnemies.add(CombatantFactory.createEnemy(enemy.enemyType(), enemy.startingItems()));
+            this.currEnemies.add(CombatantFactory.createEnemy(enemy.enemyType(), enemy.ai(), enemy.startingItems()));
         }
     }
 
