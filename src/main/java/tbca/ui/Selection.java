@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Selection {
+    private static final List<GameDifficulty> DIFFICULTY_OPTIONS = List.of(GameDifficulty.values());
+
     // List of starting item options for selection
     private static final List<ItemType> STARTING_ITEM_OPTIONS = List.of(
             ItemType.POTION,
@@ -36,23 +38,15 @@ public class Selection {
 
     public GameDifficulty promptDifficulty() {
         displayDifficultyOptions();
-        int choice = inputValidator.getIntInput("Enter choice: ", 1, 3);
-        return switch (choice) {
-            case 1 -> GameDifficulty.EASY;
-            case 2 -> GameDifficulty.MEDIUM;
-            case 3 -> GameDifficulty.HARD;
-            default -> {
-                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
-                yield GameDifficulty.MEDIUM;
-            }
-        };
+        int choice = inputValidator.getIntInput("Enter choice: ", 1, DIFFICULTY_OPTIONS.size());
+        return DIFFICULTY_OPTIONS.get(choice - 1);
     }
 
     private void displayDifficultyOptions() {
         System.out.println("\nSelect game difficulty:");
-        System.out.println("1. Easy");
-        System.out.println("2. Medium");
-        System.out.println("3. Hard");
+        for (int i = 0; i < DIFFICULTY_OPTIONS.size(); i++) {
+            System.out.println((i + 1) + ". " + DIFFICULTY_OPTIONS.get(i).getLabel());
+        }
     }
 
     public List<ItemType> itemSelection()
