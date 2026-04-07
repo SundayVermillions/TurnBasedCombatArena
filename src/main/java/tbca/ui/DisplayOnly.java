@@ -277,5 +277,12 @@ public class DisplayOnly {
         int leftPadding = (width - text.length()) / 2;
         return " ".repeat(leftPadding) + text;
     }
+    public void displayIncapacitated(Combatant combatant)
+    {
+        if(!combatant.canAct())
+        {
+            System.out.println(combatant.getName() + "is unable to move!");
+        }
+    }
 
 }

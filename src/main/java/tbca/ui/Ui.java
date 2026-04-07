@@ -1,6 +1,8 @@
 package tbca.ui;
 
 import java.util.List;
+
+import tbca.combatant.Combatant;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
@@ -32,5 +34,5 @@ public interface Ui {
 //                              List<StatusEffect> statuses);
     void displayTurnStart(GameStateReadOnly gameState);
     void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex);
-    // TODO: void displayIncapacitated(Combatant combatant);
+    void displayIncapacitated(Combatant combatant);
 }

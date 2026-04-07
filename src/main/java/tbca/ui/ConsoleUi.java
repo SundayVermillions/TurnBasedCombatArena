@@ -1,5 +1,6 @@
 package tbca.ui;
 
+import tbca.combatant.Combatant;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.GameStateReadOnly;
@@ -63,6 +64,11 @@ public class ConsoleUi implements Ui{
     @Override
     public void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex) {
         displayOnly.displayEnemyDefeated(gameState,enemyIndex);
+    }
+
+    @Override
+    public void displayIncapacitated(Combatant combatant) {
+        displayOnly.displayIncapacitated(combatant);
     }
  /*
     @Override
