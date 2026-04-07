@@ -4,7 +4,7 @@ import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
 import tbca.engine.difficulty.EnemyBlueprint;
 import tbca.engine.difficulty.GameDifficulty;
-import tbca.engine.difficulty.Wave;
+import tbca.engine.difficulty.WaveBlueprint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class GameState implements GameStateReadOnly {
         if (!this.hasMoreWaves()) {
             return;
         }
-        Wave nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
+        WaveBlueprint nextWaveSpawn = difficulty.getEnemySpawnList().get(currWave);
         currWave++;
 
         this.currEnemies.clear();

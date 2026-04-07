@@ -1,5 +1,7 @@
 package tbca.engine.difficulty;
 
+import tbca.engine.logic.enemyai.AiType;
+
 import java.util.List;
 
 import static tbca.combatant.enemy.EnemyType.GOBLIN;
@@ -10,7 +12,7 @@ public enum GameDifficulty {
     EASY("Easy",
             List.of(
                 // Wave 1
-                new Wave(List.of(
+                new WaveBlueprint(List.of(
                         new EnemyBlueprint(GOBLIN),
                         new EnemyBlueprint(GOBLIN)
                 ))
@@ -20,12 +22,12 @@ public enum GameDifficulty {
     MEDIUM("Medium",
             List.of(
                     // Wave 1
-                    new Wave(List.of(
+                    new WaveBlueprint(List.of(
                             new EnemyBlueprint(GOBLIN),
                             new EnemyBlueprint(WOLF)
                     )),
                     // Wave 2
-                    new Wave(List.of(
+                    new WaveBlueprint(List.of(
                             new EnemyBlueprint(WOLF),
                             new EnemyBlueprint(WOLF)
                     ))
@@ -35,12 +37,12 @@ public enum GameDifficulty {
     HARD("Hard",
             List.of(
                     // Wave 1
-                    new Wave(List.of(
+                    new WaveBlueprint(List.of(
                             new EnemyBlueprint(GOBLIN),
                             new EnemyBlueprint(GOBLIN)
                     )),
                     // Wave 2
-                    new Wave(List.of(
+                    new WaveBlueprint(List.of(
                             new EnemyBlueprint(GOBLIN),
                             new EnemyBlueprint(WOLF),
                             new EnemyBlueprint(WOLF)
@@ -51,29 +53,29 @@ public enum GameDifficulty {
     EXTREME("Extreme",
             List.of(
                     // Wave 1
-                    new Wave(List.of(
-                            new EnemyBlueprint(GOBLIN, List.of(POTION)),
-                            new EnemyBlueprint(GOBLIN, List.of(POTION))
+                    new WaveBlueprint(List.of(
+                            new EnemyBlueprint(GOBLIN, AiType.ADVANCED, List.of(POTION)),
+                            new EnemyBlueprint(GOBLIN, AiType.ADVANCED, List.of(POTION))
                     )),
                     // Wave 2
-                    new Wave(List.of(
-                            new EnemyBlueprint(GOBLIN, List.of(POTION)),
-                            new EnemyBlueprint(WOLF),
-                            new EnemyBlueprint(WOLF)
+                    new WaveBlueprint(List.of(
+                            new EnemyBlueprint(GOBLIN, AiType.ADVANCED, List.of(POTION)),
+                            new EnemyBlueprint(WOLF, AiType.ADVANCED),
+                            new EnemyBlueprint(WOLF, AiType.ADVANCED)
                     ))
             ));
 
 
     private final String label;
-    private final List<Wave> enemySpawn;
+    private final List<WaveBlueprint> enemySpawn;
 
     GameDifficulty(String label,
-                   List<Wave> enemySpawn) {
+                   List<WaveBlueprint> enemySpawn) {
         this.label = label;
         this.enemySpawn = enemySpawn;
     }
 
-    public List<Wave> getEnemySpawnList() {
+    public List<WaveBlueprint> getEnemySpawnList() {
         return enemySpawn;
     }
 
