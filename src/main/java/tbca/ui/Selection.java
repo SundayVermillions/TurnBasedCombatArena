@@ -107,8 +107,13 @@ public class Selection {
         printAlignedLine("Attack", String.valueOf(playerClass.getAttack()));
         printAlignedLine("Defense", String.valueOf(playerClass.getDefense()));
         printAlignedLine("Speed", String.valueOf(playerClass.getSpeed()));
-        String skillEffect = skillType.getDescription();
-        printAlignedLine("Special Skill", skillType.getDisplayName() + " - " + skillEffect);
+
+        String skillText = "[" + skillType.getDisplayName() + "] " + skillType.getDescription();
+        String[] lines = skillText.split("\n");
+        System.out.printf("  %-15s: %s%n", "Special Skill", lines[0]);
+        for (int i = 1; i < lines.length; i++) {
+            System.out.printf("%19s%s%n", "", lines[i]);
+        }
         System.out.println();
     }
 
