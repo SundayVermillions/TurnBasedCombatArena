@@ -17,7 +17,7 @@ public class DisplayOnly {
     private static final int TURN_HEADER_WIDTH = 41;
 
 
-    public void displayMenu() {
+    public static void displayMenu() {
         System.out.println("=========================================");
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
@@ -27,7 +27,7 @@ public class DisplayOnly {
         System.out.println();
     }
 
-    private void displayTurnStartFormat(Combatant actor)
+    private static void displayTurnStartFormat(Combatant actor)
     {
         System.out.printf("%-12s: %-20s (%3d/%3d)",
                 actor.getName(),
