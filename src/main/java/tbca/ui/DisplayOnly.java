@@ -176,13 +176,10 @@ public class DisplayOnly {
             }
             case SPECIAL_SKILL -> {
                 SpecialSkillResults skillResults = (SpecialSkillResults) actionResults;
-                if (skillResults.targets().isEmpty()) {
-                    System.out.println(skillResults.actor().getName() + "'s skill is still charging!");
-                } else {
-                    displaySpecialSkill(gameState, skillResults.actor(),
+                displaySpecialSkill(gameState, skillResults.actor(),
                             skillResults.targets(), skillResults.dmg(),
                             skillResults.statusEffects());
-                }
+
             }
 
         }
