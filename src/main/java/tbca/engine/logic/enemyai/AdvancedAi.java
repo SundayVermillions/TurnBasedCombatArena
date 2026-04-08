@@ -3,24 +3,62 @@ package tbca.engine.logic.enemyai;
 import tbca.combatant.Combatant;
 import tbca.engine.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
+import tbca.engine.action.parameters.BasicAttackParameters;
+import tbca.engine.action.parameters.SpecialSkillParameters;
+import tbca.engine.action.parameters.UseItemParameters;
+import tbca.item.ItemType;
+import java.util.Random;
 
 public class AdvancedAi implements AiController {
+    private static final Random RAND = new Random();
+
     @Override
     public ActionParameters decide(Combatant npc, GameStateReadOnly gameState) {
-        return new SimpleAi().decide(npc, gameState); // TODO
+        ActionParameters action;
+
+        action = considerItem(npc, gameState);
+        if (action != null) return action;
+
+        action = considerSpecialSkill(npc);
+        if (action != null) return action;
+
+        return new BasicAttackParameters(npc);
+    }
+
+    private ActionParameters considerItem(Combatant npc, GameStateReadOnly gameState) {
+        if (npc.hasItem(ItemType.POTION) && considerHeal(npc, gameState)) {
+            return new UseItemParameters(npc, ItemType.POTION);
+        }
+
+        if (npc.hasItem(ItemType.SMOKE_BOMB) && considerSmokeBomb(gameState)) {
+            return new UseItemParameters(npc, ItemType.SMOKE_BOMB);
+        }
+
+        return null;
+    }
+
+    private ActionParameters considerSpecialSkill(Combatant npc) {
+        if (npc.hasSpecialSkill() && npc.getSpecialSkillCooldown() == 0) {
+            if (RAND.nextDouble() < 0.7) {
+                System.out.println(npc.getName());
+                return new SpecialSkillParameters(npc, 0);
+            }
+        }
+        return null;
+    }
+
+
+    private boolean considerHeal(Combatant npc, GameStateReadOnly gameState) {
+        int predictedDamage = gameState.getPlayer().getAttack() - npc.getDefense();
+
+        if (predictedDamage >= npc.getCurrHp()) {
+            boolean isFaster = npc.getSpeed() > gameState.getPlayer().getSpeed();
+            return isFaster || RAND.nextDouble() < 0.2;
+        }
+        return false;
+    }
+
+    private boolean considerSmokeBomb(GameStateReadOnly gameState) {
+        return gameState.getPlayer().getSpecialSkillCooldown() == 0 && RAND.nextDouble() < 0.4;
     }
 }
-
-// TODO: implement this after darshan/smyan/ui guys finish their parts
-// general purpose ai.
-//
-//
-// item usage
-//first, check if npc has a potion. then check if player's attack - current enemy's def is higher than current hp. if so, if current enemy is faster, use potion, otherwise, high chance of attack and low chance of using potion
-//check if enemy have a smoke bomb. if so, check if player has specialskill active. if so, slightly higher chance of using smoke bomb or defending
-//
-//specialskill usage
-//check if enemy has a specialskill. if so, and not on cooldown, high chance of using specialskill
-//
-//basicattack usage
-//if enemy has no items left and no specialskills,

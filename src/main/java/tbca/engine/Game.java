@@ -10,6 +10,7 @@ import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.difficulty.GameDifficulty;
+import tbca.engine.logic.enemyai.AiController;
 import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
 import tbca.item.ItemType;
@@ -74,7 +75,9 @@ public class Game {
 
                 // if is player, go with selected action. else, enemies can only basic attack
                 Action action = combatant.isPlayer() ? selection.createAction()
-                                                        : new BasicAttackParameters(combatant).createAction();
+                                                        : AiController.get(combatant.getAiType())
+                                                                      .decide(combatant, gameState)
+                                                                      .createAction();
 
                 ActionResults actionResults = action.execute(gameState);
                 ui.displayActionResults(gameState, actionResults);
