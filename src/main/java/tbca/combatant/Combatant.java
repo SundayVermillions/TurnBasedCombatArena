@@ -2,12 +2,12 @@ package tbca.combatant;
 
 import java.util.ArrayList;
 import java.util.List;
-import tbca.engine.action.results.SpecialSkillResults;
-import tbca.engine.GameState;
-import tbca.engine.action.SpecialSkillType;
-import tbca.engine.logic.enemyai.AiType;
 
 import tbca.effect.StatusEffect;
+import tbca.engine.GameState;
+import tbca.engine.action.SpecialSkillType;
+import tbca.engine.action.results.SpecialSkillResults;
+import tbca.engine.logic.enemyai.AiType;
 import tbca.item.Item;
 
 public abstract class Combatant {
@@ -101,8 +101,21 @@ public abstract class Combatant {
         return true;
     }
 
+    public boolean hasItem(tbca.item.ItemType type) {
+        for (Item item : inventory) {
+            if (item.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void decrementCooldown() {
         if (specialSkillCooldown > 0) specialSkillCooldown--;
+    }
+
+    public boolean hasSpecialSkill() {
+        return this.getSpecialSkillType() != SpecialSkillType.NONE;
     }
     
     public void resetAttack() { this.attack = baseAttack; }
