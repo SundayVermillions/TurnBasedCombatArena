@@ -229,7 +229,6 @@ public class DisplayOnly {
         } else {
             Combatant victim = gameState.getPlayer();
             int dmgAmount = damage.isEmpty() ? 0: damage.get(0);
-            //String skillName = actor.getSpecialSkillName();
             String skillName = actor.getSpecialSkillType().getDisplayName();
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
             System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
