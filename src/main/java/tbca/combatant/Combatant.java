@@ -19,7 +19,6 @@ public abstract class Combatant {
     private final int baseDefense;
     private int defense;
     private final int speed;
-    private SpecialSkillType specialSkillType;
 
     private boolean canAct = true;
     private boolean invulnerable = false;
@@ -116,7 +115,7 @@ public abstract class Combatant {
     }
 
     public boolean hasSpecialSkill() {
-        return this.specialSkillType != SpecialSkillType.NONE;
+        return this.getSpecialSkillType() != SpecialSkillType.NONE;
     }
     
     public void resetAttack() { this.attack = baseAttack; }
