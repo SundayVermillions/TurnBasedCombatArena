@@ -39,7 +39,7 @@ public class AdvancedAi implements AiController {
 
     private ActionParameters considerSpecialSkill(Combatant npc) {
         if (npc.hasSpecialSkill() && npc.getSpecialSkillCooldown() == 0) {
-            if (RAND.nextDouble() < 0.7) {
+            if (RAND.nextDouble() < 0.8) {
                 System.out.println(npc.getName());
                 return new SpecialSkillParameters(npc, 0);
             }
@@ -53,8 +53,9 @@ public class AdvancedAi implements AiController {
 
         if (predictedDamage >= npc.getCurrHp()) {
             boolean isFaster = npc.getSpeed() > gameState.getPlayer().getSpeed();
-            return isFaster || RAND.nextDouble() < 0.2;
+            return isFaster || RAND.nextDouble() < 0.6;
         }
+
         return false;
     }
 
