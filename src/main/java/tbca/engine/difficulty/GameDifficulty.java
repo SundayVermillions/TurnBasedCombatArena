@@ -10,6 +10,7 @@ import static tbca.item.ItemType.POTION;
 
 public enum GameDifficulty {
     EASY("Easy",
+            "Suitable for players new to turn-based games!",
             List.of(
                 // Wave 1
                 new WaveBlueprint(List.of(
@@ -20,6 +21,7 @@ public enum GameDifficulty {
     ),
 
     MEDIUM("Medium",
+            "The default experience!",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(
@@ -35,6 +37,7 @@ public enum GameDifficulty {
     ),
 
     HARD("Hard",
+            "For players who want to challenge themselves",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(
@@ -51,6 +54,7 @@ public enum GameDifficulty {
     ),
 
     EXTREME("Extreme",
+            "WARNING: Enemies can now use items and skills. Select only if you're prepared.",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(
@@ -67,11 +71,14 @@ public enum GameDifficulty {
 
 
     private final String label;
+    private final String description;
     private final List<WaveBlueprint> enemySpawn;
 
     GameDifficulty(String label,
+                   String description,
                    List<WaveBlueprint> enemySpawn) {
         this.label = label;
+        this.description = description;
         this.enemySpawn = enemySpawn;
     }
 
@@ -79,6 +86,21 @@ public enum GameDifficulty {
         return enemySpawn;
     }
 
+    public int getTotalWaves() {
+        return this.enemySpawn.size();
+    }
+
+    public int getTotalEnemies() {
+        int result = 0;
+        for (WaveBlueprint wave : this.enemySpawn) {
+            result += wave.enemies().size();
+        }
+        return result;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 
     public String getLabel() {
         return label;
