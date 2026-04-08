@@ -15,6 +15,43 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Selection {
+    DisplayOnly displayOnly;
+    InputValidator inputValidator;
+
+    public Selection() {
+        this.inputValidator = new InputValidator(new Scanner(System.in));
+    }
+
+    public void startingMenu()
+    {
+        displayOnly.displayMenu();
+        int choice = inputValidator.getIntInput("Enter choice: ", 1, 2);
+        switch(choice){
+            case 1:
+                return;
+            case 2:
+                showDetails();
+                break;
+        }
+    }
+
+    private void showDetails(){
+        System.out.println("\n=========================================");
+        System.out.println("              INFORMATION                ");
+        System.out.println("=========================================");
+        System.out.println();
+        System.out.println("1. Player Stats");
+        System.out.println("2. Enemy Stats");
+        System.out.println("3. Debuffs/Status Effects");
+        System.out.println("4. Item Details");
+        System.out.println("5. Difficulty Info");
+        System.out.println("6. Back to Main Menu");
+        System.out.println();
+
+        int choice = inputValidator.getIntInput("Enter choice: ", 1, 6);
+    }
+
+
     private static final List<GameDifficulty> DIFFICULTY_OPTIONS = List.of(GameDifficulty.values());
 
     // List of starting item options for selection
@@ -30,11 +67,6 @@ public class Selection {
             ItemType.POWER_STONE, "Free extra use of Special Skill (no cooldown change)",
             ItemType.SMOKE_BOMB, "Enemy attacks deal 0 damage for this and next turn"
     );
-
-    InputValidator inputValidator;
-    public Selection() {
-        this.inputValidator = new InputValidator(new Scanner(System.in));
-    }
 
     public GameDifficulty promptDifficulty() {
         displayDifficultyOptions();

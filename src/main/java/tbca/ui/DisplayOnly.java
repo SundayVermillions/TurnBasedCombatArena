@@ -21,6 +21,10 @@ public class DisplayOnly {
         System.out.println("=========================================");
         System.out.println("       TURN-BASED COMBAT ARENA           ");
         System.out.println("=========================================\n");
+        System.out.println();
+        System.out.println("1. Start Game");
+        System.out.println("2. View Stats/Details");
+        System.out.println();
     }
 
     private void displayTurnStartFormat(Combatant actor)

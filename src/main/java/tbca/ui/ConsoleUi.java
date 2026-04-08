@@ -14,12 +14,12 @@ public class ConsoleUi implements Ui{
     DisplayOnly displayOnly;
 
     public ConsoleUi() {
-        selection = new Selection();
         displayOnly = new DisplayOnly();
+        selection = new Selection();
     }
     @Override
     public void displayMenu() {
-        this.displayOnly.displayMenu();
+        this.selection.startingMenu();
     }
 
     @Override
