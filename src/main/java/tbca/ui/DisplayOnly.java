@@ -207,40 +207,51 @@ public class DisplayOnly {
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
                                      List<Integer> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
-
         if (actor.isPlayer()) {
             for (int i = 0; i < targets.size(); i++) {
                 int targetIndex = targets.get(i);
                 Combatant victim = gameState.getCurrEnemies().get(targetIndex);
                 int dmgAmount = damage.get(i);
-                //String skillName = actor.getSpecialSkillName();
                 String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
                 System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
                 if (statusEffects != null && !statusEffects.isEmpty()) {
                     StatusEffect effect = statusEffects.get(i);
                     if (effect != null) {
-                        System.out.print("-> inflicted with " + effect.getName());
+                        System.out.print(" -> inflicted with " + effect.getName());
                     }
-
                 }
                 System.out.println();
             }
         } else {
             Combatant victim = gameState.getPlayer();
-            int dmgAmount = damage.isEmpty() ? 0: damage.get(0);
+            int dmgAmount = damage.isEmpty() ? 0 : damage.get(0);
             String skillName = actor.getSpecialSkillType().getDisplayName();
+
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
-            System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+            if (dmgAmount > 0) {
+                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+            }
             if (statusEffects != null && !statusEffects.isEmpty()) {
                 StatusEffect effect = statusEffects.get(0);
                 if (effect != null) {
-                    System.out.print("-> inflicted with " + effect.getName());
-                }
+                    /*
+                    if(effect.isBuff())
+                    {
+                        System.out.print(actor.getName() + " buffed with " + effect.getName());
+                    }
+                    else
+                    {
+                        System.out.print(victim.getName() + " inflicted with " + effect.getName());
+                    }
 
+                     */
+                }
             }
         }
+            System.out.println();
     }
+
 
 
     public void displayEnemyDefeated(GameStateReadOnly gameState, int enemyIndex) {
