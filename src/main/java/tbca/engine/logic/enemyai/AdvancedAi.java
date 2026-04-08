@@ -40,7 +40,6 @@ public class AdvancedAi implements AiController {
     private ActionParameters considerSpecialSkill(Combatant npc) {
         if (npc.hasSpecialSkill() && npc.getSpecialSkillCooldown() == 0) {
             if (RAND.nextDouble() < 0.8) {
-                System.out.println(npc.getName());
                 return new SpecialSkillParameters(npc, 0);
             }
         }
