@@ -1,11 +1,11 @@
 package tbca.combatant.enemy;
 
+import java.util.List;
+
+import tbca.effect.AttackBuffEffect;
 import tbca.engine.GameState;
 import tbca.engine.action.SpecialSkillType;
 import tbca.engine.action.results.SpecialSkillResults;
-import tbca.effect.AttackBuffEffect;
-
-import java.util.List;
 
 public class Wolf extends Enemy {
     public Wolf(String suffix) {
@@ -18,17 +18,19 @@ public class Wolf extends Enemy {
 
     @Override
     public SpecialSkillResults executeSpecialSkill(GameState gameState, int targetIndex){
-        AttackBuffEffect buff = new AttackBuffEffect(2.0, 1);
-        this.addStatusEffect(buff);
+        if (getSpecialSkillCooldown() == 0) {
+            AttackBuffEffect buff = new AttackBuffEffect(2.0, 1);
+            this.addStatusEffect(buff);
 
-        this.setSpecialSkillCooldown(3);
+            this.setSpecialSkillCooldown(3);
 
-        return new SpecialSkillResults(
-                this,
-                List.of(),
-                List.of(),
-                List.of(buff)
-        );
+            return new SpecialSkillResults(
+                    this,
+                    List.of(),
+                    List.of(),
+                    List.of(buff)
+            );
+        }
+        return new SpecialSkillResults(this);
     }
-
 }
