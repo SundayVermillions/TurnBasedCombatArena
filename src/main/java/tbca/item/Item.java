@@ -2,10 +2,11 @@ package tbca.item;
 
 import tbca.combatant.Combatant;
 import tbca.engine.GameState;
-import tbca.engine.action.results.SpecialSkillResults;
+
+import tbca.engine.action.results.UseItemResults;
 
 public interface Item {
-    SpecialSkillResults use(Combatant user, GameState gameState, int targetIndex);
+    UseItemResults use(Combatant user, GameState gameState, int targetIndex);
     String getName();
     ItemType getType();
 }

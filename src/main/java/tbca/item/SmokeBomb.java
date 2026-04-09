@@ -3,14 +3,14 @@ package tbca.item;
 import tbca.combatant.Combatant;
 import tbca.effect.SmokeBombInvulnerability;
 import tbca.engine.GameState;
-import tbca.engine.action.results.SpecialSkillResults;
+import tbca.engine.action.results.UseItemResults;
 
 public class SmokeBomb implements Item {
 
     @Override
-    public SpecialSkillResults use(Combatant user, GameState gameState, int targetIndex) {
+    public UseItemResults use(Combatant user, GameState gameState, int targetIndex) {
         user.addStatusEffect(new SmokeBombInvulnerability());
-        return null;
+        return new UseItemResults(user, ItemType.SMOKE_BOMB);
     }
 
     @Override
