@@ -41,7 +41,7 @@ public class GameState implements GameStateReadOnly {
 
         this.fieldEffects.add(effect);
 //
-
+//
         effect.applyEffect(this);
     }
 
