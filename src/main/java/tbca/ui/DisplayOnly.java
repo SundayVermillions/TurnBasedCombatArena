@@ -60,7 +60,7 @@ public class DisplayOnly {
                 System.out.println(String.format("%-12s: DEAD", enemy.getName()));
             } else {
                 displayTurnStartFormat(enemy);
-                }
+            }
         }
         displayItemsAndCooldown(gameState);
     }
@@ -173,7 +173,7 @@ public class DisplayOnly {
 
                     if (!specialSkills.targets().isEmpty()) {
                         System.out.println("(Power Stone) " + itemResults.actor().getName() + " activated a bonus skill!");
-                        displaySpecialSkill(gameState, specialSkills.actor(), specialSkills.targets(), specialSkills.dmg(), specialSkills.statusEffects());
+                        displaySpecialSkill(gameState, specialSkills.actor(), specialSkills.targets(), specialSkills.hpChanges(), specialSkills.statusEffects());
                     }
 
                 }
@@ -181,8 +181,8 @@ public class DisplayOnly {
             case SPECIAL_SKILL -> {
                 SpecialSkillResults skillResults = (SpecialSkillResults) actionResults;
                 displaySpecialSkill(gameState, skillResults.actor(),
-                            skillResults.targets(), skillResults.dmg(),
-                            skillResults.statusEffects());
+                        skillResults.targets(), skillResults.hpChanges(),
+                        skillResults.statusEffects());
 
             }
 
@@ -209,12 +209,11 @@ public class DisplayOnly {
     }
 
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
-                                     List<Integer> targets, List<Integer> damage,
+                                     List<Combatant> targets, List<Integer> damage,
                                      List<StatusEffect> statusEffects) {
         if (actor.isPlayer()) {
             for (int i = 0; i < targets.size(); i++) {
-                int targetIndex = targets.get(i);
-                Combatant victim = gameState.getCurrEnemies().get(targetIndex);
+                Combatant victim = targets.get(i);
                 int dmgAmount = damage.get(i);
                 String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
@@ -253,7 +252,7 @@ public class DisplayOnly {
                 }
             }
         }
-            System.out.println();
+        System.out.println();
     }
 
 
