@@ -20,4 +20,8 @@ public class DefendEffect extends StatusEffect {
         target.setDefense(target.getDefense() - defenseBoost);
 
     }
+
+    public boolean isBuff(){
+        return true;
+    }
 }

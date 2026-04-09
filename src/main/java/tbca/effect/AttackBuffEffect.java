@@ -17,6 +17,10 @@ public class AttackBuffEffect extends StatusEffect {
         target.setAttack(newAttack);
     }
 
+    public boolean isBuff(){
+        return true;
+    }
+
     @Override
     public void removeEffect(Combatant target) {
         target.resetAttack();

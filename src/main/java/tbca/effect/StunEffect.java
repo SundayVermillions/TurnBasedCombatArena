@@ -16,5 +16,8 @@ public class StunEffect extends StatusEffect {
         target.setCanAct(true);
     }
 
+    public boolean isBuff(){
+        return false;
+    }
    
 }
