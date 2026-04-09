@@ -1,5 +1,6 @@
 package tbca.engine;
 
+import jdk.jshell.execution.JdiInitiator;
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
 import tbca.engine.difficulty.EnemyBlueprint;
@@ -44,7 +45,7 @@ public class GameState implements GameStateReadOnly {
             return true;
 
         for (Combatant enemy : currEnemies)
-            if (!enemy.isDead())
+            if (enemy.isAlive())
                 return false;
 
         return true;
@@ -66,7 +67,20 @@ public class GameState implements GameStateReadOnly {
 
     @Override
     public int getTotalWaves() {
-        return difficulty.getEnemySpawnList().size();
+        return difficulty.getTotalWaves();
+    }
+
+    @Override
+    public int getNumOfRemainingEnemies() {
+        int total = 0;
+        for (Combatant c : getCurrEnemies()) {
+            if (c.isAlive())
+                total++;
+        }
+        for (int wave = currWave; wave < getTotalWaves(); wave++) {
+            total += difficulty.getEnemySpawnList().get(wave).enemies().size();
+        }
+        return total;
     }
 
     @Override
@@ -86,12 +100,12 @@ public class GameState implements GameStateReadOnly {
 
     @Override
     public boolean hasMoreWaves() {
-        return currWave < difficulty.getEnemySpawnList().size();
+        return currWave < getTotalWaves();
     }
 
     @Override
     public boolean hasGameEnded() {
         return !isPlayerAlive() ||
-                (currWave == difficulty.getEnemySpawnList().size() && this.allCurrWaveEnemiesDead());
+                (currWave == difficulty.getTotalWaves() && this.allCurrWaveEnemiesDead());
     }
 }
