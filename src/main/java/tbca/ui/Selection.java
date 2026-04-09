@@ -147,7 +147,7 @@ public class Selection {
         for (ItemType itemType : STARTING_ITEM_OPTIONS) {
             System.out.printf("- %-12s : %s\n",
                     itemType.getDisplayName(),
-                    ITEM_EFFECTS.getOrDefault(itemType, "No effect description."));
+                    itemType.getDescription());
         }
         System.out.println();
     }
@@ -188,13 +188,6 @@ public class Selection {
             ItemType.POTION,
             ItemType.POWER_STONE,
             ItemType.SMOKE_BOMB
-    );
-
-    // Map to hold item effects for display purposes
-    private static final Map<ItemType, String> ITEM_EFFECTS = Map.of(
-            ItemType.POTION, "Heal 100 HP",
-            ItemType.POWER_STONE, "Free extra use of Special Skill (no cooldown change)",
-            ItemType.SMOKE_BOMB, "Enemy attacks deal 0 damage for this and next turn"
     );
 
     public GameDifficulty promptDifficulty() {
@@ -241,7 +234,7 @@ public class Selection {
         System.out.printf("%d: %-12s -- %s\n",
                 optionNumber,
                 itemType.getDisplayName(),
-                ITEM_EFFECTS.getOrDefault(itemType, "No effect description."));
+                itemType.getDescription());
     }
 
     public PlayerClass classChoice()
@@ -375,7 +368,7 @@ public class Selection {
             System.out.printf("%d: %-12s -- %s\n", //make it align
                     i + 1,
                     itemType.getDisplayName(),
-                    ITEM_EFFECTS.getOrDefault(itemType, "No effect description."));
+                    itemType.getDescription());
         }
         int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
         return inventory.get(itemChoice - 1).getType();
