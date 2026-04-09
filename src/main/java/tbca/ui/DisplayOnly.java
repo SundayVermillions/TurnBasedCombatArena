@@ -85,10 +85,10 @@
 
             if(!gameState.getActiveFieldEffects().isEmpty())
             {
-                System.out.print("Field Effect: ");
+                System.out.print("\nActive Field Effect: ");
                 for(int i = 0; i < gameState.getActiveFieldEffects().size(); i++) {
                     FieldEffect effect = gameState.getActiveFieldEffects().get(i);
-                    System.out.print(effect.getName());
+                    System.out.print(effect.getName() + "(" + effect.getTurnsRemaining() + " turn)");
                     if(i < gameState.getActiveFieldEffects().size() - 1) {
                         System.out.print(", ");
                     }

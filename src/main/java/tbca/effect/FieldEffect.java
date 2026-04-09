@@ -25,8 +25,7 @@ public abstract class FieldEffect {
     }
 
     public boolean isExpired() {
-        return turnsRemaining <= 0;
-    }
+        return turnsRemaining <= 0; }
     public String getName() {
         return name;
     }
