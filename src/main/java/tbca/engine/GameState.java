@@ -40,7 +40,7 @@ public class GameState implements GameStateReadOnly {
     public void addFieldEffect(FieldEffect effect) {
 
         this.fieldEffects.add(effect);
-
+//
 
         effect.applyEffect(this);
     }

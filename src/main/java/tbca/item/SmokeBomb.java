@@ -14,6 +14,7 @@ public class SmokeBomb implements Item {
         gameState.addFieldEffect(effect);
         return new UseItemResults(user, ItemType.SMOKE_BOMB);
     }
+    //
 
     @Override
     public String getName() {
