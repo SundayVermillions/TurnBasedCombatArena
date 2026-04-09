@@ -18,22 +18,13 @@ public interface Ui {
     List<ItemType> promptItemSelection();
 
     ActionParameters getPlayerAction(GameStateReadOnly gameState);
-
+    // to do EndingScreenOptions
     void showEndingScreen(GameStateReadOnly gameState);
-    // TODO: EndingScreenOptions showLoseEndingScreen(GameStateReadOnly gameState);
-    // TODO: void showVictoryEndingScreen(GameStateReadOnly gameState);
 
-    void displayTurnEnd(GameStateReadOnly gameState);
+    void displayTurnStatus(GameStateReadOnly gameState);
 
     void displayActionResults(GameStateReadOnly gameState, ActionResults actionResults);
-//    void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> targets, List<Integer> dmg);
-//    void displayDefend(GameStateReadOnly gameState, Combatant actor);
-//    // Potion, SmokeBomb
-//    void displayUseItem(GameStateReadOnly gameState, Combatant actor, ItemType itemType);
-//    void displaySpecialSkill (GameStateReadOnly gameState, Combatant actor,
-//                              List<Integer> targets,
-//                              List<Integer> dmg,
-//                              List<StatusEffect> statuses);
+
     void displayTurnStart(GameStateReadOnly gameState);
     void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex);
     void displayIncapacitated(Combatant combatant);
