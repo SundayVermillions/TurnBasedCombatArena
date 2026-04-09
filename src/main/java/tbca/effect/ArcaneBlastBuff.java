@@ -16,6 +16,10 @@ public class ArcaneBlastBuff extends StatusEffect {
 
     }
 
+    public boolean isBuff(){
+        return true;
+    }
+
     @Override
     public void removeEffect(Combatant target) {
 
