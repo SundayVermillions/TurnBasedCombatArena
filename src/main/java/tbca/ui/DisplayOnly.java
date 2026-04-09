@@ -27,27 +27,6 @@ public class DisplayOnly {
         System.out.println();
     }
 
-    private static void displayTurnStartFormat(Combatant actor)
-    {
-        System.out.printf("%-12s: %-20s (%3d/%3d)",
-                actor.getName(),
-                healthBar(actor.getCurrHp(), actor.getMaxHp()),
-                actor.getCurrHp(),
-                actor.getMaxHp());
-        if(!actor.getEffects().isEmpty())
-        {
-            System.out.print("[");
-            for(int j = 0; j < actor.getEffects().size(); j++) {
-                System.out.print(actor.getEffects().get(j).getName());
-                if(j < actor.getEffects().size() - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.print("]");
-        }
-        System.out.println();
-    }
-
     public void displayTurnStart(GameStateReadOnly gameState) {
         String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
         System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));//Center header based on health bar width
@@ -60,11 +39,32 @@ public class DisplayOnly {
                 System.out.println(String.format("%-12s: DEAD", enemy.getName()));
             } else {
                 displayTurnStartFormat(enemy);
-                }
+            }
         }
         displayItemsAndCooldown(gameState);
     }
 
+    private static void displayTurnStartFormat(Combatant actor)
+    {
+        System.out.printf("%-12s: %-20s (%3d/%3d)",
+                actor.getName(),
+                healthBar(actor.getCurrHp(), actor.getMaxHp()),
+                actor.getCurrHp(),
+                actor.getMaxHp());
+        if(!actor.getEffects().isEmpty())
+        {
+            System.out.print("[");
+            for(int j = 0; j < actor.getEffects().size(); j++) {
+                System.out.print(actor.getEffects().get(j).getName());
+                System.out.printf("(%sT)",actor.getEffects().get(j).getRemainingTurns());
+                if(j < actor.getEffects().size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.print("]");
+        }
+        System.out.println();
+    }
 
     public void displayTurnEnd(GameStateReadOnly gameState) {
         System.out.println();
