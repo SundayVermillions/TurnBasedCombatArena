@@ -12,6 +12,11 @@ public class SmokeBombEffect extends FieldEffect {
     }
 
     @Override
+    public boolean appliesTo(Combatant combatant) {
+        return isOpposingSide(combatant);
+    }
+
+    @Override
     public void applyEffect(List<Combatant> allCombatants) {
 
         for (Combatant c : allCombatants) {
