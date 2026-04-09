@@ -20,6 +20,8 @@ public interface Ui {
     ActionParameters getPlayerAction(GameStateReadOnly gameState);
 
     void showEndingScreen(GameStateReadOnly gameState);
+    // TODO: EndingScreenOptions showLoseEndingScreen(GameStateReadOnly gameState);
+    // TODO: void showVictoryEndingScreen(GameStateReadOnly gameState);
 
     void displayTurnEnd(GameStateReadOnly gameState);
 
