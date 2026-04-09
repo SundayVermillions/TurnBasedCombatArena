@@ -37,7 +37,7 @@ public enum GameDifficulty {
     ),
 
     HARD("Hard",
-            "For players who want to challenge themselves",
+            "For players who want to challenge themselves!",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(
@@ -54,7 +54,7 @@ public enum GameDifficulty {
     ),
 
     EXTREME("Extreme",
-            "WARNING: Enemies can now use items and skills. Select only if you're prepared.",
+            "WARNING: Enemies can now use items and skills. Select only if you're prepared...",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(
