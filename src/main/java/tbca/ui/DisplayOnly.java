@@ -2,6 +2,7 @@
 
     import tbca.combatant.Combatant;
     import tbca.combatant.player.Player;
+    import tbca.effect.FieldEffect;
     import tbca.effect.StatusEffect;
     import tbca.engine.GameStateReadOnly;
     import tbca.engine.action.ActionType;
@@ -63,6 +64,22 @@
                 }
             }
             displayItemsAndCooldown(gameState);
+
+            //Display Field effect
+            /*
+            if(!gameState.getFieldEffect().isEmpty())
+            {
+                System.out.print("Field Effect: ");
+                for(int i = 0; i < gameState.getFieldEffect().size(); i++) {
+                    FieldEffect effect = gameState.getFieldEffect().get(i);
+                    System.out.print(effect.getName());
+                    if(i < gameState.getFieldEffect().size() - 1) {
+                        System.out.print(", ");
+                    }
+                }
+                System.out.println();
+            }
+            */
         }
 
 
