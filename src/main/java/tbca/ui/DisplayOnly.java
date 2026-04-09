@@ -97,6 +97,8 @@
 
         public void showEndingScreen(GameStateReadOnly gameState) {
             displayEndingHeader();
+            displayTurnStart(gameState);
+            System.out.println();
 
             if (!gameState.isPlayerAlive()) {
                 displayLossMessage();
