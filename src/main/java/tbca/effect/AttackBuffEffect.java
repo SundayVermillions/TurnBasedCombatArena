@@ -7,7 +7,7 @@ public class AttackBuffEffect extends StatusEffect {
     private final double multiplier;
 
     public AttackBuffEffect(double multiplier, int turns) {
-        super("Wolf Fury Buff", turns);
+        super("Wolf Fury Buff", "User Attack is doubled for the current turn and the next turn.", turns);
         this.multiplier = multiplier;
     }
 

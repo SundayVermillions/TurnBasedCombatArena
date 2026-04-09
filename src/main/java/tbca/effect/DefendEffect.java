@@ -6,7 +6,7 @@ public class DefendEffect extends StatusEffect {
     private final int defenseBoost = 10;
 
     public DefendEffect() {
-        super("Defending", 2);
+        super("Defending","Increases defend by 10 for the current and the next round", 2);
     }
 
     
