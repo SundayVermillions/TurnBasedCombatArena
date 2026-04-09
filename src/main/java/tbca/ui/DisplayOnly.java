@@ -97,14 +97,16 @@
 
         public void showEndingScreen(GameStateReadOnly gameState) {
             displayEndingHeader();
-            displayTurnStart(gameState);
-            System.out.println();
 
             if (!gameState.isPlayerAlive()) {
                 displayLossMessage();
             } else {
                 displayVictoryMessage();
             }
+
+            System.out.println("--- Final Game State Summary ---");
+            displayTurnStart(gameState);
+            System.out.println();
         }
 
         private void displayEndingHeader() {

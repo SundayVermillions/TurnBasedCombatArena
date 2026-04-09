@@ -128,7 +128,7 @@ public class Selection {
         System.out.printf("%-20s %-12s %s\n", "Effect", "Duration", "Description");
         for (StatusEffect effect : effects) {
             String duration = formatEffectDuration(effect.getRemainingTurns());
-            System.out.printf("%-20s %-12s %s\n", effect.getName(), duration);
+            System.out.printf("%-20s %-12s %s\n", effect.getName(), duration, effect.getDescription());
         }
         System.out.println();
     }
@@ -379,6 +379,21 @@ public class Selection {
         }
         int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
         return inventory.get(itemChoice - 1).getType();
+    }
 
+    public EndingScreenOptions promptEndingScreenChoice() {
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("1. Replay with Same Settings");
+        System.out.println("2. Start New Game");
+        System.out.println("3. Exit Game");
+        System.out.println();
+
+        int choice = inputValidator.getIntInput("Enter choice: ", 1, 3);
+        return switch (choice) {
+            case 1 -> EndingScreenOptions.REPLAY_SAME_SETTINGS;
+            case 2 -> EndingScreenOptions.START_NEW;
+            case 3 -> EndingScreenOptions.EXIT;
+            default -> null;
+        };
     }
 }

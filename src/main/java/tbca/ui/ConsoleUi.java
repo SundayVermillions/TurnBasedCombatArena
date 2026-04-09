@@ -70,6 +70,11 @@ public class ConsoleUi implements Ui{
     public void displayIncapacitated(Combatant combatant) {
         displayOnly.displayIncapacitated(combatant);
     }
+
+    @Override
+    public EndingScreenOptions promptEndingScreenChoice() {
+        return selection.promptEndingScreenChoice();
+    }
  /*
     @Override
     public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {
