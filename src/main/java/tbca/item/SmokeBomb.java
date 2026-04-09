@@ -3,7 +3,6 @@ package tbca.item;
 import tbca.combatant.Combatant;
 import tbca.effect.SmokeBombInvulnerability;
 import tbca.engine.GameState;
-import tbca.engine.action.results.SpecialSkillResults;
 import tbca.engine.action.results.UseItemResults;
 
 public class SmokeBomb implements Item {
