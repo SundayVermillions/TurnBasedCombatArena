@@ -18,10 +18,10 @@ public interface Ui {
     List<ItemType> promptItemSelection();
 
     ActionParameters getPlayerAction(GameStateReadOnly gameState);
-
+    // to do EndingScreenOptions
     void showEndingScreen(GameStateReadOnly gameState);
 
-    void displayTurnEnd(GameStateReadOnly gameState);
+    void displayTurnStatus(GameStateReadOnly gameState);
 
     void displayActionResults(GameStateReadOnly gameState, ActionResults actionResults);
 //    void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> targets, List<Integer> dmg);

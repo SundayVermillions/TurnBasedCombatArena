@@ -7,7 +7,6 @@ import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
 import tbca.engine.action.parameters.ActionParameters;
-import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.logic.enemyai.AiController;
@@ -69,9 +68,10 @@ public class Game {
                     break; // break if all enemies in this wave is dead, or player dies
                 if (!combatant.isAlive())
                     continue; // if enemy died before getting to move this turn, skip him
-                if (!combatant.canAct())
-                    // TODO: this.ui.displayIncapacitated(combatant);
+                if (!combatant.canAct()) {
+                    this.ui.displayIncapacitated(combatant);
                     continue; // if current actor can't move due to status, print message and skip him
+                }
 
                 // if is player, go with selected action. else, enemies can only basic attack
                 Action action = combatant.isPlayer() ? selection.createAction()
@@ -86,7 +86,7 @@ public class Game {
             for (Combatant combatant : turnOrder) {
                 combatant.tickAll();
             }
-            this.ui.displayTurnEnd(gameState);
+            this.ui.displayTurnStatus(gameState);
         }
     }
 
