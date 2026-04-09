@@ -125,14 +125,13 @@ public class Selection {
                 new AttackBuffEffect(2.0, 1)
         );
 
-        System.out.printf("%-20s %-12s\n", "Effect", "Duration");
+        System.out.printf("%-20s %-12s %s\n", "Effect", "Duration", "Description");
         for (StatusEffect effect : effects) {
             String duration = formatEffectDuration(effect.getRemainingTurns());
-            System.out.printf("%-20s %-12s\n", effect.getName(), duration);
+            System.out.printf("%-20s %-12s %s\n", effect.getName(), duration, effect.getDescription());
         }
         System.out.println();
     }
-
     private String formatEffectDuration(int turns) {
         if (turns <= 0) {
             return "Permanent";
@@ -288,21 +287,26 @@ public class Selection {
 
 
     public ActionParameters playerAction(GameStateReadOnly gameState) {
-        System.out.println("\nChoose your action:");
-        System.out.println("1. Basic Attack");
-        System.out.println("2. Defend");
-        System.out.println("3. Use Item");
-        System.out.printf("4. Special Skill (%s)",gameState.getPlayer().getSpecialSkillType().getDisplayName());
-        System.out.println();
-
         int choice;
         Player player = (Player) gameState.getPlayer();
         List<Item> inventory = player.getInventory();
 
+        while(true) {
+            System.out.println("\nChoose your action:");
+            System.out.println("1. Basic Attack");
+            System.out.println("2. Defend");
+            System.out.println("3. Use Item");
+            System.out.printf("4. Special Skill (%s)%n", gameState.getPlayer().getSpecialSkillType().getDisplayName());
+            System.out.println("5. Read Manual");
 
-        while(true)
-        {
-            choice = inputValidator.getIntInput("Pick choice 1-4: ", 1, 4);
+            choice = inputValidator.getIntInput("Pick choice 1-5: ", 1, 5);
+
+            if (choice == 5) {
+                showDetails();
+                displayOnly.displayTurnStart(gameState);
+                continue;
+            }
+
             if(gameState.getPlayer().getSpecialSkillCooldown() != 0 && choice == 4)
             {
                 System.out.println("Cannot use Special Skill yet");
@@ -375,6 +379,21 @@ public class Selection {
         }
         int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
         return inventory.get(itemChoice - 1).getType();
+    }
 
+    public EndingScreenOptions promptEndingScreenChoice() {
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("1. Replay with Same Settings");
+        System.out.println("2. Start New Game");
+        System.out.println("3. Exit Game");
+        System.out.println();
+
+        int choice = inputValidator.getIntInput("Enter choice: ", 1, 3);
+        return switch (choice) {
+            case 1 -> EndingScreenOptions.REPLAY_SAME_SETTINGS;
+            case 2 -> EndingScreenOptions.START_NEW;
+            case 3 -> EndingScreenOptions.EXIT;
+            default -> null;
+        };
     }
 }

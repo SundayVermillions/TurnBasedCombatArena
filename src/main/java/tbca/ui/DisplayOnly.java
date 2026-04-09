@@ -136,6 +136,10 @@
             } else {
                 displayVictoryMessage();
             }
+
+            System.out.println("--- Final Game State Summary ---");
+            displayTurnStart(gameState);
+            System.out.println();
         }
 
         private void displayEndingHeader() {

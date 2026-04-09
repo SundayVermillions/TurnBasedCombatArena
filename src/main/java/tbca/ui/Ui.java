@@ -18,8 +18,8 @@ public interface Ui {
     List<ItemType> promptItemSelection();
 
     ActionParameters getPlayerAction(GameStateReadOnly gameState);
-    // to do EndingScreenOptions
     void showEndingScreen(GameStateReadOnly gameState);
+    EndingScreenOptions promptEndingScreenChoice();
 
     void displayTurnStatus(GameStateReadOnly gameState);
 
