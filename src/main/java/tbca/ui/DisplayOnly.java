@@ -46,7 +46,7 @@
                 System.out.print("]");
             }
             System.out.println();
-        }
+        }//
 
         public void displayTurnStart(GameStateReadOnly gameState) {
             String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
