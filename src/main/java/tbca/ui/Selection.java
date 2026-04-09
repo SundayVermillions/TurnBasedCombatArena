@@ -125,14 +125,13 @@ public class Selection {
                 new AttackBuffEffect(2.0, 1)
         );
 
-        System.out.printf("%-20s %-12s\n", "Effect", "Duration");
+        System.out.printf("%-20s %-12s %s\n", "Effect", "Duration", "Description");
         for (StatusEffect effect : effects) {
             String duration = formatEffectDuration(effect.getRemainingTurns());
-            System.out.printf("%-20s %-12s\n", effect.getName(), duration);
+            System.out.printf("%-20s %-12s %s\n", effect.getName(), duration);
         }
         System.out.println();
     }
-
     private String formatEffectDuration(int turns) {
         if (turns <= 0) {
             return "Permanent";
@@ -288,21 +287,26 @@ public class Selection {
 
 
     public ActionParameters playerAction(GameStateReadOnly gameState) {
-        System.out.println("\nChoose your action:");
-        System.out.println("1. Basic Attack");
-        System.out.println("2. Defend");
-        System.out.println("3. Use Item");
-        System.out.printf("4. Special Skill (%s)",gameState.getPlayer().getSpecialSkillType().getDisplayName());
-        System.out.println();
-
         int choice;
         Player player = (Player) gameState.getPlayer();
         List<Item> inventory = player.getInventory();
 
+        while(true) {
+            System.out.println("\nChoose your action:");
+            System.out.println("1. Basic Attack");
+            System.out.println("2. Defend");
+            System.out.println("3. Use Item");
+            System.out.printf("4. Special Skill (%s)%n", gameState.getPlayer().getSpecialSkillType().getDisplayName());
+            System.out.println("5. Read Manual");
 
-        while(true)
-        {
-            choice = inputValidator.getIntInput("Pick choice 1-4: ", 1, 4);
+            choice = inputValidator.getIntInput("Pick choice 1-5: ", 1, 5);
+
+            if (choice == 5) {
+                showDetails();
+                displayOnly.displayTurnStart(gameState);
+                continue;
+            }
+
             if(gameState.getPlayer().getSpecialSkillCooldown() != 0 && choice == 4)
             {
                 System.out.println("Cannot use Special Skill yet");
