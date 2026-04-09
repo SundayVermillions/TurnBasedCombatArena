@@ -46,7 +46,7 @@
                 System.out.print("]");
             }
             System.out.println();
-        }
+        }//
 
         public void displayTurnStart(GameStateReadOnly gameState) {
             String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
@@ -70,35 +70,8 @@
             System.out.println();
             System.out.printf("End of Turn: %d\n", gameState.getCurrTurn());
 
-            //displayPlayerAndEnemyStats(gameState);
         }
-        /*
-        private void displayPlayerAndEnemyStats(GameStateReadOnly gameState) {
-            // Player HP
-            System.out.printf("%s HP: %d/%d | ",
-                    gameState.getPlayer().getClass().getSimpleName(),
-                    gameState.getPlayer().getCurrHp(),
-                    gameState.getPlayer().getMaxHp()
-            );
 
-            // Enemies HP
-            List<Combatant> enemies = gameState.getCurrEnemies();
-            for (int i = 0; i < enemies.size(); i++) {
-                Combatant enemy = enemies.get(i);
-                System.out.printf("%s HP: %d",
-                        enemy.getName(),
-                        enemy.getCurrHp()
-                );
-                for (StatusEffect effect : enemy.getEffects()) {
-                    System.out.printf("[%s: %d turns] ", effect.getName(), effect.getRemainingTurns());
-                }
-
-                if (i < enemies.size() - 1) {
-                    System.out.print(" | ");
-                }
-            }
-            System.out.println();
-        }*/
 
         private void displayItemsAndCooldown(GameStateReadOnly gameState) {
             Player player = (Player) gameState.getPlayer();

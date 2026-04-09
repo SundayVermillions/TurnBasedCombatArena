@@ -48,7 +48,7 @@ public class ConsoleUi implements Ui{
     }
 
     @Override
-    public void displayTurnEnd(GameStateReadOnly gameState) {
+    public void displayTurnStatus(GameStateReadOnly gameState) {
         displayOnly.displayTurnEnd(gameState);
     }
 

@@ -7,7 +7,6 @@ import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
 import tbca.engine.action.parameters.ActionParameters;
-import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.logic.enemyai.AiController;
@@ -87,7 +86,7 @@ public class Game {
             for (Combatant combatant : turnOrder) {
                 combatant.tickAll();
             }
-            this.ui.displayTurnEnd(gameState);
+            this.ui.displayTurnStatus(gameState);
         }
     }
 
