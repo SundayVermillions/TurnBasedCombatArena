@@ -2,10 +2,12 @@ package tbca.engine;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
+import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.effect.FieldEffect;
 import tbca.engine.difficulty.EnemyBlueprint;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.difficulty.WaveBlueprint;
+import tbca.item.ItemType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +15,9 @@ import java.util.List;
 
 public class GameState implements GameStateReadOnly {
     private final GameDifficulty difficulty;
+    private final List<ItemType> startingItemSelection;
+    private final PlayerClass startingPlayerClass;
+
     private Combatant player;
     private List<Combatant> currEnemies = new ArrayList<>();
     private List<FieldEffect> fieldEffects = new ArrayList<>();
@@ -20,9 +25,17 @@ public class GameState implements GameStateReadOnly {
     private int currWave = 0; // 1-indexed, 0 signifies no wave started
     private int currTurn = 0;
 
-    public GameState(Combatant player, GameDifficulty difficulty) {
-        this.player = player;
+    public GameState(PlayerClass playerClass, List<ItemType> items, GameDifficulty difficulty) {
+        this.startingItemSelection = items;
         this.difficulty = difficulty;
+        this.startingPlayerClass = playerClass;
+        this.player = CombatantFactory.createPlayer(playerClass, items);
+    }
+
+    public GameState(GameState gameState) {
+        this(gameState.startingPlayerClass,
+                gameState.startingItemSelection,
+                gameState.difficulty);
     }
 
     public void spawnNextWave() {
@@ -38,10 +51,7 @@ public class GameState implements GameStateReadOnly {
         }
     }
     public void addFieldEffect(FieldEffect effect) {
-
         this.fieldEffects.add(effect);
-//
-//
         effect.applyEffect(this);
     }
 

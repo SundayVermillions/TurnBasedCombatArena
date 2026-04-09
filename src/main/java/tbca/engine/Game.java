@@ -3,7 +3,6 @@ package tbca.engine;
 import java.util.List;
 
 import tbca.combatant.Combatant;
-import tbca.combatant.CombatantFactory;
 import tbca.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.Action;
 import tbca.engine.action.parameters.ActionParameters;
@@ -14,7 +13,10 @@ import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
 import tbca.item.ItemType;
 import tbca.ui.ConsoleUi;
+import tbca.ui.EndingScreenOptions;
 import tbca.ui.Ui;
+
+import static tbca.ui.EndingScreenOptions.*;
 
 public class Game {
     private static Game gameInstance;
@@ -35,14 +37,23 @@ public class Game {
     }
 
     public void start() {
-        this.initialize();
+        EndingScreenOptions endingScreenOptions = START_NEW;
+        do {
+            if (endingScreenOptions == START_NEW)
+                this.initialize();
+            else if (endingScreenOptions == REPLAY_SAME_SETTINGS)
+                restartGameState(this.gameState);
 
-        while (!gameState.hasGameEnded()) {
-            gameState.spawnNextWave();
-            runWave(gameState);
-        }
 
-        this.ui.showEndingScreen(this.gameState); // either victory or loss
+            while (!gameState.hasGameEnded()) {
+                gameState.spawnNextWave();
+                runWave(gameState);
+            }
+
+            this.ui.showEndingScreen(this.gameState); // either victory or loss
+            endingScreenOptions = this.ui.promptEndingScreenChoice();
+
+        } while (endingScreenOptions != EXIT);
     }
 
     private void initialize() {
@@ -51,8 +62,11 @@ public class Game {
         PlayerClass playerClass = ui.promptClassSelection();
         List<ItemType> items = ui.promptItemSelection();
 
-        Combatant player = CombatantFactory.createPlayer(playerClass, items);
-        this.gameState = new GameState(player, selectedDifficulty);
+        this.gameState = new GameState(playerClass, items, selectedDifficulty);
+    }
+
+    private void restartGameState(GameState gameState) {
+        this.gameState = new GameState(gameState);
     }
 
     private void runWave(GameState gameState) {
