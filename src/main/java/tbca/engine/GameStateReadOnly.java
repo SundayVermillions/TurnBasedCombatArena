@@ -23,4 +23,6 @@ public interface GameStateReadOnly {
     int getCurrTurn();
 
     int getTotalWaves();
+
+    int getNumOfRemainingEnemies();
 }

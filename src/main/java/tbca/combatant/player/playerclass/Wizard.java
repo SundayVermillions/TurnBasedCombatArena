@@ -14,21 +14,21 @@ public class Wizard extends Player {
     public Wizard() {
         super(PlayerClass.WIZARD);
     }
-    private SpecialSkillResults performArcaneBlast(List<? extends Combatant> enemies) {
-        List<Integer> targetIndice = new ArrayList<>();
-        List<Integer> damageDone = new ArrayList<>();
+    private SpecialSkillResults performArcaneBlast(List<Combatant> enemies) {
+        List<Combatant> targetsHit = new ArrayList<>();
+        List<Integer> hpChanges = new ArrayList<>();
         List<StatusEffect> appliedEffects = new ArrayList<>();
         int kills = 0;
         for (int i = 0; i < enemies.size(); i++) {
             Combatant enemy = enemies.get(i);
             if (!enemy.isAlive()) continue;
             int damage = DamageUtility.computeBasicAttackDamage(this, enemy);
-            enemy.takeDamage(damage);
+            int exactModifiedHp = enemy.modifyHp(-damage);
 
-            targetIndice.add(i);
-            damageDone.add(damage);
+            targetsHit.add(enemy);
+            hpChanges.add(exactModifiedHp);
             appliedEffects.add(null);
-            
+
             if (!enemy.isAlive()) {
                 kills++;
             }
@@ -38,8 +38,12 @@ public class Wizard extends Player {
             ArcaneBlastBuff buff = new ArcaneBlastBuff();
             this.addStatusEffect(buff);
 
+            targetsHit.add(this);
+            hpChanges.add(0);
+            appliedEffects.add(buff);
+
         }
-        return new SpecialSkillResults(this, targetIndice, damageDone, appliedEffects);
+        return new SpecialSkillResults(this, targetsHit, hpChanges, appliedEffects);
     }
     @Override
     public SpecialSkillResults executeSpecialSkill(tbca.engine.GameState gameState, int targetIndex) {

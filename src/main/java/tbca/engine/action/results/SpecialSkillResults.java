@@ -7,17 +7,17 @@ import tbca.engine.action.ActionType;
 import java.util.List;
 
 public record SpecialSkillResults(Combatant actor,
-                                  List<Integer> targets,
-                                  List<Integer> dmg,
+                                  List<Combatant> targets,
+                                  List<Integer> hpChanges,
                                   List<StatusEffect> statusEffects) implements ActionResults {
     //If here are no targets/damages/effects at all
     public SpecialSkillResults(Combatant actor){
         this(actor, List.of(), List.of(), List.of());
     }
-    public SpecialSkillResults(Combatant actor, int singleTargetIndex, int singleDmg, StatusEffect effect){
+    public SpecialSkillResults(Combatant actor, Combatant singleTarget, int singleHpChange, StatusEffect effect){
         this(actor,
-                List.of(singleTargetIndex),
-                List.of(singleDmg),
+                List.of(singleTarget),
+                List.of(singleHpChange),
                 effect != null ? List.of(effect) : List.of());
     }
     @Override
