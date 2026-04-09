@@ -7,7 +7,7 @@ public class ArcaneBlastBuff extends StatusEffect {
 
     public ArcaneBlastBuff() {
 
-        super("Arcane Power", true);
+        super("Arcane Power","Each enemy defeated by Arcane Blast", true);
     }
 
     @Override
