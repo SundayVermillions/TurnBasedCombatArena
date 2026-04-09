@@ -15,7 +15,7 @@ public class SmokeBomb implements Item {
         return new UseItemResults(user, ItemType.SMOKE_BOMB);
     }
     //
-
+//
     @Override
     public String getName() {
         return "Smoke Bomb";
