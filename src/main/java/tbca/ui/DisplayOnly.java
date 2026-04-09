@@ -238,7 +238,7 @@
                 if (statusEffects != null && !statusEffects.isEmpty()) {
                     StatusEffect effect = statusEffects.get(0);
                     if (effect != null) {
-                        /*
+
                         if(effect.isBuff())
                         {
                             System.out.print(actor.getName() + " buffed with " + effect.getName());
@@ -248,7 +248,7 @@
                             System.out.print(victim.getName() + " inflicted with " + effect.getName());
                         }
 
-                         */
+
                     }
                 }
             }
