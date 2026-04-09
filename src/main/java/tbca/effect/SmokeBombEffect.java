@@ -10,58 +10,36 @@ import tbca.combatant.Combatant;
 
 public class SmokeBombEffect extends FieldEffect {
 
-private final boolean creatorIsPlayer;
+    private final boolean creatorIsPlayer;
+    public SmokeBombEffect(boolean creatorIsPlayer) {
 
+        super("Smoke Bomb Cover", 2);
+        this.creatorIsPlayer = creatorIsPlayer;
+    }
 
+    @Override
+    public void applyEffect(List<Combatant> allCombatants) {
 
-public SmokeBombEffect(boolean creatorIsPlayer) {
+        for (Combatant c : allCombatants) {
+            if (isOpposingSide(c)) {
+                c.setAttack(0);
+            }
+        }
+    }
 
-super("Smoke Bomb Cover", 2);
+    @Override
+    public void removeEffect(List<Combatant> allCombatants) {
 
-this.creatorIsPlayer = creatorIsPlayer;
+        for (Combatant c : allCombatants) {
 
-}
+            if (isOpposingSide(c)) {
+                c.resetAttack();
+            }
+        }
 
+    }
 
-
-@Override
-
-public void applyEffect(List<Combatant> allCombatants) {
-
-for (Combatant c : allCombatants) {
-
-if (isOpposingSide(c)) {
-
-c.setAttack(0);
-
-}
-
-}
-
-}
-
-
-
-@Override
-
-public void removeEffect(List<Combatant> allCombatants) {
-
-for (Combatant c : allCombatants) {
-
-if (isOpposingSide(c)) {
-
-c.resetAttack();
-
-}
-
-}
-
-}
-
-private boolean isOpposingSide(Combatant c) {
-
-return c.isPlayer() != creatorIsPlayer;
-
-}
-
+    private boolean isOpposingSide(Combatant c) {
+        return c.isPlayer() != creatorIsPlayer;
+    }
 }
