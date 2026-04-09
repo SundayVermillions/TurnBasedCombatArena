@@ -19,7 +19,7 @@ public abstract class StatusEffect {
     }
 
     //permanent effects like Arcane Blast
-    public StatusEffect(String name, boolean isPermanent){
+    public StatusEffect(String name, String description,  boolean isPermanent){
         this.name = name;
         this.remainingTurns = 0;
         this.isPermanent = isPermanent;
