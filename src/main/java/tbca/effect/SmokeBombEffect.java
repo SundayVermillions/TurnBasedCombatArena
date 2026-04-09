@@ -1,12 +1,6 @@
 package tbca.effect;
-
-
-
 import java.util.List;
-
 import tbca.combatant.Combatant;
-
-
 
 public class SmokeBombEffect extends FieldEffect {
 
