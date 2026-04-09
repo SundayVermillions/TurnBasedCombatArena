@@ -81,11 +81,9 @@ public class Game {
 
                 ActionResults actionResults = action.execute(gameState);
                 ui.displayActionResults(gameState, actionResults);
-            }
-            // tick all active effects for all live combatants
-            for (Combatant combatant : turnOrder) {
                 combatant.tickAll();
             }
+            this.gameState.tickAllFieldEffects();
             this.ui.displayTurnStatus(gameState);
         }
     }
