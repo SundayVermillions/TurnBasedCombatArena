@@ -37,6 +37,13 @@ public class GameState implements GameStateReadOnly {
             this.currEnemies.add(CombatantFactory.createEnemy(enemy.enemyType(), enemy.ai(), enemy.startingItems()));
         }
     }
+    public void addFieldEffect(FieldEffect effect) {
+
+        this.fieldEffects.add(effect);
+
+
+        effect.applyEffect(this);
+    }
 
     public boolean isPlayerAlive() {
         return !this.player.isDead();

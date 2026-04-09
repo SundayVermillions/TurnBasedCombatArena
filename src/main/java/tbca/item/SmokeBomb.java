@@ -1,6 +1,7 @@
 package tbca.item;
 
 import tbca.combatant.Combatant;
+import tbca.effect.SmokeBombEffect;
 import tbca.effect.SmokeBombInvulnerability;
 import tbca.engine.GameState;
 import tbca.engine.action.results.UseItemResults;
@@ -9,7 +10,8 @@ public class SmokeBomb implements Item {
 
     @Override
     public UseItemResults use(Combatant user, GameState gameState, int targetIndex) {
-        user.addStatusEffect(new SmokeBombInvulnerability());
+        SmokeBombEffect effect = new SmokeBombEffect(user.isPlayer());
+        gameState.addFieldEffect(effect);
         return new UseItemResults(user, ItemType.SMOKE_BOMB);
     }
 
