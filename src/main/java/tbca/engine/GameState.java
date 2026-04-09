@@ -2,17 +2,20 @@ package tbca.engine;
 
 import tbca.combatant.Combatant;
 import tbca.combatant.CombatantFactory;
+import tbca.effect.FieldEffect;
 import tbca.engine.difficulty.EnemyBlueprint;
 import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.difficulty.WaveBlueprint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameState implements GameStateReadOnly {
     private final GameDifficulty difficulty;
     private Combatant player;
     private List<Combatant> currEnemies = new ArrayList<>();
+    private List<FieldEffect> fieldEffects = new ArrayList<>();
 
     private int currWave = 0; // 1-indexed, 0 signifies no wave started
     private int currTurn = 0;
@@ -80,6 +83,11 @@ public class GameState implements GameStateReadOnly {
             total += difficulty.getEnemySpawnList().get(wave).enemies().size();
         }
         return total;
+    }
+
+    @Override
+    public List<FieldEffect> getActiveFieldEffects() {
+        return Collections.unmodifiableList(this.fieldEffects);
     }
 
     @Override

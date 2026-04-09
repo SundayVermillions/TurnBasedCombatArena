@@ -3,6 +3,7 @@ package tbca.engine;
 import java.util.List;
 
 import tbca.combatant.Combatant;
+import tbca.effect.FieldEffect;
 import tbca.engine.difficulty.GameDifficulty;
 
 public interface GameStateReadOnly {
@@ -25,4 +26,6 @@ public interface GameStateReadOnly {
     int getTotalWaves();
 
     int getNumOfRemainingEnemies();
+
+    List<FieldEffect> getActiveFieldEffects();
 }
