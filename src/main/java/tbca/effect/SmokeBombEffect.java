@@ -1,6 +1,7 @@
 package tbca.effect;
 import java.util.List;
 import tbca.combatant.Combatant;
+import tbca.engine.GameState;
 
 public class SmokeBombEffect extends FieldEffect {
 
@@ -17,8 +18,8 @@ public class SmokeBombEffect extends FieldEffect {
     }
 
     @Override
-    public void applyEffect(List<Combatant> allCombatants) {
-
+    public void applyEffect(GameState gameState) {
+        List<Combatant> allCombatants = gameState.getAllCombatants();
         for (Combatant c : allCombatants) {
             if (isOpposingSide(c)) {
                 c.setAttack(0);

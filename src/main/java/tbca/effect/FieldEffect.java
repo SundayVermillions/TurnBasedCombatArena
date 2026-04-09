@@ -2,6 +2,7 @@ package tbca.effect;
 import java.util.List;
 
 import tbca.combatant.Combatant;
+import tbca.engine.GameState;
 
 public abstract class FieldEffect {
 
@@ -15,7 +16,7 @@ public abstract class FieldEffect {
 
     public abstract boolean appliesTo(Combatant combatant);
 
-    public abstract void applyEffect(List<Combatant> allCombatants);
+    public abstract void applyEffect(GameState gameState);
 
     public abstract void removeEffect(List<Combatant> allCombatants);
 
@@ -28,5 +29,8 @@ public abstract class FieldEffect {
     }
     public String getName() {
         return name;
+    }
+    public int getTurnsRemaining() {
+        return turnsRemaining;
     }
 }

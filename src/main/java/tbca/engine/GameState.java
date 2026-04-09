@@ -57,6 +57,23 @@ public class GameState implements GameStateReadOnly {
         currTurn++;
     }
 
+    public void tickAllFieldEffects() {
+        for (FieldEffect fieldEffect : this.getActiveFieldEffects()) {
+            fieldEffect.tick();
+            if (fieldEffect.getTurnsRemaining() == 0) {
+                fieldEffect.removeEffect(getAllCombatants());
+                this.fieldEffects.remove(fieldEffect);
+            }
+        }
+    }
+
+    public List<Combatant> getAllCombatants() {
+        ArrayList<Combatant> combatants = new ArrayList<>();
+        combatants.add(getPlayer());
+        combatants.addAll(getCurrEnemies());
+        return combatants;
+    }
+
     @Override
     public int currWave() {
         return currWave;
