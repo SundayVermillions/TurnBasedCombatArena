@@ -4,6 +4,7 @@
     import tbca.combatant.player.Player;
     import tbca.effect.FieldEffect;
     import tbca.effect.StatusEffect;
+    import tbca.engine.GameState;
     import tbca.engine.GameStateReadOnly;
     import tbca.engine.action.ActionType;
     import tbca.engine.action.results.*;
@@ -28,13 +29,15 @@
             System.out.println();
         }
 
-        private static void displayTurnStartFormat(Combatant actor)
+        private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
         {
             System.out.printf("%-12s: %-20s (%3d/%3d)",
                     actor.getName(),
                     healthBar(actor.getCurrHp(), actor.getMaxHp()),
                     actor.getCurrHp(),
                     actor.getMaxHp());
+
+            //status effect
             if(!actor.getEffects().isEmpty())
             {
                 System.out.print("[");
@@ -46,40 +49,53 @@
                 }
                 System.out.print("]");
             }
+            //field Effect
+            if(!gameState.getActiveFieldEffects().isEmpty())
+            {
+                for(FieldEffect fieldEffect : gameState.getActiveFieldEffects())
+                {
+                    if(fieldEffect.appliesTo(actor))
+                    {
+                        System.out.printf("[%s]",fieldEffect.getName());
+                    }
+                }
+            }
+
+
             System.out.println();
-        }//
+        }
 
         public void displayTurnStart(GameStateReadOnly gameState) {
             String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
             System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));//Center header based on health bar width
 
-            displayTurnStartFormat(gameState.getPlayer());
+            displayTurnStartFormat(gameState.getPlayer(),gameState);
 
             for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
                 Combatant enemy = gameState.getCurrEnemies().get(i);
                 if (enemy.getCurrHp() <= 0) {
                     System.out.println(String.format("%-12s: DEAD", enemy.getName()));
                 } else {
-                    displayTurnStartFormat(enemy);
+                    displayTurnStartFormat(enemy,gameState);
                 }
             }
             displayItemsAndCooldown(gameState);
 
             //Display Field effect
-            /*
-            if(!gameState.getFieldEffect().isEmpty())
+
+            if(!gameState.getActiveFieldEffects().isEmpty())
             {
                 System.out.print("Field Effect: ");
-                for(int i = 0; i < gameState.getFieldEffect().size(); i++) {
-                    FieldEffect effect = gameState.getFieldEffect().get(i);
+                for(int i = 0; i < gameState.getActiveFieldEffects().size(); i++) {
+                    FieldEffect effect = gameState.getActiveFieldEffects().get(i);
                     System.out.print(effect.getName());
-                    if(i < gameState.getFieldEffect().size() - 1) {
+                    if(i < gameState.getActiveFieldEffects().size() - 1) {
                         System.out.print(", ");
                     }
                 }
                 System.out.println();
             }
-            */
+
         }
 
 
