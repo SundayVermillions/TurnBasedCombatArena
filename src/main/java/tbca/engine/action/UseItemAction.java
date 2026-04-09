@@ -27,16 +27,14 @@ public class UseItemAction extends Action {
         Combatant actor = param.actor();
 
         Item itemToApply = actor.consumeItem(param.itemType());
-        SpecialSkillResults skillResults = null;
+
 
         if(itemToApply != null){
-            skillResults = itemToApply.use(actor, gameState, param.targetEnemyIndex());
+            return itemToApply.use(actor, gameState, param.targetEnemyIndex());
         }else{
             return new UseItemResults(actor, param.itemType());
             //return exception in this area
         }
-        return new UseItemResults(actor, param.itemType(), skillResults);
-
 
     }
 }
