@@ -11,14 +11,14 @@ public class Warrior extends Player {
         super(PlayerClass.WARRIOR);
     }
 
-    private SpecialSkillResults performShieldBash(int targetIndex, Combatant target) {
+    private SpecialSkillResults performShieldBash(Combatant target) {
         int damage = DamageUtility.computeBasicAttackDamage(this, target);
-        target.takeDamage(damage);
+        int exactModifiedHp = target.modifyHp(-damage);
 
         StunEffect stun = new StunEffect();
         target.addStatusEffect(stun);
         
-        return new SpecialSkillResults(this, targetIndex, damage, stun);
+        return new SpecialSkillResults(this, target, exactModifiedHp, stun);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Warrior extends Player {
             if (targetIndex >= 0 && targetIndex < gameState.getCurrEnemies().size()) {
                 Combatant target = gameState.getCurrEnemies().get(targetIndex);
                 setSpecialSkillCooldown(3);
-                return performShieldBash(targetIndex, target);
+                return performShieldBash(target);
             }
 
         }
@@ -43,7 +43,7 @@ public class Warrior extends Player {
         }
 
         Combatant target = gameState.getCurrEnemies().get(targetIndex);
-       return performShieldBash(targetIndex, target);
+       return performShieldBash(target);
     }
 
     @Override
