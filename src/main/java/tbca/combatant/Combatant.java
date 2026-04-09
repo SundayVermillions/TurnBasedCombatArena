@@ -97,8 +97,8 @@ public abstract class Combatant {
         if (invulnerable) {
             return false;
         }
-        setCurrHp(getCurrHp() - damage);
-        return true;
+        int actualDamageTaken = modifyHp(-damage);
+        return actualDamageTaken < 0;
     }
 
     public boolean hasItem(tbca.item.ItemType type) {
@@ -110,6 +110,15 @@ public abstract class Combatant {
         return false;
     }
 
+    public int modifyHp(int amount){
+        if(amount < 0 && invulnerable){
+            return 0;
+        }
+        int oldHp = this.currHp;
+        this.setCurrHp(this.currHp + amount);
+        return this.currHp - oldHp;
+    }
+
     private void decrementCooldown() {
         if (specialSkillCooldown > 0) specialSkillCooldown--;
     }
@@ -117,7 +126,7 @@ public abstract class Combatant {
     public boolean hasSpecialSkill() {
         return this.getSpecialSkillType() != SpecialSkillType.NONE;
     }
-    
+
     public void resetAttack() { this.attack = baseAttack; }
     public void resetDefense() { this.defense = baseDefense; }
 
@@ -131,7 +140,7 @@ public abstract class Combatant {
     public int getSpecialSkillCooldown() { return specialSkillCooldown; }
     public AiType getAiType(){ return this.aiType; }
 
-    
+
     public void setCurrHp(int hp) { this.currHp = Math.max(0, Math.min(maxHp, hp)); }
     public void setAttack(int attack) { this.attack = attack; }
     public void setDefense(int defense) { this.defense = defense; }

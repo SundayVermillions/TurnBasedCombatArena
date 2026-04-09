@@ -26,9 +26,9 @@ public class Wolf extends Enemy {
 
             return new SpecialSkillResults(
                     this,
-                    List.of(),
-                    List.of(),
-                    List.of(buff)
+                    this,
+                    0,
+                    buff
             );
         }
         return new SpecialSkillResults(this);
