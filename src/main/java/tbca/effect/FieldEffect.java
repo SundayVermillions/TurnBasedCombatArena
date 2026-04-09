@@ -13,6 +13,8 @@ public abstract class FieldEffect {
         this.turnsRemaining = turnsRemaining;
     }
 
+    public abstract boolean appliesTo(Combatant combatant);
+
     public abstract void applyEffect(List<Combatant> allCombatants);
 
     public abstract void removeEffect(List<Combatant> allCombatants);
