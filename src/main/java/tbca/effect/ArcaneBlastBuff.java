@@ -3,11 +3,11 @@ package tbca.effect;
 import tbca.combatant.Combatant;
 
 public class ArcaneBlastBuff extends StatusEffect {
-    private final int attackBoost = 10;
+    private static final int attackBoost = 10;
 
     public ArcaneBlastBuff() {
 
-        super("Arcane Power","Each enemy defeated by Arcane Blast", true);
+        super("Arcane Power", "Each enemy defeated by Arcane Blast adds " + attackBoost + " to the Wizard's attack, lasting until end of the level.", true);
     }
 
     @Override
