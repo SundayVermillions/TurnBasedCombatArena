@@ -78,12 +78,12 @@ public class GameplayScreen {
         int totalBars = 22;
         int filledBars = (int) ((hp / (double) maxHp) * totalBars);
         StringBuilder bar = new StringBuilder("[");
-        System.out.print(Color.RED);
+        bar.append(Color.RED);
         for (int i = 0; i < totalBars; i++) {
             if (i < filledBars) bar.append("=");
             else bar.append(" ");
         }
-        System.out.print(Color.RESET);
+        bar.append(Color.RESET);
         bar.append("]");
         return bar.toString();
     }
