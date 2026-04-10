@@ -295,7 +295,7 @@ public class GameplayScreen {
     }
 
     private void displayItem(GameStateReadOnly gameState, Combatant actor, ItemType item) {
-        System.out.println(actor.getName() + " uses " + item.getDisplayName());
+        System.out.println( actor.getName() + " uses " + Color.GREEN + item.getDisplayName() + Color.RESET);
     }
 
     private void displaySpecialSkill(GameStateReadOnly gameState, Combatant actor,
