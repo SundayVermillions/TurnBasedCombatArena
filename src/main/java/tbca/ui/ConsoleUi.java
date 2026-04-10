@@ -10,85 +10,72 @@ import tbca.item.ItemType;
 
 import java.util.List;
 public class ConsoleUi implements Ui{
-    Selection selection;
-    DisplayOnly displayOnly;
+    LoadingScreen loadingScreen;
+    GameplayScreen gameplayScreen;
+    CompletionScreen completionScreen;
 
     public ConsoleUi() {
-        displayOnly = new DisplayOnly();
-        selection = new Selection();
+        loadingScreen = new LoadingScreen();
+        gameplayScreen = new GameplayScreen();
+        completionScreen = new CompletionScreen();
     }
     @Override
     public void displayMenu() {
-        this.selection.startingMenu();
+        this.loadingScreen.startingMenu();
     }
 
     @Override
     public GameDifficulty promptDifficulty() {
-        return this.selection.promptDifficulty();
+        return this.loadingScreen.promptDifficulty();
     }
 
     @Override
     public PlayerClass promptClassSelection() {
-        return selection.classChoice();
+        return loadingScreen.classChoice();
     }
 
     @Override
     public List<ItemType> promptItemSelection() {
-        return selection.itemSelection();
+        return loadingScreen.itemSelection();
     }
 
     @Override
     public ActionParameters getPlayerAction(GameStateReadOnly gameState) {
-        return selection.playerAction(gameState);
+        return gameplayScreen.playerAction(gameState);
     }
-
-    @Override
-    public void showEndingScreen(GameStateReadOnly gameState) {
-        displayOnly.showEndingScreen(gameState);
-    }
-
     @Override
     public void displayTurnStatus(GameStateReadOnly gameState) {
-        displayOnly.displayTurnEnd(gameState);
+        gameplayScreen.displayTurnEnd(gameState);
     }
 
     @Override
     public void displayActionResults(GameStateReadOnly gameState, ActionResults actionResults) {
-        displayOnly.displayAction(gameState,actionResults);
+        gameplayScreen.displayAction(gameState,actionResults);
     }
     @Override
     public void displayTurnStart(GameStateReadOnly gameState) {
-        displayOnly.displayTurnStart(gameState);
+        gameplayScreen.displayTurnStart(gameState);
     }
 
     @Override
     public void displayEnemyDefeated(GameStateReadOnly gameState,int enemyIndex) {
-        displayOnly.displayEnemyDefeated(gameState,enemyIndex);
+        gameplayScreen.displayEnemyDefeated(gameState,enemyIndex);
     }
 
     @Override
     public void displayIncapacitated(Combatant combatant) {
-        displayOnly.displayIncapacitated(combatant);
+        gameplayScreen.displayIncapacitated(combatant);
     }
+
+    @Override
+    public void showEndingScreen(GameStateReadOnly gameState) {
+        completionScreen.showEndingScreen(gameState);
+    }
+
 
     @Override
     public EndingScreenOptions promptEndingScreenChoice() {
-        return selection.promptEndingScreenChoice();
-    }
- /*
-    @Override
-    public void displayBasicAttack(GameStateReadOnly gameState, Combatant actor, List<Integer> target, List<Integer> dmg) {
-        displayOnly.displayBasicAttack(gameState,actor,target,dmg);
-    }
-    @Override
-    public void displayDefend(GameStateReadOnly gameState, Combatant actor) {
-        displayOnly.displayDefend(gameState,actor);
+        return completionScreen.promptEndingScreenChoice();
     }
 
-    @Override
-    public void displayUseItem(GameStateReadOnly gameState,Combatant actor, ItemType item) {
-        displayOnly.displayItem(gameState,actor,item);
-    }
-
- */
 }

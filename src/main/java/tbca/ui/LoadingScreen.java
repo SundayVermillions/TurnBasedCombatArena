@@ -1,41 +1,26 @@
 package tbca.ui;
 
-import tbca.combatant.Combatant;
 import tbca.combatant.enemy.EnemyType;
-import tbca.combatant.player.Player;
 import tbca.combatant.player.playerclass.PlayerClass;
-import tbca.effect.ArcaneBlastBuff;
-import tbca.effect.AttackBuffEffect;
-import tbca.effect.DefendEffect;
-import tbca.effect.SmokeBombInvulnerability;
-import tbca.effect.StatusEffect;
-import tbca.effect.StunEffect;
-import tbca.engine.difficulty.GameDifficulty;
-import tbca.engine.GameStateReadOnly;
+import tbca.effect.*;
 import tbca.engine.action.SpecialSkillType;
-import tbca.engine.action.parameters.*;
 import tbca.engine.difficulty.EnemyBlueprint;
+import tbca.engine.difficulty.GameDifficulty;
 import tbca.engine.difficulty.WaveBlueprint;
-import tbca.item.Item;
 import tbca.item.ItemType;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
-public class Selection {
-    DisplayOnly displayOnly;
-    InputValidator inputValidator;
+import java.util.*;
 
-    public Selection() {
-        this.displayOnly = new DisplayOnly();
+public class LoadingScreen {
+    private final InputValidator inputValidator;
+
+    public LoadingScreen(){
         this.inputValidator = new InputValidator(new Scanner(System.in));
     }
 
     public void startingMenu()
     {
-        DisplayOnly.displayMenu();
+        displayMenu();
         int choice = inputValidator.getIntInput("Enter choice: ", 1, 2);
         switch(choice){
             case 1:
@@ -45,8 +30,16 @@ public class Selection {
                 break;
         }
     }
-
-    private void showDetails(){
+    private static void displayMenu() {
+        System.out.println("=========================================");
+        System.out.println("       TURN-BASED COMBAT ARENA           ");
+        System.out.println("=========================================\n");
+        System.out.println();
+        System.out.println("1. Start Game");
+        System.out.println("2. View Stats/Details");
+        System.out.println();
+    }
+    public void showDetails(){
         boolean viewing = true;
         printDetailsHeader();
         while (viewing) {
@@ -72,6 +65,7 @@ public class Selection {
                 default -> throw new IllegalStateException("Unexpected choice: " + choice);
             }
         }
+
     }
 
     private void printDetailsHeader() {
@@ -279,114 +273,4 @@ public class Selection {
     }
 
 
-    public ActionParameters playerAction(GameStateReadOnly gameState) {
-        int choice;
-        Player player = (Player) gameState.getPlayer();
-        List<Item> inventory = player.getInventory();
-
-        while(true) {
-            System.out.println("\nChoose your action:");
-            System.out.println("1. Basic Attack");
-            System.out.println("2. Defend");
-            System.out.println("3. Use Item");
-            System.out.printf("4. Special Skill (%s)%n", gameState.getPlayer().getSpecialSkillType().getDisplayName());
-            System.out.println("5. Read Manual");
-
-            choice = inputValidator.getIntInput("Pick choice 1-5: ", 1, 5);
-
-            if (choice == 5) {
-                showDetails();
-                displayOnly.displayTurnStart(gameState);
-                continue;
-            }
-
-            if(gameState.getPlayer().getSpecialSkillCooldown() != 0 && choice == 4)
-            {
-                System.out.println("Cannot use Special Skill yet");
-            }
-
-            else if (inventory.isEmpty() && choice == 3){
-                System.out.println("Inventory is Empty");
-            }
-            else{
-                break;
-            }
-        }
-        System.out.println();
-        return switch (choice) {
-            case 1 -> new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
-            case 2 -> new DefendParameters(gameState.getPlayer());
-            case 3 -> {
-                ItemType selectedType = promptItemType(inventory);
-                int targetIndex = -1;
-
-                if (selectedType == ItemType.POWER_STONE && player.specialSkillNeedsTarget()){
-                    System.out.println("Select a target for your bonus skill:");
-                    targetIndex = promptTargetEnemyIndex(gameState);
-                }
-                yield new UseItemParameters(gameState.getPlayer(), selectedType, targetIndex);
-            }
-            case 4 -> {
-
-                int targetIndex = -1;
-                if (player.specialSkillNeedsTarget()){
-                    targetIndex = promptTargetEnemyIndex(gameState);
-                }
-                yield new SpecialSkillParameters(player, targetIndex);
-            }
-            default -> null;
-        };
-    }
-
-    private int promptTargetEnemyIndex(GameStateReadOnly gameState) {
-        List<Combatant> enemies = gameState.getCurrEnemies();
-        System.out.println("\nAvailable Targets:");
-       for(int i = 0; i < enemies.size(); i++) {
-           Combatant enemy = enemies.get(i);
-           String status = enemy.isDead() ? "[DEAD]" : "(" + enemy.getCurrHp() + "/" + enemy.getMaxHp() + " HP)";
-           System.out.println((i + 1) + ". " + enemy.getName() + " " + status);
-       }
-           int targetChoice;
-           while(true){
-               targetChoice = inputValidator.getIntInput("Select target enemy (1-" + enemies.size() + "):", 1, enemies.size());
-               if(gameState.getCurrEnemies().get(targetChoice - 1).isDead()){
-                   System.out.println("Target is Dead. Pick a living enemy!");
-               } else{
-                   break;
-               }
-           }
-           return targetChoice - 1;
-
-        }
-
-
-    private ItemType promptItemType(List<Item> inventory) {
-        System.out.println("\nChoose item to use:");
-        for(int i = 0; i < inventory.size(); i++)
-        {
-            ItemType itemType = inventory.get(i).getType();
-            System.out.printf("%d: %-12s -- %s\n", //make it align
-                    i + 1,
-                    itemType.getDisplayName(),
-                    itemType.getDescription());
-        }
-        int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
-        return inventory.get(itemChoice - 1).getType();
-    }
-
-    public EndingScreenOptions promptEndingScreenChoice() {
-        System.out.println("\nWhat would you like to do?");
-        System.out.println("1. Replay with Same Settings");
-        System.out.println("2. Start New Game");
-        System.out.println("3. Exit Game");
-        System.out.println();
-
-        int choice = inputValidator.getIntInput("Enter choice: ", 1, 3);
-        return switch (choice) {
-            case 1 -> EndingScreenOptions.REPLAY_SAME_SETTINGS;
-            case 2 -> EndingScreenOptions.START_NEW;
-            case 3 -> EndingScreenOptions.EXIT;
-            default -> null;
-        };
-    }
 }
