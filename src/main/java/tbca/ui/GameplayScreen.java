@@ -27,7 +27,7 @@ public class GameplayScreen {
         this.loadingScreen = new LoadingScreen();
         this.inputValidator = new InputValidator(new Scanner(System.in));
     }
-//
+    //
     private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
     {
         System.out.printf("%-12s: %-20s (%3d/%3d)",
@@ -39,9 +39,18 @@ public class GameplayScreen {
         //status effect
         if(!actor.getEffects().isEmpty())
         {
+
             System.out.print("[");
             for(int j = 0; j < actor.getEffects().size(); j++) {
-                System.out.print(actor.getEffects().get(j).getName());
+                if(actor.getEffects().get(j).isBuff())
+                {
+                    System.out.print(Color.GREEN);
+                }
+                else{
+                    System.out.print(Color.RED);
+                }
+                System.out.print(actor.getEffects().get(j).getName() + Color.RESET);
+
                 if(j < actor.getEffects().size() - 1) {
                     System.out.print(", ");
                 }
@@ -65,7 +74,7 @@ public class GameplayScreen {
     }
 
     private static String healthBar(int hp, int maxHp) {
-        int totalBars = 20;
+        int totalBars = 22;
         int filledBars = (int) ((hp / (double) maxHp) * totalBars);
         StringBuilder bar = new StringBuilder("[");
         for (int i = 0; i < totalBars; i++) {
@@ -78,7 +87,7 @@ public class GameplayScreen {
 
     public void displayTurnStart(GameStateReadOnly gameState) {
         String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
-        System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));//Center header based on health bar width
+        System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));
 
         displayTurnStartFormat(gameState.getPlayer(),gameState);
 
@@ -91,8 +100,6 @@ public class GameplayScreen {
             }
         }
         displayItemsAndCooldown(gameState);
-
-        //Display Field effect
 
         if(!gameState.getActiveFieldEffects().isEmpty())
         {
@@ -225,7 +232,7 @@ public class GameplayScreen {
         for(int i = 0; i < inventory.size(); i++)
         {
             ItemType itemType = inventory.get(i).getType();
-            System.out.printf("%d: %-12s -- %s\n", //make it align
+            System.out.printf("%d: %-12s -- %s\n",
                     i + 1,
                     itemType.getDisplayName(),
                     itemType.getDescription());
@@ -234,21 +241,6 @@ public class GameplayScreen {
         return inventory.get(itemChoice - 1).getType();
     }
 
-    public EndingScreenOptions promptEndingScreenChoice() {
-        System.out.println("\nWhat would you like to do?");
-        System.out.println("1. Replay with Same Settings");
-        System.out.println("2. Start New Game");
-        System.out.println("3. Exit Game");
-        System.out.println();
-
-        int choice = inputValidator.getIntInput("Enter choice: ", 1, 3);
-        return switch (choice) {
-            case 1 -> EndingScreenOptions.REPLAY_SAME_SETTINGS;
-            case 2 -> EndingScreenOptions.START_NEW;
-            case 3 -> EndingScreenOptions.EXIT;
-            default -> null;
-        };
-    }
 
     public void displayAction(GameStateReadOnly gameState, ActionResults actionResults) {
         ActionType actionType = actionResults.actionType();
@@ -292,9 +284,9 @@ public class GameplayScreen {
 
         if (actor.isPlayer()) {
             Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
-            System.out.println(victim.getName() + " takes " + damage + " damage!");
+            System.out.println(victim.getName() + " takes " + Color.RED + damage + Color.RESET + " damage!");
         } else {
-            System.out.println(gameState.getPlayer().getName() + " takes " + damage + " damage!");
+            System.out.println(gameState.getPlayer().getName() + " takes " + Color.RED + damage + Color.RESET + " damage!");
         }
     }
 
@@ -315,11 +307,17 @@ public class GameplayScreen {
                 int dmgAmount = damage.get(i);
                 String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
-                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+                if (dmgAmount > 0) {
+                    System.out.print(victim.getName() + " takes " + Color.RED + dmgAmount + Color.RESET + " damage!");
+                }
                 if (statusEffects != null && !statusEffects.isEmpty()) {
                     StatusEffect effect = statusEffects.get(i);
                     if (effect != null) {
-                        System.out.print(" -> inflicted with " + effect.getName());
+                        if (effect.isBuff()) {
+                            System.out.print(actor.getName() + " buffed with " + effect.getName());
+                        } else {
+                            System.out.print(victim.getName() + " inflicted with " + effect.getName());
+                        }
                     }
                 }
                 System.out.println();
@@ -331,7 +329,7 @@ public class GameplayScreen {
 
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
             if (dmgAmount > 0) {
-                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+                System.out.print(victim.getName() + " takes " + Color.RED + dmgAmount + Color.RESET + " damage!");
             }
             if (statusEffects != null && !statusEffects.isEmpty()) {
                 StatusEffect effect = statusEffects.get(0);
@@ -339,11 +337,11 @@ public class GameplayScreen {
 
                     if(effect.isBuff())
                     {
-                        System.out.print(actor.getName() + " buffed with " + effect.getName());
+                        System.out.print(actor.getName() + " -> buffed with " + effect.getName());
                     }
                     else
                     {
-                        System.out.print(victim.getName() + " inflicted with " + effect.getName());
+                        System.out.print(victim.getName() + " -> inflicted with " + effect.getName());
                     }
 
 
@@ -370,6 +368,7 @@ public class GameplayScreen {
         int leftPadding = (width - text.length()) / 2;
         return " ".repeat(leftPadding) + text;
     }
+
     public void displayIncapacitated(Combatant combatant)
     {
         if(!combatant.canAct())
