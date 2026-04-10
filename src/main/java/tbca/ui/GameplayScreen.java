@@ -11,6 +11,7 @@ import tbca.engine.action.results.*;
 import tbca.item.Item;
 import tbca.item.ItemType;
 
+import javax.swing.plaf.ColorChooserUI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class GameplayScreen {
             {
                 if(fieldEffect.appliesTo(actor))
                 {
-                    System.out.printf("[%s]",fieldEffect.getName());
+                    System.out.print("["+Color.YELLOW+fieldEffect.getName()+Color.RESET+"]");
                 }
             }
         }
@@ -77,10 +78,12 @@ public class GameplayScreen {
         int totalBars = 22;
         int filledBars = (int) ((hp / (double) maxHp) * totalBars);
         StringBuilder bar = new StringBuilder("[");
+        System.out.print(Color.RED);
         for (int i = 0; i < totalBars; i++) {
             if (i < filledBars) bar.append("=");
             else bar.append(" ");
         }
+        System.out.print(Color.RESET);
         bar.append("]");
         return bar.toString();
     }
@@ -106,7 +109,7 @@ public class GameplayScreen {
             System.out.print("\nActive Field Effect: ");
             for(int i = 0; i < gameState.getActiveFieldEffects().size(); i++) {
                 FieldEffect effect = gameState.getActiveFieldEffects().get(i);
-                System.out.print(effect.getName() + "(" + effect.getTurnsRemaining() + " turn)");
+                System.out.print(Color.YELLOW + effect.getName() +Color.RESET+ "(" + effect.getTurnsRemaining() + " turn)");
                 if(i < gameState.getActiveFieldEffects().size() - 1) {
                     System.out.print(", ");
                 }
@@ -314,9 +317,9 @@ public class GameplayScreen {
                     StatusEffect effect = statusEffects.get(i);
                     if (effect != null) {
                         if (effect.isBuff()) {
-                            System.out.print(actor.getName() + " buffed with " + effect.getName());
+                            System.out.print(actor.getName() + " buffed with " + Color.GREEN +effect.getName() + Color.RESET);
                         } else {
-                            System.out.print(victim.getName() + " inflicted with " + effect.getName());
+                            System.out.print(victim.getName() + " inflicted with " +Color.RED+ effect.getName() + Color.RESET);
                         }
                     }
                 }
@@ -334,17 +337,11 @@ public class GameplayScreen {
             if (statusEffects != null && !statusEffects.isEmpty()) {
                 StatusEffect effect = statusEffects.get(0);
                 if (effect != null) {
-
-                    if(effect.isBuff())
-                    {
-                        System.out.print(actor.getName() + " -> buffed with " + effect.getName());
+                    if (effect.isBuff()) {
+                        System.out.print(actor.getName() + " buffed with " + Color.GREEN +effect.getName() + Color.RESET);
+                    } else {
+                        System.out.print(victim.getName() + " inflicted with " +Color.RED+ effect.getName() + Color.RESET);
                     }
-                    else
-                    {
-                        System.out.print(victim.getName() + " -> inflicted with " + effect.getName());
-                    }
-
-
                 }
             }
         }
