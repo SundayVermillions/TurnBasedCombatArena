@@ -27,7 +27,7 @@ public class GameplayScreen {
         this.loadingScreen = new LoadingScreen();
         this.inputValidator = new InputValidator(new Scanner(System.in));
     }
-
+//
     private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
     {
         System.out.printf("%-12s: %-20s (%3d/%3d)",
