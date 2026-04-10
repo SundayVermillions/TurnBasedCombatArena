@@ -19,7 +19,7 @@ public class Wolf extends Enemy {
     @Override
     public SpecialSkillResults executeSpecialSkill(GameState gameState, int targetIndex){
         if (getSpecialSkillCooldown() == 0) {
-            AttackBuffEffect buff = new AttackBuffEffect(2.0, 1);
+            AttackBuffEffect buff = new AttackBuffEffect(2.0, 2);
             this.addStatusEffect(buff);
 
             this.setSpecialSkillCooldown(3);
