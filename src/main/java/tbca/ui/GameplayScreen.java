@@ -292,9 +292,9 @@ public class GameplayScreen {
 
         if (actor.isPlayer()) {
             Combatant victim = gameState.getCurrEnemies().get(targetEnemyIndex);
-            System.out.println(victim.getName() + " takes " + damage + " damage!");
+            System.out.println(victim.getName() + " takes " + Math.abs(damage) + " damage!");
         } else {
-            System.out.println(gameState.getPlayer().getName() + " takes " + damage + " damage!");
+            System.out.println(gameState.getPlayer().getName() + " takes " + Math.abs(damage)+ " damage!");
         }
     }
 
@@ -315,7 +315,7 @@ public class GameplayScreen {
                 int dmgAmount = damage.get(i);
                 String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
-                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+                System.out.print(victim.getName() + " takes " + Math.abs(dmgAmount) + " damage!");
                 if (statusEffects != null && !statusEffects.isEmpty()) {
                     StatusEffect effect = statusEffects.get(i);
                     if (effect != null) {
@@ -330,8 +330,8 @@ public class GameplayScreen {
             String skillName = actor.getSpecialSkillType().getDisplayName();
 
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
-            if (dmgAmount > 0) {
-                System.out.print(victim.getName() + " takes " + dmgAmount + " damage!");
+            if (dmgAmount < 0) {
+                System.out.print(victim.getName() + " takes " + Math.abs(dmgAmount) + " damage!");
             }
             if (statusEffects != null && !statusEffects.isEmpty()) {
                 StatusEffect effect = statusEffects.get(0);
