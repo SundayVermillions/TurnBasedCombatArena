@@ -304,7 +304,7 @@ public class GameplayScreen {
         if (actor.isPlayer()) {
             for (int i = 0; i < targets.size(); i++) {
                 Combatant victim = targets.get(i);
-                int dmgAmount = damage.get(i);
+                int dmgAmount = Math.abs(damage.get(i));
                 String skillName = actor.getSpecialSkillType().getDisplayName();
                 System.out.print(actor.getName() + " uses " + skillName + "! -> ");
                 if (dmgAmount > 0) {
@@ -324,7 +324,7 @@ public class GameplayScreen {
             }
         } else {
             Combatant victim = gameState.getPlayer();
-            int dmgAmount = damage.isEmpty() ? 0 : damage.get(0);
+            int dmgAmount = Math.abs(damage.isEmpty() ? 0 : damage.get(0));
             String skillName = actor.getSpecialSkillType().getDisplayName();
 
             System.out.print(actor.getName() + " uses " + skillName + "! -> ");
