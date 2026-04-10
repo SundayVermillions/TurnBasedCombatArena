@@ -1,7 +1,9 @@
 package tbca.ui;
-
 import tbca.engine.GameStateReadOnly;
-
+import tbca.item.Item;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CompletionScreen {
@@ -15,14 +17,13 @@ public class CompletionScreen {
     }
 
     public void showEndingScreen(GameStateReadOnly gameState) {
-        System.out.println("\n=========================================");
-        System.out.println("          Final Game State Summary       ");
-        System.out.println("=========================================\n");
-
         gameplayScreen.displayTurnStart(gameState);
         System.out.println();
 
-        displayEndingHeader();
+        displayFinalSummaryHeader();
+
+        System.out.println(buildOutcomeSentence(gameState));
+        System.out.println();
 
         if (!gameState.isPlayerAlive()) {
             displayLossMessage();
@@ -31,9 +32,9 @@ public class CompletionScreen {
         }
     }
 
-    private void displayEndingHeader() {
+    private void displayFinalSummaryHeader() {
         System.out.println("\n=========================================");
-        System.out.println("              GAME OVER                 ");
+        System.out.println("          Final Game State Summary       ");
         System.out.println("=========================================\n");
     }
 
@@ -49,6 +50,41 @@ public class CompletionScreen {
         System.out.println("              YOU WON!                   ");
         System.out.println("       Congratulations on your victory!  ");
         System.out.println("=========================================\n");
+    }
+
+    private String buildOutcomeSentence(GameStateReadOnly gameState) {
+        String progress = "Wave " + gameState.currWave() + " Turn " + gameState.getCurrTurn();
+        String itemsLeft = formatItemsLeft(gameState.getPlayer().getInventory());
+
+        if (gameState.isPlayerAlive()) {
+            return "Good job! You survived until " + progress + " with "
+                    + gameState.getPlayer().getCurrHp() + " HP remaining. \nItems left: " + itemsLeft + ".";
+        }
+
+        return "Oh no! You reached " + progress + ", but "
+                + gameState.getNumOfRemainingEnemies() + " enemies are still remaining. \nItems left: "
+                + itemsLeft + ".";
+    }
+
+    private String formatItemsLeft(List<Item> inventory) {
+        if (inventory.isEmpty()) {
+            return "none";
+        }
+
+        Map<String, Integer> groupedItems = new LinkedHashMap<>();
+        for (Item item : inventory) {
+            String itemName = item.getName();
+            groupedItems.put(itemName, groupedItems.getOrDefault(itemName, 0) + 1);
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<String, Integer> entry : groupedItems.entrySet()) {
+            if (!result.isEmpty()) {
+                result.append(", ");
+            }
+            result.append(entry.getKey()).append(" x").append(entry.getValue());
+        }
+        return result.toString();
     }
 
     public EndingScreenOptions promptEndingScreenChoice() {
