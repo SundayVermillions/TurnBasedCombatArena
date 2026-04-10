@@ -15,6 +15,13 @@ public class CompletionScreen {
     }
 
     public void showEndingScreen(GameStateReadOnly gameState) {
+        System.out.println("\n=========================================");
+        System.out.println("          Final Game State Summary       ");
+        System.out.println("=========================================\n");
+
+        gameplayScreen.displayTurnStart(gameState);
+        System.out.println();
+
         displayEndingHeader();
 
         if (!gameState.isPlayerAlive()) {
@@ -22,10 +29,6 @@ public class CompletionScreen {
         } else {
             displayVictoryMessage();
         }
-
-        System.out.println("--- Final Game State Summary ---");
-        gameplayScreen.displayTurnStart(gameState);
-        System.out.println();
     }
 
     private void displayEndingHeader() {
