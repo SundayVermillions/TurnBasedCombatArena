@@ -16,12 +16,16 @@ public abstract sealed class StatModifier
             this.priorityValue = priorityValue;
         }
 
-        public int getPriority() {
+        public int getPriorityValue() {
             return priorityValue;
         }
     }
 
     StatModifier() {}
+
+    public int getPriorityRank() {
+        return getPriority().getPriorityValue();
+    }
 
     public abstract Priority getPriority();
     public abstract int apply(int currentValue);
