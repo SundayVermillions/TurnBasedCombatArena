@@ -3,6 +3,8 @@ package tbca.combatant;
 import java.util.ArrayList;
 import java.util.List;
 
+import tbca.combatant.statsmodifier.StatModifier;
+import tbca.combatant.statsmodifier.StatModifiersList;
 import tbca.effect.StatusEffect;
 import tbca.engine.GameState;
 import tbca.engine.action.SpecialSkillType;
@@ -15,10 +17,10 @@ public abstract class Combatant {
     private final int maxHp;
     private int currHp;
     private final int baseAttack;
-    private int attack;
     private final int baseDefense;
-    private int defense;
     private final int speed;
+    private final StatModifiersList attackModifiers = new StatModifiersList();
+    private final StatModifiersList defenseModifiers = new StatModifiersList();
 
     private boolean canAct = true;
     private boolean invulnerable = false;
@@ -32,9 +34,7 @@ public abstract class Combatant {
         this.maxHp = maxHp;
         this.currHp = maxHp;
         this.baseAttack = attack;
-        this.attack = attack;
         this.baseDefense = defense;
-        this.defense = defense;
         this.speed = speed;
     }
 
@@ -127,23 +127,22 @@ public abstract class Combatant {
         return this.getSpecialSkillType() != SpecialSkillType.NONE;
     }
 
-    public void resetAttack() { this.attack = baseAttack; }
-    public void resetDefense() { this.defense = baseDefense; }
-
     public String getName() { return name; }
     public int getCurrHp() { return currHp; }
     public int getMaxHp() { return maxHp; }
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
+    public int getAttack() { return attackModifiers.applyAllModifiers(baseAttack); }
+    public int getDefense() { return defenseModifiers.applyAllModifiers(baseDefense); }
     public int getSpeed() { return speed; }
     public boolean canAct() { return canAct; }
     public int getSpecialSkillCooldown() { return specialSkillCooldown; }
     public AiType getAiType(){ return this.aiType; }
 
+    public void addAttackModifier(String id, StatModifier modifier) { attackModifiers.add(id, modifier); }
+    public void removeAttackModifier(String id) { attackModifiers.remove(id); }
+    public void addDefenseModifier(String id, StatModifier modifier) { defenseModifiers.add(id, modifier); }
+    public void removeDefenseModifier(String id) { defenseModifiers.remove(id); }
 
     public void setCurrHp(int hp) { this.currHp = Math.max(0, Math.min(maxHp, hp)); }
-    public void setAttack(int attack) { this.attack = attack; }
-    public void setDefense(int defense) { this.defense = defense; }
     public void setCanAct(boolean canAct) { this.canAct = canAct; }
     public void setInvulnerable(boolean inv) { this.invulnerable = inv; }
     public void setSpecialSkillCooldown(int cd) { this.specialSkillCooldown = cd; }

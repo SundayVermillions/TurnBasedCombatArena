@@ -1,16 +1,15 @@
 package tbca.effect;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tbca.combatant.Combatant;
+import tbca.combatant.statsmodifier.StatModifier;
 import tbca.engine.GameState;
 
 public class SmokeBombEffect extends FieldEffect {
 
+    private static final String MODIFIER_ID = "smoke-bomb-effect";
     private final boolean creatorIsPlayer;
-    private final Map<Combatant, Integer> snapshotAttacks = new HashMap<>();
 
     public SmokeBombEffect(boolean creatorIsPlayer) {
         super("Smoke Bomb Cover", 2);
@@ -24,11 +23,9 @@ public class SmokeBombEffect extends FieldEffect {
 
     @Override
     public void applyEffect(GameState gameState) {
-        List<Combatant> allCombatants = gameState.getAllCombatants();
-        for (Combatant c : allCombatants) {
+        for (Combatant c : gameState.getAllCombatants()) {
             if (isOpposingSide(c)) {
-                snapshotAttacks.put(c, c.getAttack());
-                c.setAttack(0);
+                c.addAttackModifier(MODIFIER_ID, StatModifier.finalOverride(0));
             }
         }
     }
@@ -36,12 +33,10 @@ public class SmokeBombEffect extends FieldEffect {
     @Override
     public void removeEffect(List<Combatant> allCombatants) {
         for (Combatant c : allCombatants) {
-            if (snapshotAttacks.containsKey(c)) {
-                int originalValue = snapshotAttacks.get(c);
-                c.setAttack(originalValue);
+            if (isOpposingSide(c)) {
+                c.removeAttackModifier(MODIFIER_ID);
             }
         }
-        snapshotAttacks.clear();
     }
 
     private boolean isOpposingSide(Combatant c) {

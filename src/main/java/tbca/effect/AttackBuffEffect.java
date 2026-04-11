@@ -1,9 +1,11 @@
 package tbca.effect;
 
 import tbca.combatant.Combatant;
+import tbca.combatant.statsmodifier.StatModifier;
 
 public class AttackBuffEffect extends StatusEffect {
 
+    private static final String MODIFIER_ID = "attack-buff-effect";
     private final double multiplier;
 
     public AttackBuffEffect(double multiplier, int turns) {
@@ -13,8 +15,7 @@ public class AttackBuffEffect extends StatusEffect {
 
     @Override
     public void applyEffect(Combatant target) {
-        int newAttack = (int) (target.getAttack() * multiplier);
-        target.setAttack(newAttack);
+        target.addAttackModifier(MODIFIER_ID, StatModifier.multiplicative(multiplier));
     }
 
     public boolean isBuff(){
@@ -23,6 +24,6 @@ public class AttackBuffEffect extends StatusEffect {
 
     @Override
     public void removeEffect(Combatant target) {
-        target.resetAttack();
+        target.removeAttackModifier(MODIFIER_ID);
     }
 }
