@@ -11,22 +11,23 @@ import tbca.engine.action.results.*;
 import tbca.item.Item;
 import tbca.item.ItemType;
 
-import javax.swing.plaf.ColorChooserUI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class GameplayScreen {
+public class BattleScreen {
     InputValidator inputValidator;
-    LoadingScreen loadingScreen;
+    StartingScreen loadingScreen;
+    ManualScreen manualScreen;
 
     private static final int TURN_HEADER_WIDTH = 41;
 
-    public GameplayScreen()
+    public BattleScreen()
     {
-        this.loadingScreen = new LoadingScreen();
+        this.loadingScreen = new StartingScreen();
         this.inputValidator = new InputValidator(new Scanner(System.in));
+        ManualScreen manualScreen = new ManualScreen();
     }
     //
     private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
@@ -165,7 +166,7 @@ public class GameplayScreen {
             choice = inputValidator.getIntInput("Pick choice 1-5: ", 1, 5);
 
             if (choice == 5) {
-                loadingScreen.showDetails();
+                manualScreen.showDetails();
                 displayTurnStart(gameState);
                 continue;
             }

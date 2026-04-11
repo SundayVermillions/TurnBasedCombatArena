@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CompletionScreen {
+public class EndingScreen {
     InputValidator inputValidator;
-    GameplayScreen gameplayScreen;
+    BattleScreen gameplayScreen;
 
-    public CompletionScreen()
+    public EndingScreen()
     {
-        gameplayScreen = new GameplayScreen();
+        gameplayScreen = new BattleScreen();
         inputValidator = new InputValidator(new Scanner(System.in));
     }
 

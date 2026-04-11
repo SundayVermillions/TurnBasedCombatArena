@@ -10,14 +10,14 @@ import tbca.item.ItemType;
 
 import java.util.List;
 public class ConsoleUi implements Ui{
-    LoadingScreen loadingScreen;
-    GameplayScreen gameplayScreen;
-    CompletionScreen completionScreen;
+    StartingScreen loadingScreen;
+    BattleScreen gameplayScreen;
+    EndingScreen completionScreen;
 
     public ConsoleUi() {
-        loadingScreen = new LoadingScreen();
-        gameplayScreen = new GameplayScreen();
-        completionScreen = new CompletionScreen();
+        loadingScreen = new StartingScreen();
+        gameplayScreen = new BattleScreen();
+        completionScreen = new EndingScreen();
     }
     @Override
     public void displayMenu() {
