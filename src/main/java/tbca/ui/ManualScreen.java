@@ -98,7 +98,6 @@ public class ManualScreen {
         List<StatusEffect> effects = List.of(
                 new DefendEffect(),
                 new StunEffect(),
-                new SmokeBombInvulnerability(),
                 new ArcaneBlastBuff(),
                 new AttackBuffEffect(2.0, 1)
         );
@@ -108,7 +107,11 @@ public class ManualScreen {
             String duration = formatEffectDuration(effect.getRemainingTurns());
             System.out.printf("%-20s %-12s %s\n", effect.getName(), duration, effect.getDescription());
         }
-        System.out.println();
+        System.out.println("\n-- Field Effects ---");
+        SmokeBombEffect smokebombitem = new SmokeBombEffect(true);
+        System.out.printf("%-20s %-12s %s\n", smokebombitem.getName(), "2 turns", smokebombitem.getDescription());
+
+
     }
     private String formatEffectDuration(int turns) {
         if (turns <= 0) {

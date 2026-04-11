@@ -42,4 +42,12 @@ public class SmokeBombEffect extends FieldEffect {
     private boolean isOpposingSide(Combatant c) {
         return c.isPlayer() != creatorIsPlayer;
     }
+
+    public String getDescription(){
+        return "Enemy attacks do 0 damage in the current turn and the next turn";
+    }
+
+    public String getName(){
+        return "Smoke Bomb Cover";
+    }
 }
