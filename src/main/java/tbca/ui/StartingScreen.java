@@ -37,7 +37,7 @@ public class StartingScreen {
         System.out.println("=========================================\n");
         System.out.println();
         System.out.println("1. Start Game");
-        System.out.println("2. View Stats/Details");
+        System.out.println("2. Read Manual");
         System.out.println();
     }
 
