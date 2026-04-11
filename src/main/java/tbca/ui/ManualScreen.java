@@ -59,7 +59,7 @@ public class ManualScreen {
     }
 
     private void showPlayerStatsDetails() {
-        System.out.println("--- Player Stats ---");
+        System.out.println("--- Starting Player Stats ---");
         for (PlayerClass playerClass : PlayerClass.values()) {
             System.out.println(playerClass.getLabel());
             System.out.printf("  HP      : %d\n", playerClass.getMaxHp());
@@ -82,7 +82,7 @@ public class ManualScreen {
     }
 
     private void showEnemyStatsDetails() {
-        System.out.println("--- Enemy Stats ---");
+        System.out.println("--- Starting Enemy Stats ---");
         for (EnemyType enemyType : EnemyType.values()) {
             System.out.println(enemyType.getDisplayName());
             System.out.printf("  HP      : %d\n", enemyType.getMaxHp());
