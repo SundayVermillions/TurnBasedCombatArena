@@ -26,15 +26,15 @@ public abstract sealed class StatModifier
     public abstract Priority getPriority();
     public abstract int apply(int currentValue);
 
-    public static StatModifier additive(int amount) {
-        return new AdditiveModifier(amount);
+    public static StatModifier additive(int additiveValue) {
+        return new AdditiveModifier(additiveValue);
     }
 
-    public static StatModifier multiplicative(double factor) {
-        return new MultiplicativeModifier(factor);
+    public static StatModifier multiplicative(double multiplicativeFactor) {
+        return new MultiplicativeModifier(multiplicativeFactor);
     }
 
-    public static StatModifier finalOverride(int value) {
-        return new FinalOverrideModifier(value);
+    public static StatModifier finalOverride(int finalOverrideValue) {
+        return new FinalOverrideModifier(finalOverrideValue);
     }
 }
