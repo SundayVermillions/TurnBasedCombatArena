@@ -16,7 +16,7 @@ public abstract sealed class StatModifier
             this.priorityValue = priorityValue;
         }
 
-        public int getValue() {
+        public int getPriority() {
             return priorityValue;
         }
     }

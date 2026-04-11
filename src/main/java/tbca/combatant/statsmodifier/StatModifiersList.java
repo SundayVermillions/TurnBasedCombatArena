@@ -23,7 +23,7 @@ public class StatModifiersList {
         int effectiveStat = baseStat;
         List<Map.Entry<String, StatModifier>> sorted = modifiers.entrySet().stream()
                 .sorted(Comparator
-                        .comparingInt((Map.Entry<String, StatModifier> e) -> e.getValue().getPriority().getValue())
+                        .comparingInt((Map.Entry<String, StatModifier> e) -> e.getValue().getPriority().getPriority())
                         .thenComparing(Map.Entry::getKey))
                 .toList();
         for (Map.Entry<String, StatModifier> entry : sorted) {
