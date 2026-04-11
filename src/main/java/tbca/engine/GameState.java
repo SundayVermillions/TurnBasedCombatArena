@@ -77,10 +77,10 @@ public class GameState implements GameStateReadOnly {
     public void tickAllFieldEffects() {
         for (int i = fieldEffects.size() - 1; i >= 0; i--) {
             FieldEffect fieldEffect = fieldEffects.get(i);
-            fieldEffect.tick();
+            fieldEffect.tick(this);
             if (fieldEffect.isExpired()) {
                 fieldEffect.removeEffect(getAllCombatants());
-                fieldEffects.remove(i);  // ✓ Safe when iterating backwards
+                fieldEffects.remove(i);
             }
         }
     }

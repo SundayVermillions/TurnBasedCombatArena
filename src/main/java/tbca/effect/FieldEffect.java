@@ -20,12 +20,17 @@ public abstract class FieldEffect {
 
     public abstract void removeEffect(List<Combatant> allCombatants);
 
-    public void tick() {
+    // takes in gameState for future extensibility, although not used in current implementation
+    // eg. for future implemented fieldEffects that apply their effects every turn,
+    //      like a sandstorm that damages enemies every round
+    public void tick(GameState gameState) {
         turnsRemaining--;
     }
 
     public boolean isExpired() {
-        return turnsRemaining <= 0; }
+        return turnsRemaining <= 0;
+    }
+
     public String getName() {
         return name;
     }
