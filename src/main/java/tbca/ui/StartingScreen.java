@@ -19,14 +19,16 @@ public class StartingScreen {
 
     public void startingMenu()
     {
-        displayMenu();
-        int choice = inputValidator.getIntInput("Enter choice: ", 1, 2);
-        switch(choice){
-            case 1:
-                return;
-            case 2:
-                manualScreen.showDetails();
-                break;
+        while(true)
+        {
+            displayMenu();
+            int choice = inputValidator.getIntInput("Enter choice: ", 1, 2);
+            switch(choice){
+                case 1:
+                    return;
+                case 2:
+                    manualScreen.showDetails();
+            }
         }
     }
     private static void displayMenu() {

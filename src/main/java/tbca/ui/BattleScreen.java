@@ -27,7 +27,7 @@ public class BattleScreen {
     {
         this.loadingScreen = new StartingScreen();
         this.inputValidator = new InputValidator(new Scanner(System.in));
-        ManualScreen manualScreen = new ManualScreen();
+        this.manualScreen = new ManualScreen();
     }
     //
     private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
