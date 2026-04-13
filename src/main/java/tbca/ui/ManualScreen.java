@@ -1,13 +1,13 @@
 package tbca.ui;
 
-import tbca.combatant.enemy.EnemyType;
-import tbca.combatant.player.playerclass.PlayerClass;
-import tbca.effect.*;
+import tbca.domain.combatant.enemy.EnemyType;
+import tbca.domain.combatant.player.playerclass.PlayerClass;
+import tbca.domain.effect.*;
 import tbca.engine.action.SpecialSkillType;
-import tbca.engine.difficulty.EnemyBlueprint;
-import tbca.engine.difficulty.GameDifficulty;
-import tbca.engine.difficulty.WaveBlueprint;
-import tbca.item.ItemType;
+import tbca.domain.gamestate.difficulty.EnemyBlueprint;
+import tbca.domain.gamestate.difficulty.GameDifficulty;
+import tbca.domain.gamestate.difficulty.WaveBlueprint;
+import tbca.domain.item.ItemType;
 
 import java.util.LinkedHashMap;
 import java.util.List;

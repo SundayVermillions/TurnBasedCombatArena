@@ -1,12 +1,12 @@
 package tbca.engine.logic.enemyai;
 
-import tbca.combatant.Combatant;
-import tbca.engine.GameStateReadOnly;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.parameters.SpecialSkillParameters;
 import tbca.engine.action.parameters.UseItemParameters;
-import tbca.item.ItemType;
+import tbca.domain.item.ItemType;
 import java.util.Random;
 
 public class AdvancedAi implements AiController {

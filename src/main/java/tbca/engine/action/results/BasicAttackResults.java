@@ -1,6 +1,6 @@
 package tbca.engine.action.results;
 
-import tbca.combatant.Combatant;
+import tbca.domain.combatant.Combatant;
 import tbca.engine.action.ActionType;
 
 public record BasicAttackResults (Combatant actor,

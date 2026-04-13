@@ -1,10 +1,10 @@
 package tbca.engine.action.parameters;
 
-import tbca.combatant.Combatant;
+import tbca.domain.combatant.Combatant;
 import tbca.engine.action.Action;
 import tbca.engine.action.ActionType;
 import tbca.engine.action.UseItemAction;
-import tbca.item.ItemType;
+import tbca.domain.item.ItemType;
 
 public record UseItemParameters(Combatant actor,
                                 ItemType itemType,

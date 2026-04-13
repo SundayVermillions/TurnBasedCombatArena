@@ -1,15 +1,15 @@
 package tbca.ui;
 
-import tbca.combatant.Combatant;
-import tbca.combatant.player.Player;
-import tbca.effect.FieldEffect;
-import tbca.effect.StatusEffect;
-import tbca.engine.GameStateReadOnly;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.combatant.player.Player;
+import tbca.domain.effect.FieldEffect;
+import tbca.domain.effect.StatusEffect;
+import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.engine.action.ActionType;
 import tbca.engine.action.parameters.*;
 import tbca.engine.action.results.*;
-import tbca.item.Item;
-import tbca.item.ItemType;
+import tbca.domain.item.Item;
+import tbca.domain.item.ItemType;
 
 import java.util.HashMap;
 import java.util.List;

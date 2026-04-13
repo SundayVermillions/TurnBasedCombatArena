@@ -2,16 +2,18 @@ package tbca.engine;
 
 import java.util.List;
 
-import tbca.combatant.Combatant;
-import tbca.combatant.player.playerclass.PlayerClass;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.combatant.player.playerclass.PlayerClass;
+import tbca.domain.gamestate.GameState;
+import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.engine.action.Action;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.results.ActionResults;
-import tbca.engine.difficulty.GameDifficulty;
+import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.engine.logic.enemyai.AiController;
 import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
-import tbca.item.ItemType;
+import tbca.domain.item.ItemType;
 import tbca.ui.ConsoleUi;
 import tbca.ui.EndingScreenOptions;
 import tbca.ui.Ui;

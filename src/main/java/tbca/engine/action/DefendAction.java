@@ -1,8 +1,8 @@
 package tbca.engine.action;
 
-import tbca.combatant.Combatant;
-import tbca.effect.DefendEffect;
-import tbca.engine.GameState;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.effect.DefendEffect;
+import tbca.domain.gamestate.GameState;
 import tbca.engine.action.parameters.DefendParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.action.results.DefendResults;

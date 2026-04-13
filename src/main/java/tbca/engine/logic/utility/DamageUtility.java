@@ -1,6 +1,6 @@
 package tbca.engine.logic.utility;
 
-import tbca.combatant.Combatant;
+import tbca.domain.combatant.Combatant;
 
 import static java.lang.Math.max;
 

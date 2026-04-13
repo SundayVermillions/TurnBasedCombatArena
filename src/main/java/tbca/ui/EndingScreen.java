@@ -1,6 +1,6 @@
 package tbca.ui;
-import tbca.engine.GameStateReadOnly;
-import tbca.item.Item;
+import tbca.domain.gamestate.GameStateReadOnly;
+import tbca.domain.item.Item;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

@@ -2,13 +2,13 @@ package tbca.ui;
 
 import java.util.List;
 
-import tbca.combatant.Combatant;
-import tbca.combatant.player.playerclass.PlayerClass;
-import tbca.engine.difficulty.GameDifficulty;
-import tbca.engine.GameStateReadOnly;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.combatant.player.playerclass.PlayerClass;
+import tbca.domain.gamestate.difficulty.GameDifficulty;
+import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.results.ActionResults;
-import tbca.item.ItemType;
+import tbca.domain.item.ItemType;
 
 public interface Ui {
 

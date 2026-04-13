@@ -1,8 +1,8 @@
 package tbca.engine.action.results;
 
-import tbca.combatant.Combatant;
+import tbca.domain.combatant.Combatant;
 import tbca.engine.action.ActionType;
-import tbca.item.ItemType;
+import tbca.domain.item.ItemType;
 
 public record UseItemResults(Combatant actor,
                              ItemType item,

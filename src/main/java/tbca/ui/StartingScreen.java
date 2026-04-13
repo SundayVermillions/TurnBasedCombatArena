@@ -1,9 +1,9 @@
 package tbca.ui;
 
-import tbca.combatant.player.playerclass.PlayerClass;
+import tbca.domain.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.SpecialSkillType;
-import tbca.engine.difficulty.GameDifficulty;
-import tbca.item.ItemType;
+import tbca.domain.gamestate.difficulty.GameDifficulty;
+import tbca.domain.item.ItemType;
 
 import java.util.*;
 

@@ -1,8 +1,7 @@
 package tbca.engine.action;
 
-import tbca.combatant.Combatant;
-import tbca.combatant.player.Player;
-import tbca.engine.GameState;
+import tbca.domain.combatant.Combatant;
+import tbca.domain.gamestate.GameState;
 import tbca.engine.action.parameters.SpecialSkillParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.engine.action.results.SpecialSkillResults;
