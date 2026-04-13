@@ -3,7 +3,7 @@ package tbca.domain.effect;
 import java.util.List;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.combatant.statsmodifier.StatModifier;
+import tbca.domain.statsmodifier.StatModifier;
 import tbca.domain.gamestate.GameState;
 
 public class SmokeBombEffect extends FieldEffect {

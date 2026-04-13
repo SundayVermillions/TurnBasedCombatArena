@@ -1,4 +1,4 @@
-package tbca.domain.combatant.statsmodifier;
+package tbca.domain.statsmodifier;
 
 // multiplies stat by multiplicativeFactor
 // applied after all additive modifiers have been applied

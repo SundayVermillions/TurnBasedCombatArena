@@ -1,4 +1,4 @@
-package tbca.domain.combatant.statsmodifier;
+package tbca.domain.statsmodifier;
 
 // adds additiveValue to to current stat
 // is always applied first, before any multiplicative modifiers

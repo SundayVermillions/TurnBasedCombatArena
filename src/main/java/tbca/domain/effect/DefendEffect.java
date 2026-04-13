@@ -1,7 +1,7 @@
 package tbca.domain.effect;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.combatant.statsmodifier.StatModifier;
+import tbca.domain.statsmodifier.StatModifier;
 
 public class DefendEffect extends StatusEffect {
     private static final String MODIFIER_ID = "defend-effect";

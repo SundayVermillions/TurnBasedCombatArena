@@ -3,8 +3,8 @@ package tbca.domain.combatant;
 import java.util.ArrayList;
 import java.util.List;
 
-import tbca.domain.combatant.statsmodifier.StatModifier;
-import tbca.domain.combatant.statsmodifier.StatModifiersList;
+import tbca.domain.statsmodifier.StatModifier;
+import tbca.domain.statsmodifier.StatModifiersList;
 import tbca.domain.effect.StatusEffect;
 import tbca.domain.gamestate.GameState;
 import tbca.engine.action.SpecialSkillType;

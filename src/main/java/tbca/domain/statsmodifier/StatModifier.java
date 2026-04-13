@@ -1,7 +1,6 @@
-package tbca.domain.combatant.statsmodifier;
+package tbca.domain.statsmodifier;
 
-public abstract sealed class StatModifier
-        permits AdditiveModifier, MultiplicativeModifier, FinalOverrideModifier {
+public abstract class StatModifier {
 
     // defines possible priority levels discretely.
     // higher = last to be applied.

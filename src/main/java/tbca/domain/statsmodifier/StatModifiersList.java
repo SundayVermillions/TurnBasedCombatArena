@@ -1,4 +1,4 @@
-package tbca.domain.combatant.statsmodifier;
+package tbca.domain.statsmodifier;
 
 import java.util.Comparator;
 import java.util.HashMap;

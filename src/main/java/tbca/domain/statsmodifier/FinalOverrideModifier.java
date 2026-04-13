@@ -1,4 +1,4 @@
-package tbca.domain.combatant.statsmodifier;
+package tbca.domain.statsmodifier;
 
 // has the final and highest priority. completely overrides
 // all other stat modifiers with its own absolute value
