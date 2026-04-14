@@ -1,9 +1,10 @@
-package tbca.ui;
+package tbca.ui.StartingScreen;
 
 import tbca.domain.combatant.player.playerclass.PlayerClass;
 import tbca.engine.action.SpecialSkillType;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.item.ItemType;
+import tbca.ui.UiUtlity.InputValidator;
 
 import java.util.*;
 

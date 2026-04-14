@@ -1,4 +1,4 @@
-package tbca.ui;
+package tbca.ui.StartingScreen;
 
 import tbca.domain.combatant.enemy.EnemyType;
 import tbca.domain.combatant.player.playerclass.PlayerClass;
@@ -8,6 +8,7 @@ import tbca.domain.gamestate.difficulty.EnemyBlueprint;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.gamestate.difficulty.WaveBlueprint;
 import tbca.domain.item.ItemType;
+import tbca.ui.UiUtlity.InputValidator;
 
 import java.util.LinkedHashMap;
 import java.util.List;
