@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tbca.domain.combatant.Combatant;
+import tbca.domain.combatant.SpecialSkillType;
 import tbca.domain.combatant.player.Player;
 import tbca.domain.effect.ArcaneBlastBuff;
 import tbca.domain.effect.StatusEffect;
@@ -69,8 +70,8 @@ public class Wizard extends Player {
     }
 
     @Override
-    public tbca.engine.action.SpecialSkillType getSpecialSkillType() {
-        return tbca.engine.action.SpecialSkillType.ARCANE_BLAST;
+    public SpecialSkillType getSpecialSkillType() {
+        return SpecialSkillType.ARCANE_BLAST;
     }
 
 }

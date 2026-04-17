@@ -7,7 +7,6 @@ import tbca.domain.statsmodifier.StatModifier;
 import tbca.domain.statsmodifier.StatModifiersList;
 import tbca.domain.effect.StatusEffect;
 import tbca.domain.gamestate.GameState;
-import tbca.engine.action.SpecialSkillType;
 import tbca.engine.action.results.SpecialSkillResults;
 import tbca.engine.logic.enemyai.AiType;
 import tbca.domain.item.Item;

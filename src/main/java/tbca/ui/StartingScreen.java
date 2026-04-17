@@ -1,7 +1,7 @@
 package tbca.ui;
 
 import tbca.domain.combatant.player.playerclass.PlayerClass;
-import tbca.engine.action.SpecialSkillType;
+import tbca.domain.combatant.SpecialSkillType;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.item.ItemType;
 

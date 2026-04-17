@@ -1,4 +1,4 @@
-package tbca.engine.action;
+package tbca.domain.combatant;
 
 public enum SpecialSkillType {
     SHIELD_BASH("Shield Bash", "Deal damage to one enemy, \nstun for 2 turns"),

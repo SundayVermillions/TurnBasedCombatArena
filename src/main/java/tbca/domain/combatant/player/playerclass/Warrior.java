@@ -1,6 +1,7 @@
 package tbca.domain.combatant.player.playerclass;
 
 import tbca.domain.combatant.Combatant;
+import tbca.domain.combatant.SpecialSkillType;
 import  tbca.domain.combatant.player.Player;
 import tbca.domain.effect.StunEffect;
 import tbca.domain.gamestate.GameState;
@@ -48,8 +49,8 @@ public class Warrior extends Player {
     }
 
     @Override
-    public tbca.engine.action.SpecialSkillType getSpecialSkillType() {
-        return tbca.engine.action.SpecialSkillType.SHIELD_BASH;
+    public SpecialSkillType getSpecialSkillType() {
+        return SpecialSkillType.SHIELD_BASH;
     }
 
 

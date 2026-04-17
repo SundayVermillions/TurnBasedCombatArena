@@ -12,11 +12,11 @@ public enum GameDifficulty {
     EASY("Easy",
             "Suitable for players new to turn-based games!",
             List.of(
-                // Wave 1
-                new WaveBlueprint(List.of(
-                        new EnemyBlueprint(GOBLIN),
-                        new EnemyBlueprint(GOBLIN)
-                ))
+                    // Wave 1
+                    new WaveBlueprint(List.of(
+                            new EnemyBlueprint(GOBLIN),
+                            new EnemyBlueprint(GOBLIN)
+                    ))
             )
     ),
 
@@ -54,7 +54,7 @@ public enum GameDifficulty {
     ),
 
     EXTREME("Extreme",
-            "WARNING: Enemies can now use items and skills. Select only if you're prepared...",
+            "CAUTION: Enemies in this mode can now use items and skills. Select only if you're prepared...",
             List.of(
                     // Wave 1
                     new WaveBlueprint(List.of(

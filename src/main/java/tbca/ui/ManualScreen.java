@@ -3,7 +3,7 @@ package tbca.ui;
 import tbca.domain.combatant.enemy.EnemyType;
 import tbca.domain.combatant.player.playerclass.PlayerClass;
 import tbca.domain.effect.*;
-import tbca.engine.action.SpecialSkillType;
+import tbca.domain.combatant.SpecialSkillType;
 import tbca.domain.gamestate.difficulty.EnemyBlueprint;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.gamestate.difficulty.WaveBlueprint;

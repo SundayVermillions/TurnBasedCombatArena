@@ -1,7 +1,7 @@
 package tbca.domain.combatant.enemy;
 
 import tbca.domain.gamestate.GameState;
-import tbca.engine.action.SpecialSkillType;
+import tbca.domain.combatant.SpecialSkillType;
 import tbca.engine.action.results.SpecialSkillResults;
 
 public class Goblin extends Enemy {

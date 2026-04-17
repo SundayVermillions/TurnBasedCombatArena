@@ -89,7 +89,7 @@ public class Game {
                     continue; // if current actor can't move due to status, print message and skip him
                 }
 
-                // if is player, go with selected action. else, enemies can only basic attack
+                // if is player, go with selected action. else, defer to AiController for decision
                 Action action = combatant.isPlayer() ? selection.createAction()
                                                         : AiController.get(combatant.getAiType())
                                                                       .decide(combatant, gameState)
