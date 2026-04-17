@@ -12,7 +12,7 @@ public class SmokeBombEffect extends FieldEffect {
     private final boolean creatorIsPlayer;
 
     public SmokeBombEffect(boolean creatorIsPlayer) {
-        super("Smoke Bomb Cover", 2);
+        super("Smoke Bomb Blindness", 2);
         this.creatorIsPlayer = creatorIsPlayer;
     }
 
@@ -48,6 +48,6 @@ public class SmokeBombEffect extends FieldEffect {
     }
 
     public String getName(){
-        return "Smoke Bomb Cover";
+        return super.getName();
     }
 }

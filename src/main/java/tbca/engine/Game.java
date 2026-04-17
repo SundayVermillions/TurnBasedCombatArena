@@ -15,10 +15,10 @@ import tbca.engine.logic.turnorder.SpeedTurnOrderStrategy;
 import tbca.engine.logic.turnorder.TurnOrderStrategy;
 import tbca.domain.item.ItemType;
 import tbca.ui.ConsoleUi;
-import tbca.ui.EndingScreenOptions;
+import tbca.ui.EndingScreen.EndingScreenOptions;
 import tbca.ui.Ui;
 
-import static tbca.ui.EndingScreenOptions.*;
+import static tbca.ui.EndingScreen.EndingScreenOptions.*;
 
 public class Game {
     private static Game gameInstance;

@@ -9,6 +9,7 @@ import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.engine.action.parameters.ActionParameters;
 import tbca.engine.action.results.ActionResults;
 import tbca.domain.item.ItemType;
+import tbca.ui.EndingScreen.EndingScreenOptions;
 
 public interface Ui {
 

@@ -1,9 +1,10 @@
-package tbca.ui;
+package tbca.ui.StartingScreen;
 
 import tbca.domain.combatant.player.playerclass.PlayerClass;
 import tbca.domain.combatant.SpecialSkillType;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.item.ItemType;
+import tbca.ui.UiUtlity.InputValidator;
 
 import java.util.*;
 
@@ -40,10 +41,10 @@ public class StartingScreen {
         System.out.println("2. Read Manual");
         System.out.println();
     }
-
+    // Static list of difficulty options for iterate user selection
     private static final List<GameDifficulty> DIFFICULTY_OPTIONS = List.of(GameDifficulty.values());
 
-    // List of starting item options for selection
+    // Static list of only starting item options for user selection
     private static final List<ItemType> STARTING_ITEM_OPTIONS = List.of(
             ItemType.POTION,
             ItemType.POWER_STONE,

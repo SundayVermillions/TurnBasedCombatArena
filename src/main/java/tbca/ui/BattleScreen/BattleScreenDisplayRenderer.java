@@ -1,40 +1,68 @@
-package tbca.ui;
+package tbca.ui.BattleScreen;
 
 import tbca.domain.combatant.Combatant;
 import tbca.domain.combatant.player.Player;
 import tbca.domain.effect.FieldEffect;
 import tbca.domain.effect.StatusEffect;
 import tbca.domain.gamestate.GameStateReadOnly;
-import tbca.engine.action.ActionType;
-import tbca.engine.action.parameters.*;
-import tbca.engine.action.results.*;
 import tbca.domain.item.Item;
 import tbca.domain.item.ItemType;
+import tbca.engine.action.ActionType;
+import tbca.engine.action.results.*;
+import tbca.ui.UiUtlity.Color;
+import tbca.ui.StartingScreen.StartingScreen;
+import tbca.ui.UiUtlity.UIUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
-public class BattleScreen {
-    InputValidator inputValidator;
+public class BattleScreenDisplayRenderer {
     StartingScreen loadingScreen;
-    ManualScreen manualScreen;
 
     private static final int TURN_HEADER_WIDTH = 41;
 
-    public BattleScreen()
+    public BattleScreenDisplayRenderer()
     {
         this.loadingScreen = new StartingScreen();
-        this.inputValidator = new InputValidator(new Scanner(System.in));
-        this.manualScreen = new ManualScreen();
     }
-    //
+
+    public static void displayTurnStart(GameStateReadOnly gameState) {
+        String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
+        System.out.println("\n" + UIUtils.centerText(header, TURN_HEADER_WIDTH));
+
+        displayTurnStartFormat(gameState.getPlayer(),gameState);
+
+        for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
+            Combatant enemy = gameState.getCurrEnemies().get(i);
+            if (enemy.getCurrHp() <= 0) {
+                System.out.println(String.format("%-12s: DEAD", enemy.getName()));
+            } else {
+                displayTurnStartFormat(enemy,gameState);
+            }
+        }
+        displayItemsAndCooldown(gameState);
+
+        if(!gameState.getActiveFieldEffects().isEmpty())
+        {
+            System.out.print("\nActive Field Effect: ");
+            for(int i = 0; i < gameState.getActiveFieldEffects().size(); i++) {
+                FieldEffect effect = gameState.getActiveFieldEffects().get(i);
+                System.out.print(Color.YELLOW + effect.getName() +Color.RESET+ "(" + effect.getTurnsRemaining() + " turn)");
+                if(i < gameState.getActiveFieldEffects().size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println();
+        }
+
+    }
+
     private static void displayTurnStartFormat(Combatant actor, GameStateReadOnly gameState)
     {
         System.out.printf("%-12s: %-20s (%3d/%3d)",
                 actor.getName(),
-                healthBar(actor.getCurrHp(), actor.getMaxHp()),
+                UIUtils.healthBar(actor.getCurrHp(), actor.getMaxHp()),
                 actor.getCurrHp(),
                 actor.getMaxHp());
 
@@ -75,60 +103,7 @@ public class BattleScreen {
         System.out.println();
     }
 
-    private static String healthBar(int hp, int maxHp) {
-        int totalBars = 22;
-        int filledBars = (int) ((hp / (double) maxHp) * totalBars);
-        StringBuilder bar = new StringBuilder("[");
-        bar.append(Color.RED);
-        for (int i = 0; i < totalBars; i++) {
-            if (i < filledBars) bar.append("=");
-            else bar.append(" ");
-        }
-        bar.append(Color.RESET);
-        bar.append("]");
-        return bar.toString();
-    }
-
-    public void displayTurnStart(GameStateReadOnly gameState) {
-        String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
-        System.out.println("\n" + centerText(header, TURN_HEADER_WIDTH));
-
-        displayTurnStartFormat(gameState.getPlayer(),gameState);
-
-        for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
-            Combatant enemy = gameState.getCurrEnemies().get(i);
-            if (enemy.getCurrHp() <= 0) {
-                System.out.println(String.format("%-12s: DEAD", enemy.getName()));
-            } else {
-                displayTurnStartFormat(enemy,gameState);
-            }
-        }
-        displayItemsAndCooldown(gameState);
-
-        if(!gameState.getActiveFieldEffects().isEmpty())
-        {
-            System.out.print("\nActive Field Effect: ");
-            for(int i = 0; i < gameState.getActiveFieldEffects().size(); i++) {
-                FieldEffect effect = gameState.getActiveFieldEffects().get(i);
-                System.out.print(Color.YELLOW + effect.getName() +Color.RESET+ "(" + effect.getTurnsRemaining() + " turn)");
-                if(i < gameState.getActiveFieldEffects().size() - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.println();
-        }
-
-    }
-
-
-    public void displayTurnEnd(GameStateReadOnly gameState) {
-        System.out.println();
-        System.out.printf("End of Turn: %d\n", gameState.getCurrTurn());
-
-    }
-
-
-    private void displayItemsAndCooldown(GameStateReadOnly gameState) {
+    private static void displayItemsAndCooldown(GameStateReadOnly gameState) {
         Player player = (Player) gameState.getPlayer();
         List<Item> inventory = player.getInventory();
         System.out.print("Inventory: ");
@@ -149,102 +124,11 @@ public class BattleScreen {
         System.out.println();
     }
 
-
-    public ActionParameters playerAction(GameStateReadOnly gameState) {
-        int choice;
-        Player player = (Player) gameState.getPlayer();
-        List<Item> inventory = player.getInventory();
-
-        while(true) {
-            System.out.println("\nChoose your action:");
-            System.out.println("1. Basic Attack");
-            System.out.println("2. Defend");
-            System.out.println("3. Use Item");
-            System.out.printf("4. Special Skill (%s)%n", gameState.getPlayer().getSpecialSkillType().getDisplayName());
-            System.out.println("5. Read Manual");
-
-            choice = inputValidator.getIntInput("Pick choice 1-5: ", 1, 5);
-
-            if (choice == 5) {
-                manualScreen.showDetails();
-                displayTurnStart(gameState);
-                continue;
-            }
-
-            if(gameState.getPlayer().getSpecialSkillCooldown() != 0 && choice == 4)
-            {
-                System.out.println("Cannot use Special Skill yet");
-            }
-
-            else if (inventory.isEmpty() && choice == 3){
-                System.out.println("Inventory is Empty");
-            }
-            else{
-                break;
-            }
-        }
+    public void displayTurnEnd(GameStateReadOnly gameState) {
         System.out.println();
-        return switch (choice) {
-            case 1 -> new BasicAttackParameters(gameState.getPlayer(), promptTargetEnemyIndex(gameState));
-            case 2 -> new DefendParameters(gameState.getPlayer());
-            case 3 -> {
-                ItemType selectedType = promptItemType(inventory);
-                int targetIndex = -1;
-
-                if (selectedType == ItemType.POWER_STONE && player.specialSkillNeedsTarget()){
-                    System.out.println("Select a target for your bonus skill:");
-                    targetIndex = promptTargetEnemyIndex(gameState);
-                }
-                yield new UseItemParameters(gameState.getPlayer(), selectedType, targetIndex);
-            }
-            case 4 -> {
-
-                int targetIndex = -1;
-                if (player.specialSkillNeedsTarget()){
-                    targetIndex = promptTargetEnemyIndex(gameState);
-                }
-                yield new SpecialSkillParameters(player, targetIndex);
-            }
-            default -> null;
-        };
-    }
-
-    private int promptTargetEnemyIndex(GameStateReadOnly gameState) {
-        List<Combatant> enemies = gameState.getCurrEnemies();
-        System.out.println("\nAvailable Targets:");
-        for(int i = 0; i < enemies.size(); i++) {
-            Combatant enemy = enemies.get(i);
-            String status = enemy.isDead() ? "[DEAD]" : "(" + enemy.getCurrHp() + "/" + enemy.getMaxHp() + " HP)";
-            System.out.println((i + 1) + ". " + enemy.getName() + " " + status);
-        }
-        int targetChoice;
-        while(true){
-            targetChoice = inputValidator.getIntInput("Select target enemy (1-" + enemies.size() + "):", 1, enemies.size());
-            if(gameState.getCurrEnemies().get(targetChoice - 1).isDead()){
-                System.out.println("Target is Dead. Pick a living enemy!");
-            } else{
-                break;
-            }
-        }
-        return targetChoice - 1;
+        System.out.printf("End of Turn: %d\n", gameState.getCurrTurn());
 
     }
-
-
-    private ItemType promptItemType(List<Item> inventory) {
-        System.out.println("\nChoose item to use:");
-        for(int i = 0; i < inventory.size(); i++)
-        {
-            ItemType itemType = inventory.get(i).getType();
-            System.out.printf("%d: %-12s -- %s\n",
-                    i + 1,
-                    itemType.getDisplayName(),
-                    itemType.getDescription());
-        }
-        int itemChoice = inputValidator.getIntInput("Enter 1-" + inventory.size() + ": ", 1, inventory.size());
-        return inventory.get(itemChoice - 1).getType();
-    }
-
 
     public void displayAction(GameStateReadOnly gameState, ActionResults actionResults) {
         ActionType actionType = actionResults.actionType();
@@ -348,7 +232,6 @@ public class BattleScreen {
         }
         System.out.println();
     }
-
     public void displayEnemyDefeated(GameStateReadOnly gameState, int enemyIndex) {
         List<Combatant> enemies = gameState.getCurrEnemies();
         if (enemyIndex >= 0 && enemyIndex < enemies.size()) {
@@ -358,15 +241,6 @@ public class BattleScreen {
             System.out.println("Enemy at index " + enemyIndex + " not found!");
         }
     }
-
-    private static String centerText(String text, int width) {
-        if (text.length() >= width) {
-            return text;
-        }
-        int leftPadding = (width - text.length()) / 2;
-        return " ".repeat(leftPadding) + text;
-    }
-
     public void displayIncapacitated(Combatant combatant)
     {
         if(!combatant.canAct())
@@ -374,5 +248,4 @@ public class BattleScreen {
             System.out.println(combatant.getName() + " is unable to move!");
         }
     }
-
 }

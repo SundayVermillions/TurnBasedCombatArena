@@ -1,4 +1,4 @@
-package tbca.ui;
+package tbca.ui.UiUtlity;
 
 public class Color {
     public static final String RESET = "\u001B[0m";
