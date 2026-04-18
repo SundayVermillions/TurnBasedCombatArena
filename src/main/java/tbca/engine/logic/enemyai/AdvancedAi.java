@@ -7,6 +7,8 @@ import tbca.engine.action.parameters.BasicAttackParameters;
 import tbca.engine.action.parameters.SpecialSkillParameters;
 import tbca.engine.action.parameters.UseItemParameters;
 import tbca.domain.item.ItemType;
+import tbca.engine.logic.utility.DamageUtility;
+
 import java.util.Random;
 
 public class AdvancedAi implements AiController {
@@ -48,7 +50,7 @@ public class AdvancedAi implements AiController {
 
 
     private boolean considerHeal(Combatant npc, GameStateReadOnly gameState) {
-        int predictedDamage = gameState.getPlayer().getAttack() - npc.getDefense();
+        int predictedDamage = DamageUtility.computeBasicAttackDamage(gameState.getPlayer(), npc);
 
         if (predictedDamage >= npc.getCurrHp()) {
             boolean isFaster = npc.getSpeed() > gameState.getPlayer().getSpeed();
