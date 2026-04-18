@@ -28,11 +28,6 @@ public abstract class Player extends Combatant {
 
     public abstract SpecialSkillResults executeSpecialSkillFree(GameState gameState, int targetIndex);
 
-    @Override
-    public void takeTurn() {
-        // To be handled by game engine
-    }
-
     public PlayerClass getPlayerClass() { return playerClass; }
 
     @Override

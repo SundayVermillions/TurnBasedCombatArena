@@ -149,7 +149,7 @@ public abstract class Combatant {
 
 
     public abstract boolean isPlayer();
-    public abstract void takeTurn();
+
     public boolean isAlive() { return currHp > 0; }
     public boolean isDead() { return !isAlive() ; }
 }
