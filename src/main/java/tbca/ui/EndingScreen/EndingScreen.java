@@ -2,7 +2,7 @@ package tbca.ui.EndingScreen;
 import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.domain.item.Item;
 import tbca.ui.BattleScreen.BattleScreen;
-import tbca.ui.UiUtlity.InputValidator;
+import tbca.ui.UiUtility.InputValidator;
 
 import java.util.LinkedHashMap;
 import java.util.List;

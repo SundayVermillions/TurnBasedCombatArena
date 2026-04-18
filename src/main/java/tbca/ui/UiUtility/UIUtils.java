@@ -1,4 +1,4 @@
-package tbca.ui.UiUtlity;
+package tbca.ui.UiUtility;
 
 public class UIUtils {
     public static String healthBar(int hp, int maxHp) {

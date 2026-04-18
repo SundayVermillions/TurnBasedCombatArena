@@ -4,7 +4,7 @@ import tbca.domain.combatant.player.playerclass.PlayerClass;
 import tbca.domain.combatant.SpecialSkillType;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.item.ItemType;
-import tbca.ui.UiUtlity.InputValidator;
+import tbca.ui.UiUtility.InputValidator;
 
 import java.util.*;
 

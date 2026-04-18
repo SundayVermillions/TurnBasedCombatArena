@@ -9,9 +9,9 @@ import tbca.domain.item.Item;
 import tbca.domain.item.ItemType;
 import tbca.engine.action.ActionType;
 import tbca.engine.action.results.*;
-import tbca.ui.UiUtlity.Color;
+import tbca.ui.UiUtility.Color;
 import tbca.ui.StartingScreen.StartingScreen;
-import tbca.ui.UiUtlity.UIUtils;
+import tbca.ui.UiUtility.UIUtils;
 
 import java.util.HashMap;
 import java.util.List;

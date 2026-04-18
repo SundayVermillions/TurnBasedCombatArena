@@ -37,6 +37,10 @@ public abstract class StatusEffect {
         }
     }
 
+    public void setRemainingTurns(int remainingTurns) {
+        this.remainingTurns = remainingTurns;
+    }
+
     public boolean isExpired() {
 
         return !isPermanent && remainingTurns <= 0;
