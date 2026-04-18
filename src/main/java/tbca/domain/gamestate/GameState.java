@@ -29,6 +29,7 @@ public class GameState implements GameStateReadOnly {
         this.startingItemSelection = items;
         this.difficulty = difficulty;
         this.startingPlayerClass = playerClass;
+        CombatantFactory.resetCounters();
         this.player = CombatantFactory.createPlayer(playerClass, items);
     }
 
