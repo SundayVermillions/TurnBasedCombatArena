@@ -10,7 +10,7 @@ public class ArcaneBlastBuff extends StatusEffect {
     private final String modifierId = "arcane-blast-buff-" + UUID.randomUUID();
 
     public ArcaneBlastBuff() {
-        super("Arcane Power", "Each enemy defeated by Arcane Blast adds " + attackBoost + " to the Wizard's attack, lasting until end of the game.", true);
+        super("Arcane Power", "Each enemy defeated by Arcane Blast adds " + attackBoost + " to the Wizard's attack and it lasts until end of the game.", true);
     }
 
     @Override
