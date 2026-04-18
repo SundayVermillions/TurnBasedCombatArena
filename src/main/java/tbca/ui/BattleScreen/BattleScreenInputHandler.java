@@ -6,7 +6,7 @@ import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.domain.item.Item;
 import tbca.domain.item.ItemType;
 import tbca.engine.action.parameters.*;
-import tbca.ui.UiUtlity.InputValidator;
+import tbca.ui.UiUtility.InputValidator;
 import tbca.ui.StartingScreen.ManualScreen;
 import tbca.ui.StartingScreen.StartingScreen;
 

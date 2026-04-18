@@ -8,7 +8,7 @@ import tbca.domain.gamestate.difficulty.EnemyBlueprint;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.gamestate.difficulty.WaveBlueprint;
 import tbca.domain.item.ItemType;
-import tbca.ui.UiUtlity.InputValidator;
+import tbca.ui.UiUtility.InputValidator;
 
 import java.util.LinkedHashMap;
 import java.util.List;
