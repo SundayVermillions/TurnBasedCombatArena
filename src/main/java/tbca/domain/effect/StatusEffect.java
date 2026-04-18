@@ -59,6 +59,5 @@ public abstract class StatusEffect {
     public abstract void applyEffect(Combatant target);
     public abstract void removeEffect(Combatant target);
     public abstract boolean isBuff();
-
-
+    public boolean isStackable(){ return false;}
 }

@@ -64,14 +64,15 @@ public abstract class Combatant {
     }
 
     public void addStatusEffect(StatusEffect effect) {
-        for(StatusEffect existingEffect : this.effects){
-            if(existingEffect.getClass() == effect.getClass()){
-                existingEffect.setRemainingTurns(effect.getRemainingTurns());
+        if(!effect.isStackable()) {
+            for (StatusEffect existingEffect : this.effects) {
+                if (existingEffect.getClass() == effect.getClass()) {
+                    existingEffect.setRemainingTurns(effect.getRemainingTurns());
 
-                return;
+                    return;
+                }
             }
         }
-
         this.effects.add(effect);
         effect.applyEffect(this);
     }

@@ -26,4 +26,9 @@ public class ArcaneBlastBuff extends StatusEffect {
     public void removeEffect(Combatant target) {
         target.removeAttackModifier(modifierId);
     }
+
+    @Override
+    public boolean isStackable(){
+        return true;
+    }
 }
