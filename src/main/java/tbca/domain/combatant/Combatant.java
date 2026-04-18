@@ -38,7 +38,7 @@ public abstract class Combatant {
     }
 
     public void setHp(int hp) {
-        this.setCurrHp(hp);
+        this.currHp = Math.max(0, Math.min(maxHp, hp));
     }
 
 
@@ -122,7 +122,7 @@ public abstract class Combatant {
             return 0;
         }
         int oldHp = this.currHp;
-        this.setCurrHp(this.currHp + amount);
+        this.setHp(this.currHp + amount);
         return this.currHp - oldHp;
     }
 
@@ -149,9 +149,7 @@ public abstract class Combatant {
     public void addDefenseModifier(String id, StatModifier modifier) { defenseModifiers.add(id, modifier); }
     public void removeDefenseModifier(String id) { defenseModifiers.remove(id); }
 
-    public void setCurrHp(int hp) { this.currHp = Math.max(0, Math.min(maxHp, hp)); }
     public void setCanAct(boolean canAct) { this.canAct = canAct; }
-    public void setInvulnerable(boolean inv) { this.invulnerable = inv; }
     public void setSpecialSkillCooldown(int cd) { this.specialSkillCooldown = cd; }
     public void setAiType(AiType aiType) {this.aiType = aiType; }
 
