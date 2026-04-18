@@ -30,8 +30,11 @@ public class BattleScreenDisplayRenderer {
     public static void displayTurnStart(GameStateReadOnly gameState) {
         String header = "--- Wave " + gameState.currWave() + "/" + gameState.getTotalWaves() +  " | Turn " + gameState.getCurrTurn() +" ---";
         System.out.println("\n" + UIUtils.centerText(header, TURN_HEADER_WIDTH));
-
-        displayTurnStartFormat(gameState.getPlayer(),gameState);
+        if (gameState.getPlayer().getCurrHp() <= 0) {
+            System.out.println(String.format("%-12s: DEAD", gameState.getPlayer().getName()));
+        } else {
+            displayTurnStartFormat(gameState.getPlayer(),gameState);
+        }
 
         for (int i = 0; i < gameState.getCurrEnemies().size(); i++) {
             Combatant enemy = gameState.getCurrEnemies().get(i);
