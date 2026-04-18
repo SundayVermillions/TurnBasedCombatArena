@@ -20,18 +20,7 @@ public abstract class Player extends Combatant {
         this.playerClass = playerClass;
     }
 
-    @Override
-    public void setHp(int hp) {
-        this.setCurrHp(hp);
-    }
-
-
     public abstract SpecialSkillResults executeSpecialSkillFree(GameState gameState, int targetIndex);
-
-    @Override
-    public void takeTurn() {
-        // To be handled by game engine
-    }
 
     public PlayerClass getPlayerClass() { return playerClass; }
 

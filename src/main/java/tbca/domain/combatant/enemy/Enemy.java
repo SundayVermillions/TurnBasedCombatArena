@@ -23,11 +23,6 @@ public abstract class Enemy extends Combatant {
     public boolean isPlayer() { return false; }
 
     @Override
-    public void takeTurn() {
-        System.out.println(getName() + " prepares to attack!");
-    }
-
-    @Override
     public boolean isAlive() { return getCurrHp() > 0; }
 
     @Override
