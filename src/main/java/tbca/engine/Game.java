@@ -86,6 +86,7 @@ public class Game {
                     continue; // if enemy died before getting to move this turn, skip him
                 if (!combatant.canAct()) {
                     this.ui.displayIncapacitated(combatant);
+                    combatant.tickAll();
                     continue; // if current actor can't move due to status, print message and skip him
                 }
 
