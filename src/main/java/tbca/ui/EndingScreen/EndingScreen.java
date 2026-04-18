@@ -64,8 +64,8 @@ public class EndingScreen {
                     + gameState.getPlayer().getCurrHp() + " HP remaining. \nItems left: " + itemsLeft + ".";
         }
 
-        return "Oh no! You reached " + progress + ", but "
-                + gameState.getNumOfRemainingEnemies() + " enemies are still remaining. \nItems left: "
+        return "Oh no! You reached " + progress + ", but there are still "
+                + gameState.getNumOfRemainingEnemies() + " enemies remaining. \nItems left: "
                 + itemsLeft + ".";
     }
 
