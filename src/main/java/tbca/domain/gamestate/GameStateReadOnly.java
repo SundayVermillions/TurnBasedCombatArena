@@ -3,7 +3,7 @@ package tbca.domain.gamestate;
 import java.util.List;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.effect.FieldEffect;
+import tbca.domain.effect.fieldeffect.FieldEffect;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 
 public interface GameStateReadOnly {

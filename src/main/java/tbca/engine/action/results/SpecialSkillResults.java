@@ -1,7 +1,7 @@
 package tbca.engine.action.results;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.effect.StatusEffect;
+import tbca.domain.effect.statuseffect.StatusEffect;
 import tbca.engine.action.ActionType;
 
 import java.util.List;

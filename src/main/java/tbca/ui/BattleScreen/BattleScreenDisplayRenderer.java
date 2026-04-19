@@ -2,8 +2,8 @@ package tbca.ui.BattleScreen;
 
 import tbca.domain.combatant.Combatant;
 import tbca.domain.combatant.player.Player;
-import tbca.domain.effect.FieldEffect;
-import tbca.domain.effect.StatusEffect;
+import tbca.domain.effect.fieldeffect.FieldEffect;
+import tbca.domain.effect.statuseffect.StatusEffect;
 import tbca.domain.gamestate.GameStateReadOnly;
 import tbca.domain.item.Item;
 import tbca.domain.item.ItemType;

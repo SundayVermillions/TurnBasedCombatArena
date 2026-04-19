@@ -1,4 +1,4 @@
-package tbca.domain.effect;
+package tbca.domain.effect.fieldeffect;
 import java.util.List;
 
 import tbca.domain.combatant.Combatant;

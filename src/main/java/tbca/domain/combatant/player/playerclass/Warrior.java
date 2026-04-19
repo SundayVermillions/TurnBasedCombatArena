@@ -3,7 +3,7 @@ package tbca.domain.combatant.player.playerclass;
 import tbca.domain.combatant.Combatant;
 import tbca.domain.combatant.SpecialSkillType;
 import  tbca.domain.combatant.player.Player;
-import tbca.domain.effect.StunEffect;
+import tbca.domain.effect.statuseffect.StunEffect;
 import tbca.domain.gamestate.GameState;
 import tbca.engine.action.results.SpecialSkillResults;
 import tbca.engine.logic.utility.DamageUtility;

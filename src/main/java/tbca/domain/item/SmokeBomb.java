@@ -1,7 +1,7 @@
 package tbca.domain.item;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.effect.SmokeBombEffect;
+import tbca.domain.effect.fieldeffect.SmokeBombEffect;
 import tbca.domain.gamestate.GameState;
 import tbca.engine.action.results.UseItemResults;
 

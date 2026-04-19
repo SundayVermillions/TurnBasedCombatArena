@@ -1,4 +1,4 @@
-package tbca.domain.effect;
+package tbca.domain.effect.statuseffect;
 
 import tbca.domain.combatant.Combatant;
 

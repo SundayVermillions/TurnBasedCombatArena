@@ -1,7 +1,7 @@
 package tbca.engine.action;
 
 import tbca.domain.combatant.Combatant;
-import tbca.domain.effect.DefendEffect;
+import tbca.domain.effect.statuseffect.DefendEffect;
 import tbca.domain.gamestate.GameState;
 import tbca.engine.action.parameters.DefendParameters;
 import tbca.engine.action.results.ActionResults;

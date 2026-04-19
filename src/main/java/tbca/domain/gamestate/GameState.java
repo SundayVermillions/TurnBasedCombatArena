@@ -3,7 +3,7 @@ package tbca.domain.gamestate;
 import tbca.domain.combatant.Combatant;
 import tbca.domain.combatant.CombatantFactory;
 import tbca.domain.combatant.player.playerclass.PlayerClass;
-import tbca.domain.effect.FieldEffect;
+import tbca.domain.effect.fieldeffect.FieldEffect;
 import tbca.domain.gamestate.difficulty.EnemyBlueprint;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.gamestate.difficulty.WaveBlueprint;

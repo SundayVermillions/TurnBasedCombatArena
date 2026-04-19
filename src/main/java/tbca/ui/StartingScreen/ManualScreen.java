@@ -2,8 +2,9 @@ package tbca.ui.StartingScreen;
 
 import tbca.domain.combatant.enemy.EnemyType;
 import tbca.domain.combatant.player.playerclass.PlayerClass;
-import tbca.domain.effect.*;
 import tbca.domain.combatant.SpecialSkillType;
+import tbca.domain.effect.fieldeffect.SmokeBombEffect;
+import tbca.domain.effect.statuseffect.*;
 import tbca.domain.gamestate.difficulty.EnemyBlueprint;
 import tbca.domain.gamestate.difficulty.GameDifficulty;
 import tbca.domain.gamestate.difficulty.WaveBlueprint;
